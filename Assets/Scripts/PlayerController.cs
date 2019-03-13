@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
-
+    
     Rigidbody rb;
+    [SyncVar]
     Vector3 moveDirection = Vector3.zero;
     public float moveSpeed = 3f;
     public bool mooveEnable = true;
@@ -15,27 +17,36 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        if (isLocalPlayer)
+            transform.Find("Main Camera").gameObject.SetActive(true);
     }
 
     void FixedUpdate()
     {
-        moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        if (moveDirection.magnitude > 1)
-            moveDirection = moveDirection.normalized; 
+
+        if (!isLocalPlayer)
+            return;
+
+        CmdSetMovedir(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")));
+
     }
 
+    [Command]
+    void CmdSetMovedir(Vector3 imput)
+    {
+        moveDirection = imput;
+        if (moveDirection.magnitude > 1)
+            moveDirection = moveDirection.normalized;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (mooveEnable)
-        {
-            rb.velocity = moveDirection * moveSpeed;
-        }
+      rb.velocity = moveDirection* moveSpeed;   
     }
 
     public Vector3 getMoveDirection()
     {
-        return moveDirection;
+        return rb.velocity.normalized;
     }
 }

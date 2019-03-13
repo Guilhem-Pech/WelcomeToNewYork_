@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Mirror;
 public class EnnemiParams : Singleton<EnnemiParams>
 {
     public float SteeringUpdateCooldown = 0.1f;

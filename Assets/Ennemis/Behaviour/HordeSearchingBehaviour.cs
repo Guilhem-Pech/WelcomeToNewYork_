@@ -37,7 +37,7 @@ public class HordeSearchingBehaviour : StateMachineBehaviour
         Horde horde = animator.gameObject.GetComponentInParent<HordeMemberComponent>().getHorde();
         if (horde == null) //Si il n'a pas de horde
         {   //On check la horde la plus proche + si il reste une horde active
-            Horde nearestHorde = HordesManager.Instance.getNearestHordeFromPos(animator.gameObject.transform.position);
+            Horde nearestHorde = HordesSingleton.Instance.manager.GetNearestHordeFromPos(animator.gameObject.transform.position);
             if (nearestHorde == null) //Si pas de horde active
             {   //Il passe en état SoloHunting
                 animator.SetBool("IsSoloHunting", true);

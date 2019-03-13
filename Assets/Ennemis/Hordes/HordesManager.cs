@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Mirror;
 
-public class HordesManager : Singleton<HordesManager>
+
+public class HordesManager : NetworkBehaviour
 {
     private Dictionary<int, Horde> hordes;
     private bool goToActivated;
@@ -13,9 +15,10 @@ public class HordesManager : Singleton<HordesManager>
     //Gestion de mode Seek
     public void GoToOn(Vector3 posToGo) { currentCallNumber++; goToActivated = true; goToPos = posToGo; }
     public void GoToOff() { goToActivated = false; }
-    public bool isGoToOn() { return goToActivated; }
+    public bool IsGoToOn() { return goToActivated; }
 
     // Start is called before the first frame update
+    [ServerCallback]
     void Awake()
     {
         hordes = new Dictionary<int, Horde>();
@@ -25,17 +28,18 @@ public class HordesManager : Singleton<HordesManager>
     }
 
     // Update is called once per frame
+    [ServerCallback]
     void Update()
     {
-        foreach (Horde horde in hordesToList())
+        foreach (Horde horde in HordesToList())
         {
             if (horde.isEmpty())
             {
-                deleteHorde(horde);
+                DeleteHorde(horde);
             }
             else
             {
-                if (isGoToOn() && currentCallNumber != 0 && currentCallNumber != horde.lastReceivedCallNumber)
+                if (IsGoToOn() && currentCallNumber != 0 && currentCallNumber != horde.lastReceivedCallNumber)
                 {
                     horde.lastReceivedCallNumber = currentCallNumber;
                     horde.SeekOn(goToPos);
@@ -46,7 +50,8 @@ public class HordesManager : Singleton<HordesManager>
         }
     }
 
-    List<Horde> hordesToList()
+    [Server]
+    List<Horde> HordesToList()
     {
         List<Horde> toList = new List<Horde>();
 
@@ -59,34 +64,39 @@ public class HordesManager : Singleton<HordesManager>
     }
 
     //Method to add an entity to the Horde
-    public Horde createNewHorde()
+    [Server]
+    public Horde CreateNewHorde()
     {
+        
         Horde newHorde = Horde.CreateInstance<Horde>();
 
         Debug.Log("Creating Horde n°" + newHorde.getID());
         hordes.Add(newHorde.getID(), newHorde);
-        
-        if (isGoToOn() && currentCallNumber != 0)
+
+        if (IsGoToOn() && currentCallNumber != 0)
         {
             newHorde.lastReceivedCallNumber = currentCallNumber;
             newHorde.SeekOn(goToPos);
         }
-        else {
+        else
+        {
             newHorde.HuntingOn();
         }
-            
+
 
         return newHorde;
     }
 
-    private void deleteHorde(Horde toDelete)
+    [Server]
+    private void DeleteHorde(Horde toDelete)
     {
         Debug.Log("Deleting Horde n°" + toDelete.getID());
         toDelete.clearHorde();
         hordes.Remove(toDelete.getID());
     }
 
-    public Horde getNearestHordeFromPos(Vector3 pos)
+    [Server]
+    public Horde GetNearestHordeFromPos(Vector3 pos)
     {
         Horde nearestHorde = null;
         float nearestHordeDistance = float.MaxValue;

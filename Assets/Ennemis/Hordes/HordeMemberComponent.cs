@@ -1,37 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class HordeMemberComponent : MonoBehaviour
+public class HordeMemberComponent : NetworkBehaviour
 {
     private HordesManager hordesManager;
     private Horde m_Horde;
 
     // Start is called before the first frame update
+    [ServerCallback]
     void Awake()
     {
-        hordesManager = HordesManager.Instance;
+       hordesManager = HordesSingleton.Instance.manager;
         m_Horde = null;
     }
 
-    // Update is called once per frame
-    void Update()
+    
+ 
+    
+    [ServerCallback]
+    void Start()
     {
+        // When code is undocumented it's usually because
+        // I eventually got it to work through trial and error
+        // and have no idea how it actually works. Bye.
+       // if(hordesManager == null)
+            hordesManager = HordesSingleton.Instance.manager;
     }
 
     /* Getters */
+    [Server]
     public Horde getHorde()
     {
         return m_Horde;
     }
 
     //Horde
+    [Server]
     public void joinHorde(Horde toJoin)
     {
         toJoin.addMember(gameObject);
         m_Horde = toJoin;
     }
 
+    [Server]
     public void leaveCurrentHorde()
     {
         if(m_Horde != null)
@@ -42,58 +55,72 @@ public class HordeMemberComponent : MonoBehaviour
     }
 
     //Neighbour events
+    [Server]                                     
     public void NeighbourEnter(GameObject neighbour)
     {
-        Horde neighbourHorde = neighbour.GetComponent<HordeMemberComponent>().getHorde();
+            
+            
+            Horde neighbourHorde = neighbour.GetComponent<HordeMemberComponent>().getHorde();
 
-        //Si il n'a pas de horde
-        if (m_Horde == null)
-        {
-            //Si son nouveau voisin est dans une horde
-            if (neighbourHorde != null)
-            { //Il la rejoint 
-                joinHorde(neighbourHorde);
-            }
-            //Si son nouveau voisin n'a pas de horde non plus
-            else
-            { //Il crée une nouvelle horde
-                Horde createdHorde = hordesManager.createNewHorde();
-
-                joinHorde(createdHorde);
-                neighbour.GetComponent<HordeMemberComponent>().joinHorde(createdHorde);
-            }
-        }
-        //Si il est déjà dans une horde
-        else
-        {
-            //Si son nouveau voisin est dans une horde différente et qu'elle est plus grande
-            if (neighbourHorde != null 
-                && neighbourHorde.getID() != m_Horde.getID()
-                && neighbourHorde.size() >= m_Horde.size())
+            //Si il n'a pas de horde
+            if (m_Horde == null)
             {
-                //Il informe le manager afin qu'il les merge
-                leaveCurrentHorde();
-                joinHorde(neighbourHorde);
+                //Si son nouveau voisin est dans une horde
+                if (neighbourHorde != null)
+                { //Il la rejoint 
+                    joinHorde(neighbourHorde);
+                }
+                //Si son nouveau voisin n'a pas de horde non plus
+                else
+                { //Il crée une nouvelle horde
+                Horde createdHorde = hordesManager.CreateNewHorde();
+
+                    joinHorde(createdHorde);
+                    neighbour.GetComponent<HordeMemberComponent>().joinHorde(createdHorde);
+                }
             }
-        }
+            //Si il est déjà dans une horde
+            else
+            {
+                //Si son nouveau voisin est dans une horde différente et qu'elle est plus grande
+                if (neighbourHorde != null
+                    && neighbourHorde.getID() != m_Horde.getID()
+                    && neighbourHorde.size() >= m_Horde.size())
+                {
+                    //Il informe le manager afin qu'il les merge
+                    leaveCurrentHorde();
+                    joinHorde(neighbourHorde);
+                }
+            }
+        
+       
     }
 
+    [Server]
     public void NeighbourExit(int neighboursLeft)
     {
-        if (neighboursLeft == 0)
-        { 
-            leaveCurrentHorde();
+        if (isServer)
+        {
+            if (neighboursLeft == 0)
+            {
+                leaveCurrentHorde();
+            }
         }
+       
         
     }
 
+    [Server]
     private void OnDestroy()
     {
-        leaveCurrentHorde();
+        if(isServer)
+            leaveCurrentHorde();
     }
 
+    [Server]
     private void OnDisable()
     {
-        leaveCurrentHorde();
+        if(isServer)
+            leaveCurrentHorde();
     }
 }

@@ -48,8 +48,8 @@ public class LobbyHUD : MonoBehaviour
 
     public void StopClient()
     {
-        
-        manager.StopClient();
+
+        manager.StopHost();
         
     }
 

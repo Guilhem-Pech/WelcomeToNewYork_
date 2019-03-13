@@ -147,7 +147,7 @@ public class Horde : ScriptableObject
         {
             if (soushorde.Count > 1)
             {
-                Horde newHorde = HordesManager.Instance.createNewHorde();
+                Horde newHorde = HordesSingleton.Instance.manager.CreateNewHorde();
                 foreach (int memberID in soushorde)
                 {
                     if (members.ContainsKey(memberID))

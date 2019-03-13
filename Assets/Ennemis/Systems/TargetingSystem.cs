@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class TargetingSystem : MonoBehaviour
+public class TargetingSystem : NetworkBehaviour
 {
     private SphereCollider targetsCollider;
     private Dictionary<int, GameObject> currentPotentialTargets;
@@ -11,6 +12,7 @@ public class TargetingSystem : MonoBehaviour
     private GameObject currentTarget;
 
     // Start is called before the first frame update
+    [ServerCallback]
     void Start()
     {
         currentPotentialTargets = new Dictionary<int, GameObject>();
@@ -19,6 +21,7 @@ public class TargetingSystem : MonoBehaviour
     }
 
     // Update is called once per frame
+    [ServerCallback]
     void Update()
     {
         currentTarget = null;
@@ -34,11 +37,13 @@ public class TargetingSystem : MonoBehaviour
         }
     }
 
+    [Server]
     public bool hasTarget()
     {
         return currentTarget != null;
     }
 
+    [Server]
     public GameObject getTarget()
     {
         return (hasTarget() ? currentTarget : null);

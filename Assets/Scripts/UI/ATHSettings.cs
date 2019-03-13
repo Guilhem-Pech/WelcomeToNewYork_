@@ -31,8 +31,8 @@ public class ATHSettings : MonoBehaviour {
     void HealthATH(BaseChar truc)
     {
         
-        float health = truc.setHeal();
-        float maxHealth = truc.getMaxHealth();
+        float health = truc.GetHealth();
+        float maxHealth = truc.GetMaxHealth();
 
         Scrollbar BarrePV = GameObject.Find("BarrePV").GetComponent<Scrollbar>();
 

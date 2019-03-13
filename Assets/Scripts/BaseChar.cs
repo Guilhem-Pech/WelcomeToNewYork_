@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public abstract class BaseChar : BaseEntity
 {
+    [SyncVar]
     public int maxStamina = 50;
+
+    [SyncVar]
     public int currentStamina;
 
     public bool canMoveWhileAttacking = true;
@@ -13,6 +17,7 @@ public abstract class BaseChar : BaseEntity
 
     protected GameObject UI;
 
+    [ServerCallback]
     public void Start()
     {
         currentStamina = maxStamina;
@@ -23,20 +28,25 @@ public abstract class BaseChar : BaseEntity
         }
     }
 
-    public void gainStamina(int stam)
+    [Server]
+    public void GainStamina(int stam)
     {
         currentStamina = currentStamina + stam;
         if (currentStamina > maxStamina)
             currentStamina = maxStamina;
     }
 
-    public void useStamina(int stam)
+    [Server]
+    public void UseStamina(int stam)
     {
-        currentStamina = currentStamina - stam;
+        int minus = currentStamina - stam;
+        currentStamina = minus >= 0 ? minus : 0;
     }
 
-    protected abstract void AttackSpeciale(Vector3 playerPosition_, float vecteurDirection_);
-    protected abstract void attack(Vector3 point);
+    [Server]
+    protected abstract void AttackSpeciale(Vector3 playerPosition_, Vector2 vecteurDirection_);
+    [Server]
+    protected abstract void Attack(Vector3 point);
 
     public int getMaxStamina()
     {
