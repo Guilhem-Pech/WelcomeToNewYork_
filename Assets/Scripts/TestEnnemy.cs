@@ -43,7 +43,7 @@ public class TestEnnemy : BaseEntity
         //On applique les dégats et le knockback
         takeDamage(damage);
         
-        gameObject.GetComponent<Animator>().SetBool("IsKnockedBack", true);
+        gameObject.GetComponentInChildren<Animator>().SetBool("IsKnockedBack", true);
 
         //On vérifie si le coup tue l'entité
         if (this.currentHealth <= 0)

@@ -102,6 +102,17 @@ public class PlayerAnimation : MonoBehaviour
                 handClothesSpriteRenderer.flipY = true;
             }
 
+            /*
+            //Si on vise vers le haut, la main passe derrière le personnage
+            if (hit.point.z > this.gameObject.transform.position.z)
+            {
+                handClothesSpriteRenderer.gameObject.transform.localPosition = new Vector3(handClothesSpriteRenderer.gameObject.transform.localPosition.x, handClothesSpriteRenderer.gameObject.transform.localPosition.y, -0.004f);
+            }
+            else
+            {
+                handClothesSpriteRenderer.gameObject.transform.localPosition = new Vector3(handClothesSpriteRenderer.gameObject.transform.localPosition.x, handClothesSpriteRenderer.gameObject.transform.localPosition.y, -0.004f);
+            }
+            */ //Ne Marche pas pour l'instant
 
             Vector3 playerPosition = this.gameObject.transform.position;
             Vector3 dir = hit.point - playerPosition;
@@ -206,14 +217,12 @@ public class PlayerAnimation : MonoBehaviour
     }
 
     //Fait disparaitre les mains et les fait reapparaitre après "duration" secondes
-    public IEnumerator DisableEnableHands(float duration)
+    public void DisplayHands(bool isHandDisplayed)
     {
-        handClothesSpriteRenderer.enabled = false;
-        handSpriteRenderer.enabled = false;
-        yield return new WaitForSeconds(duration);
-        handClothesSpriteRenderer.enabled = true;
-        handSpriteRenderer.enabled = true;
+        handClothesSpriteRenderer.enabled = isHandDisplayed;
+        handSpriteRenderer.enabled = isHandDisplayed;
     }
+
 
     public void ShootHands()
     {

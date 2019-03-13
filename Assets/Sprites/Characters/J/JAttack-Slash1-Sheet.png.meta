@@ -2,14 +2,17 @@ fileFormatVersion: 2
 guid: 7791577afd7981d4fabc7433a07537d1
 TextureImporter:
   fileIDToRecycleName:
-    21300000: JAttack-Slash1-Sheet_0
-    21300002: JAttack-Slash1-Sheet_1
-    21300004: JAttack-Slash1-Sheet_2
-    21300006: JAttack-Slash1-Sheet_3
-    21300008: JAttack-Slash1-Sheet_4
-    21300010: JAttack-Slash1-Sheet_5
+    21300000: JAttack-Slash1-Starting_1
+    21300002: JAttack-Slash1-Starting_2
+    21300004: JAttack-Slash1-Starting_3
+    21300006: JAttack-Slash1-Attacking_1
+    21300008: JAttack-Slash1-Attacking_2
+    21300010: JAttack-Slash1-Attacking_3
+    21300012: JAttack-Slash1-Ending_1
+    21300014: JAttack-Slash1-Ending_2
+    21300016: JAttack-Slash1-Ending_3
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 9
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -123,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: JAttack-Slash1-Sheet_0
+      name: JAttack-Slash1-Starting_1
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,19 +140,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8bbc2d524650b8e488cf67aa3d9cb1fd
+      spriteID: de5135e97403a2847a74b8586e1d84bd
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JAttack-Slash1-Sheet_1
+      name: JAttack-Slash1-Starting_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 96
         y: 0
-        width: 64
-        height: 64
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,39 +160,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c61b72e57392274f88717d7373f8761
+      spriteID: b5b6265f6f812404c8794ce660702538
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JAttack-Slash1-Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a83625078b2314644ad76a91968fc695
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: JAttack-Slash1-Sheet_3
+      name: JAttack-Slash1-Starting_3
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 64
-        height: 64
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,19 +180,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41cd43e69e33dcf4eb33c0345147ef72
+      spriteID: b9cf517635ea7aa409879356e8b2fc36
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JAttack-Slash1-Sheet_4
+      name: JAttack-Slash1-Attacking_1
       rect:
         serializedVersion: 2
-        x: 256
+        x: 288
         y: 0
-        width: 64
-        height: 64
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -217,19 +200,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0a0b667d7da4254585966acf2333e36
+      spriteID: cee6f9276a0f3814483340dbe7c14615
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JAttack-Slash1-Sheet_5
+      name: JAttack-Slash1-Attacking_2
       rect:
         serializedVersion: 2
-        x: 320
+        x: 384
         y: 0
-        width: 64
-        height: 64
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,7 +220,87 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ffae2a0bc7f15b4f99cc8a0a67d20b7
+      spriteID: 242d46756ce89aa48926ebd562a6afdb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JAttack-Slash1-Attacking_3
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6079383c3ea563f469a090e67d570a21
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JAttack-Slash1-Ending_1
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bfb8ac2815ae974fbe96da973a81ba2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JAttack-Slash1-Ending_2
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 611aee7c80f41944898303964c6307e1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JAttack-Slash1-Ending_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cca9c80de71de24e821a6501b413251
       vertices: []
       indices: 
       edges: []

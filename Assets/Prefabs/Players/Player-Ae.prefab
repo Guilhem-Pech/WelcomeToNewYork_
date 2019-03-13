@@ -17,7 +17,7 @@ MonoBehaviour:
   isHit: 0
   maxStamina: 50
   currentStamina: 50
-  playerAnimation: {fileID: 6091739891390892533}
+  playerAnimation: {fileID: 0}
   period: 0.1
   Projectile:
   - {fileID: 8886192973171554369, guid: b720a98b8931d624b8af689e7cdfef01, type: 3}
@@ -53,122 +53,62 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: bodySpriteRenderer
       value: 
       objectReference: {fileID: 2595192204007884412}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: bodyAnimator
       value: 
       objectReference: {fileID: 2595192204007884415}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: headSpriteRenderer
       value: 
       objectReference: {fileID: 2595192203963489943}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: headAnimator
       value: 
       objectReference: {fileID: 2595192203963489942}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: handSpriteRenderer
       value: 
       objectReference: {fileID: 2595192203823640543}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: bodyClothesSpriteRenderer
       value: 
       objectReference: {fileID: 2595192204587479497}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: bodyClothesAnimator
       value: 
       objectReference: {fileID: 2595192204587479496}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: headClothesSpriteRenderer
       value: 
       objectReference: {fileID: 2595192203270126583}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: headClothesAnimator
       value: 
       objectReference: {fileID: 2595192203270126582}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: handClothesSpriteRenderer
       value: 
       objectReference: {fileID: 2595192203823640543}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: handGameObject
       value: 
       objectReference: {fileID: 2595192203057867551}
-    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: dustParticleSystem
-      value: 
-      objectReference: {fileID: 2595192204394311565}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: bodySpriteRenderer
-      value: 
-      objectReference: {fileID: 2595192204007884412}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: bodyAnimator
-      value: 
-      objectReference: {fileID: 2595192204007884415}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: headSpriteRenderer
-      value: 
-      objectReference: {fileID: 2595192203963489943}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: headAnimator
-      value: 
-      objectReference: {fileID: 2595192203963489942}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: handSpriteRenderer
-      value: 
-      objectReference: {fileID: 2595192203823640543}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: bodyClothesSpriteRenderer
-      value: 
-      objectReference: {fileID: 2595192204587479497}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: bodyClothesAnimator
-      value: 
-      objectReference: {fileID: 2595192204587479496}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: headClothesSpriteRenderer
-      value: 
-      objectReference: {fileID: 2595192203270126583}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: headClothesAnimator
-      value: 
-      objectReference: {fileID: 2595192203270126582}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: handClothesSpriteRenderer
-      value: 
-      objectReference: {fileID: 2595192203823640543}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: handGameObject
-      value: 
-      objectReference: {fileID: 2595192203057867551}
-    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    - target: {fileID: 1485172518928703817, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: dustParticleSystem
       value: 
@@ -194,6 +134,126 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 9828c20bd706a5a4a9caf29cb1352d83, type: 2}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: bodySpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192204007884412}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: bodyAnimator
+      value: 
+      objectReference: {fileID: 2595192204007884415}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: headSpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192203963489943}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: headAnimator
+      value: 
+      objectReference: {fileID: 2595192203963489942}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: handSpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192203823640543}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: bodyClothesSpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192204587479497}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: bodyClothesAnimator
+      value: 
+      objectReference: {fileID: 2595192204587479496}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: headClothesSpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192203270126583}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: headClothesAnimator
+      value: 
+      objectReference: {fileID: 2595192203270126582}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: handClothesSpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192203823640543}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: handGameObject
+      value: 
+      objectReference: {fileID: 2595192203057867551}
+    - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: dustParticleSystem
+      value: 
+      objectReference: {fileID: 2595192204394311565}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: bodySpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192204007884412}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: bodyAnimator
+      value: 
+      objectReference: {fileID: 2595192204007884415}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: headSpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192203963489943}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: headAnimator
+      value: 
+      objectReference: {fileID: 2595192203963489942}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: handSpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192203823640543}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: bodyClothesSpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192204587479497}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: bodyClothesAnimator
+      value: 
+      objectReference: {fileID: 2595192204587479496}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: headClothesSpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192203270126583}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: headClothesAnimator
+      value: 
+      objectReference: {fileID: 2595192203270126582}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: handClothesSpriteRenderer
+      value: 
+      objectReference: {fileID: 2595192203823640543}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: handGameObject
+      value: 
+      objectReference: {fileID: 2595192203057867551}
+    - target: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: dustParticleSystem
+      value: 
+      objectReference: {fileID: 2595192204394311565}
     - target: {fileID: 9186962741301816458, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: bodySpriteRenderer
@@ -262,18 +322,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6592527130424694591}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6091739891390892533 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1150504060646366922, guid: 36c54d22dccec3e4f92401b1e6d22795,
-    type: 3}
-  m_PrefabInstance: {fileID: 6592527130424694591}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2595192204433423284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c2756bbd3f1be94ea1542081c1a6ff6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2595192203057867551 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9186962740600011808, guid: 36c54d22dccec3e4f92401b1e6d22795,

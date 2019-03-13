@@ -12,14 +12,13 @@ public class WanderBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent = animator.gameObject.GetComponent<NavMeshAgent>();
-        targetSys = animator.gameObject.GetComponent<TargetingSystem>();
-        steerSys = animator.gameObject.GetComponent<SteeringSystem>();
+        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
+        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
 
         agent.speed = EnnemiParams.Instance.WanderSpeed;
 
         steerSys.AllOff();
-        steerSys.FlockingOn();
         steerSys.WanderOn();
     }
 
@@ -30,19 +29,17 @@ public class WanderBehaviour : StateMachineBehaviour
         {
             animator.SetBool("IsChasing", true);
             animator.SetBool("IsWandering", false);
-            return;
-        }
-        else
+        }else if (getNearestPlayer(animator) != null)
         {
-            agent.SetDestination(agent.transform.position + (steerSys.Force() * agent.speed));
+            animator.SetBool("IsSoloHunting", true);
+            animator.SetBool("IsWandering", false);
         }
-        
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        steerSys.WanderOff();
+        steerSys.AllOff();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
@@ -56,4 +53,21 @@ public class WanderBehaviour : StateMachineBehaviour
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
+
+    public GameObject getNearestPlayer(Animator animator)
+    {
+        GameObject nearestPlayer = null;
+        float nearestPlayerDistance = float.MaxValue;
+
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (nearestPlayerDistance > (animator.gameObject.transform.position - player.transform.position).magnitude && player.GetComponent<BaseEntity>().enabled)
+            {
+                nearestPlayer = player;
+                nearestPlayerDistance = (animator.gameObject.transform.position - player.transform.position).magnitude;
+            }
+        }
+
+        return nearestPlayer;
+    }
 }

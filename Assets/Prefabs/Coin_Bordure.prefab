@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5907284341816425106}
   - component: {fileID: 5907284341816425107}
   - component: {fileID: 5907284341816425104}
-  m_Layer: 0
-  m_Name: Bordure_Coin
+  m_Layer: 11
+  m_Name: Coin_Bordure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

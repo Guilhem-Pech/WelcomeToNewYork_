@@ -17,8 +17,8 @@ GameObject:
   m_Name: Lampadaire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7865747612971391067
 Transform:
@@ -114,8 +114,8 @@ GameObject:
   m_Name: Lumiere Lampadaire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7865747614469539853
 Transform:
@@ -144,7 +144,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.96055627, g: 1, b: 0, a: 1}
-  m_Intensity: 1.25
+  m_Intensity: 3
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -166,7 +166,7 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0

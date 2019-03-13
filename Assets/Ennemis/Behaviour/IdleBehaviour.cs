@@ -13,9 +13,9 @@ public class IdleBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        targetSys = animator.GetComponent<TargetingSystem>();
-        steerSys = animator.gameObject.GetComponent<SteeringSystem>();
-        agent = animator.gameObject.GetComponent<NavMeshAgent>();
+        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
+        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
 
         agent.speed = EnnemiParams.Instance.WanderSpeed;
 
@@ -35,9 +35,14 @@ public class IdleBehaviour : StateMachineBehaviour
             animator.SetBool("IsIdle", false);
             return;
         }
-        else if (animator.gameObject.GetComponent<HordeMemberComponent>().getHorde() == null)
+        else if (/*animator.gameObject.GetComponentInParent<HordeMemberComponent>().getHorde() == null &&*/ getNearestPlayer(animator) != null)
         {
             animator.SetBool("IsSoloHunting", true);
+            animator.SetBool("IsIdle", false);
+        }
+        else
+        {
+            animator.SetBool("IsWandering", true);
             animator.SetBool("IsIdle", false);
         }
     }
@@ -59,4 +64,21 @@ public class IdleBehaviour : StateMachineBehaviour
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
+
+    public GameObject getNearestPlayer(Animator animator)
+    {
+        GameObject nearestPlayer = null;
+        float nearestPlayerDistance = float.MaxValue;
+
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (nearestPlayerDistance > (animator.gameObject.transform.position - player.transform.position).magnitude && player.GetComponent<BaseEntity>().enabled)
+            {
+                nearestPlayer = player;
+                nearestPlayerDistance = (animator.gameObject.transform.position - player.transform.position).magnitude;
+            }
+        }
+
+        return nearestPlayer;
+    }
 }

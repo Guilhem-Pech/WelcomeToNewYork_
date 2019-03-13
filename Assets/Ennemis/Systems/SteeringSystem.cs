@@ -51,8 +51,8 @@ public class SteeringSystem : MonoBehaviour
 
         private int m_iFlags;
 
-    /* --- Somme des forces --- */
-    [ReadOnly] public Vector2 m_vSteeringForce;
+        /* --- Somme des forces --- */
+        [ReadOnly] public Vector2 m_vSteeringPos;
 
         /* --- Poids des comportements --- */
         private float m_dWeightSeparation;
@@ -93,22 +93,36 @@ public class SteeringSystem : MonoBehaviour
         //état des comportements
         private bool On(behavior_type bt) { return (m_iFlags & ((int) bt) ) == ((int)bt); }
 
-        public bool isFleeOn() { return On(behavior_type.flee); }
-        public bool isSeekOn() { return On(behavior_type.seek); }
-        public bool isWanderOn() { return On(behavior_type.wander); }
-        public bool isPursuitOn() { return On(behavior_type.pursuit); }
-        public bool isEvadeOn() { return On(behavior_type.evade); }
-        public bool isCohesionOn() { return On(behavior_type.cohesion); }
-        public bool isSeparationOn() { return On(behavior_type.separation); }
-        public bool isAlignmentOn() { return On(behavior_type.allignment); }
-        public bool isInterposeOn() { return On(behavior_type.interpose); }
-        public bool isHideOn() { return On(behavior_type.hide); }
-        public bool isOffsetPursuitOn() { return On(behavior_type.offset_pursuit); }
-        public bool isObstacleAvoidanceOn() { return On(behavior_type.hide); }
-        public bool isWallAvoidanceOn() { return On(behavior_type.offset_pursuit); }
+        public bool IsFleeOn() { return On(behavior_type.flee); }
+        public bool IsSeekOn() { return On(behavior_type.seek); }
+        public bool IsWanderOn() { return On(behavior_type.wander); }
+        public bool IsPursuitOn() { return On(behavior_type.pursuit); }
+        public bool IsEvadeOn() { return On(behavior_type.evade); }
+        public bool IsCohesionOn() { return On(behavior_type.cohesion); }
+        public bool IsSeparationOn() { return On(behavior_type.separation); }
+        public bool IsAlignmentOn() { return On(behavior_type.allignment); }
+        public bool IsInterposeOn() { return On(behavior_type.interpose); }
+        public bool IsHideOn() { return On(behavior_type.hide); }
+        public bool IsOffsetPursuitOn() { return On(behavior_type.offset_pursuit); }
+        public bool IsObstacleAvoidanceOn() { return On(behavior_type.hide); }
+        public bool IsWallAvoidanceOn() { return On(behavior_type.offset_pursuit); }
 
-        //Activation comportement
-        public void SeekOn() { m_iFlags |= (int)behavior_type.seek; }
+        public void SeekOn() { m_iFlags = (int)behavior_type.seek; }
+        public void WanderOn() { m_dWanderJitterElapsedTime = 0; SetWanderTargetPosition(m_dWanderRadius); m_iFlags = (int)behavior_type.wander; }
+        public void PursuitOn(GameObject o1) { m_iFlags = (int)behavior_type.pursuit; m_objTarget = o1; }
+        public void EvadeOn(GameObject o1) { m_iFlags = (int)behavior_type.evade; m_objTarget2 = o1; }
+        //public void CohesionOn() { m_iFlags = (int)behavior_type.cohesion; }
+        //public void SeparationOn() { m_iFlags = (int)behavior_type.separation; }
+        //public void AlignmentOn() { m_iFlags = (int)behavior_type.allignment; }
+        public void InterposeOn(GameObject o1, GameObject o2) { m_iFlags = (int)behavior_type.interpose; m_objTarget1 = o1; m_objTarget2 = o2; }
+        public void HideOn(GameObject o1) { m_iFlags = (int)behavior_type.hide; m_objTarget1 = o1; }
+        public void OffsetPursuitOn(GameObject o1, Vector2 offset) { m_iFlags = (int)behavior_type.offset_pursuit; m_vOffset = offset; m_objTarget1 = o1; }
+        //public void FlockingOn() { CohesionOn(); AlignmentOn(); SeparationOn(); }
+        //public void ObstacleAvoidanceOn() { m_iFlags = (int)behavior_type.obstacle_avoidance; }
+        //public void WallAvoidanceOn() { m_iFlags = (int)behavior_type.wall_avoidance; }
+
+        //Activation comportement OLD VERSION
+        /*public void SeekOn() { m_iFlags |= (int)behavior_type.seek; }
         public void WanderOn() { m_dWanderJitterElapsedTime = 0; SetWanderTargetPosition(m_dWanderRadius); m_iFlags |= (int)behavior_type.wander; }
         public void PursuitOn(GameObject o1) { m_iFlags |= (int)behavior_type.pursuit; m_objTarget = o1; }
         public void EvadeOn(GameObject o1) { m_iFlags |= (int)behavior_type.evade; m_objTarget2 = o1; }
@@ -119,8 +133,8 @@ public class SteeringSystem : MonoBehaviour
         public void HideOn(GameObject o1) { m_iFlags |= (int)behavior_type.hide; m_objTarget1 = o1; }
         public void OffsetPursuitOn(GameObject o1, Vector2 offset){m_iFlags |= (int) behavior_type.offset_pursuit; m_vOffset = offset; m_objTarget1 = o1;}
         public void FlockingOn() { CohesionOn(); AlignmentOn(); SeparationOn(); }
-        public void ObstacleAvoidanceOn() { m_iFlags |= (int)behavior_type.obstacle_avoidance; }
-        public void WallAvoidanceOn() { m_iFlags |= (int)behavior_type.wall_avoidance; }
+        //public void ObstacleAvoidanceOn() { m_iFlags |= (int)behavior_type.obstacle_avoidance; }
+        //public void WallAvoidanceOn() { m_iFlags |= (int)behavior_type.wall_avoidance; }
 
         //Désactivation comportement
         public void FleeOff() { if (On(behavior_type.flee)) m_iFlags ^= (int)behavior_type.flee; }
@@ -136,13 +150,13 @@ public class SteeringSystem : MonoBehaviour
         public void OffsetPursuitOff() { if (On(behavior_type.offset_pursuit)) m_iFlags ^= (int)behavior_type.offset_pursuit; }
         public void FlockingOff() { CohesionOff(); AlignmentOff(); SeparationOff(); WanderOff(); }
         public void ObstacleAvoidanceOff() { if (On(behavior_type.obstacle_avoidance)) m_iFlags ^= (int)behavior_type.obstacle_avoidance; }
-        public void WallAvoidanceOff() { if (On(behavior_type.wall_avoidance)) m_iFlags ^= (int)behavior_type.wall_avoidance; }
+        public void WallAvoidanceOff() { if (On(behavior_type.wall_avoidance)) m_iFlags ^= (int)behavior_type.wall_avoidance; }*/
 
         public void AllOff() { m_iFlags = 0; }
 
-    /* --- ------------------ --- */
-    /* --- Fonctions Usuelles --- */
-    /* --- ------------------ --- */
+        /* --- ------------------ --- */
+        /* --- Fonctions Usuelles --- */
+        /* --- ------------------ --- */
         private Vector2 GetHidingPosition(Vector2 posOb,  double radiusOb, Vector2 posHunter)
         {
             /* A COMPLETER*/
@@ -178,7 +192,7 @@ public class SteeringSystem : MonoBehaviour
         public void SetOffset(Vector3 offset) { m_vOffset = new Vector2(offset.x, offset.z); }
         public Vector3 GetOffset(){return new Vector3(m_vOffset.x, 0,m_vOffset.y); }
 
-        public Vector3 Force(){return new Vector3(m_vSteeringForce.x, 0, m_vSteeringForce.y);}
+        public Vector3 SteeringPos(){return new Vector3(m_vSteeringPos.x, 0, m_vSteeringPos.y);}
 
     /* --- -------------------------------------------- --- */
     /* --- Fonctions calcul des forces comportementales --- */
@@ -186,15 +200,13 @@ public class SteeringSystem : MonoBehaviour
         //Déplacement vers une position donnée
         private Vector2 Seek(Vector2 TargetPos)
         {
-            Vector2 localPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.z);
-            return (TargetPos - localPos).normalized;
+            return TargetPos;
         }
 
         //Déplacement visant à s'éloigner de la position donnée
         private Vector2 Flee(Vector2 TargetPos)
         {
-            Vector2 localPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.z);
-            return (localPos - TargetPos).normalized;
+            return -TargetPos;
         }
 
         //Déplacement qui consiste à "intercepter" l'objet ciblé
@@ -214,9 +226,7 @@ public class SteeringSystem : MonoBehaviour
                 predictedEvaderPos = agent.transform.position;
             }
 
-            Vector3 ToEvader = predictedEvaderPos - gameObject.transform.position;
-
-            return new Vector2(ToEvader.x, ToEvader.z);
+            return new Vector2(predictedEvaderPos.x, predictedEvaderPos.z);
         }
 
         //Déplacement qui consiste à "intercepter" l'objet ciblé tout en maintenant un décalage par rapport à sa position
@@ -238,7 +248,9 @@ public class SteeringSystem : MonoBehaviour
         {
             AddJitterToWanderTargetPosition(m_dWanderJitter, m_dWanderJitterElapsedTime);
             m_dWanderJitterElapsedTime = 0;
-            return m_vWanderTarget.normalized;
+
+            Vector2 localPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.z);
+            return m_vWanderTarget + localPos;
         }
 
         //Déplacement visant à se positionner entre 2 objets donnés
@@ -270,6 +282,9 @@ public class SteeringSystem : MonoBehaviour
         }
 
         //Comportements de flocking
+        /*
+         A ADAPTER
+         */
         private Vector2 Cohesion(Horde horde)
         {
             Vector3 globalCenter = new Vector2(horde.getGlobalCenter().x, horde.getGlobalCenter().z);
@@ -303,10 +318,10 @@ public class SteeringSystem : MonoBehaviour
     /* --- -------------------------------------- --- */
     /* --- Fonction calcul de la somme des forces --- */
     /* --- -------------------------------------- --- */
-    private Vector2 Calculate()
+    private void Calculate()
     {
         //reset the steering force
-        m_vSteeringForce = Vector2.zero;
+        m_vSteeringPos = Vector2.zero;
 
         //Si l'un de ces comportements est activés, on récupère la horde
         Horde horde = null;
@@ -315,67 +330,39 @@ public class SteeringSystem : MonoBehaviour
             horde = gameObject.GetComponent<HordeMemberComponent>().getHorde();
         }
 
-        //Comportment d'évasion
         if (On(behavior_type.evade))
         {
             //vérif si target1 set
             if (m_objTarget1 == null)
                 throw new System.Exception(System.Reflection.MethodBase.GetCurrentMethod().Name + " (in object " + gameObject.name + ") : Cible d'évasion non définie");
             fleeVec = Evade(m_objTarget1) * m_dWeightEvade;
-            m_vSteeringForce += fleeVec ;  
+            m_vSteeringPos = fleeVec ;  
         }
-
-        if (On(behavior_type.separation))
-        {
-            //On récupère les voisins
-            List<GameObject> neighbours = gameObject.transform.Find("NeighboursTrigger").gameObject.GetComponent<NeighboursSystem>().getNeighboursList();
-            separationVec = Separation(neighbours) * m_dWeightSeparation;
-            m_vSteeringForce += separationVec ;
-        }
-
-        if (On(behavior_type.allignment))
-        {
-            if(horde != null)
-                alignmentVec = Alignment(horde) * m_dWeightAlignment;
-                m_vSteeringForce += alignmentVec ;
-        }
-
-        if (On(behavior_type.cohesion))
-        {
-            if (horde != null)
-                cohesionVec = Cohesion(horde) * m_dWeightCohesion;
-                m_vSteeringForce += cohesionVec;
-        }
-
-        if (On(behavior_type.wander))
+        else if (On(behavior_type.wander))
         {
             wanderVec = Wander() * m_dWeightWander;
-            m_vSteeringForce += wanderVec;
+            m_vSteeringPos = wanderVec;
         }
-
-        if (On(behavior_type.seek))
+        else if (On(behavior_type.seek))
         {
             seekVec = Seek(seekPos) * m_dWeightSeek;
-            m_vSteeringForce += seekVec;
+            m_vSteeringPos = seekVec;
         }
-
-        if (On(behavior_type.flee))
+        else if (On(behavior_type.flee))
         {
             fleeVec = Flee(fleePos) * m_dWeightFlee;
-            m_vSteeringForce += fleeVec;
+            m_vSteeringPos = fleeVec;
         }
-
-        if (On(behavior_type.pursuit))
+        else if (On(behavior_type.pursuit))
         {
             //vérif si target1 set
             if (m_objTarget == null)
                 throw new System.Exception(System.Reflection.MethodBase.GetCurrentMethod().Name + " (in object " + gameObject.name + ") : Cible de poursuite non définie");
 
             pursuitVec = Pursuit(m_objTarget) * m_dWeightPursuit;
-            m_vSteeringForce += pursuitVec;
+            m_vSteeringPos = pursuitVec;
         }
-
-        if (On(behavior_type.offset_pursuit))
+        else if (On(behavior_type.offset_pursuit))
         {
             //vérif si target1 set
             if (m_objTarget1 == null)
@@ -384,10 +371,9 @@ public class SteeringSystem : MonoBehaviour
             if (m_vOffset == Vector2.zero)
                 throw new System.Exception(System.Reflection.MethodBase.GetCurrentMethod().Name + " (in object " + gameObject.name + ") : Offset nul");
 
-            m_vSteeringForce += OffsetPursuit(m_objTarget1, m_vOffset) * m_dWeightOffsetPursuit;
+            m_vSteeringPos = OffsetPursuit(m_objTarget1, m_vOffset) * m_dWeightOffsetPursuit;
         }
-
-        if (On(behavior_type.interpose))
+        else if (On(behavior_type.interpose))
         {
             //vérif si target1 set
             if (m_objTarget1 == null)
@@ -396,19 +382,42 @@ public class SteeringSystem : MonoBehaviour
             if (m_objTarget2 == null)
                 throw new System.Exception(System.Reflection.MethodBase.GetCurrentMethod().Name + " (in object " + gameObject.name + ") : Cible d'interposition 2 non définie");
 
-            m_vSteeringForce += Interpose(m_objTarget1, m_objTarget2) * m_dWeightInterpose;
+            m_vSteeringPos = Interpose(m_objTarget1, m_objTarget2) * m_dWeightInterpose;
         }
-
-        if (On(behavior_type.hide))
+        else if (On(behavior_type.hide))
         {
             //vérif si target1 set
             if (m_objTarget1 == null)
                 throw new System.Exception(System.Reflection.MethodBase.GetCurrentMethod().Name + " (in object " + gameObject.name + ") : Cible de dissmulation non définie");
             //On récupère les obstacles de la carte
             List<GameObject> obstacles = new List<GameObject>();
-            m_vSteeringForce += Hide(m_objTarget1, obstacles) * m_dWeightHide;
+            m_vSteeringPos = Hide(m_objTarget1, obstacles) * m_dWeightHide;
         }
-        return m_vSteeringForce;
+
+        //AJUSTEMENT FLOCKING
+        /*
+         A ADAPTER
+         */
+
+        /*if (On(behavior_type.separation))
+        {
+            //On récupère les voisins
+            List<GameObject> neighbours = gameObject.transform.Find("NeighboursTrigger").gameObject.GetComponent<NeighboursSystem>().getNeighboursList();
+            separationVec = Separation(neighbours) * m_dWeightSeparation;
+            m_vSteeringPos = separationVec;
+        }
+        if (On(behavior_type.allignment))
+        {
+            if (horde != null)
+                alignmentVec = Alignment(horde) * m_dWeightAlignment;
+            m_vSteeringPos = alignmentVec;
+        }
+        if (On(behavior_type.cohesion))
+        {
+            if (horde != null)
+                cohesionVec = Cohesion(horde) * m_dWeightCohesion;
+            m_vSteeringPos = cohesionVec;
+        }*/
     }
 
     // Start is called before the first frame update
@@ -448,6 +457,8 @@ public class SteeringSystem : MonoBehaviour
         {
             m_SteeringUpdateCurrentCooldown = 0;
             Calculate();
+
+            gameObject.GetComponent<NavMeshAgent>().SetDestination(SteeringPos());
         }
     }
 }

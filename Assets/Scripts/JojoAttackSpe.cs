@@ -2,80 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JojoAttackSpe : MonoBehaviour
+public class JojoAttackSpe : MeleeAttack
 {
-
-    public int damageSpe = 15;
-
-    public float duration;
-    public float knockBackForce = 5000f;
-    public float knockBackDuration = 1f;
-
-    public float spread = 1f;
-    public float range = 5f;
-
-    BoxCollider boxCollider;
-
-    public AudioClip soundSpe;
-    public float animationDuration;
-
-
-    Vector3 playerPosition;
-    Vector3 vecteurDirection; // vecteur normalisé de la direction dans laquel part l'attaque
-
-    public void AttackSpe(Vector3 playerPosition_, Vector2 vecteurDirection_)
+    protected new void Update()
     {
-        this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = true;
-        this.gameObject.GetComponentInParent<PlayerController>().enabled = false;
-
-
-
-
-        playerPosition = playerPosition_;
-        vecteurDirection = vecteurDirection_.normalized;
-
-        //Definir Position, Rotation, BoxCollider (taille)
-        this.transform.position = new Vector3((vecteurDirection.x * range / 2 + playerPosition.x), 1.0f, (vecteurDirection.y * range / 2 + playerPosition.z));
-        float rotdeg;
-        if (vecteurDirection.x > 0)
+        if (AnimatorIsInState("Startup")) // L'attaque commence
         {
-            rotdeg = Mathf.Acos(vecteurDirection.y) * Mathf.Rad2Deg;
+            this.GetComponentInParent<PlayerController>().enabled = false;
+            this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.DisplayHands(false); //on cache les mains
+                                                                                                   //cacher le personnage aussi
         }
-        else
+        else if (AnimatorIsInState("Attacking")) // L'attaque est en cours
         {
-            rotdeg = Mathf.Asin(vecteurDirection.y) * Mathf.Rad2Deg - 90;
-        };
-        this.transform.Rotate(new Vector3(0, rotdeg, 0), Space.Self);
+            //spriteRenderer.color = Color.red;
+            hitBoxGO.SetActive(true);
+        }
+        else if (AnimatorIsInState("Ending")) // L'attaque est en train de se terminer
+        {
+            hitBoxGO.SetActive(false);
+            //spriteRenderer.color = Color.blue;
+        }
+        else if (AnimatorIsInState("Finished"))
+        {
+            //spriteRenderer.color = Color.black;
+            //reafficher le personnage aussi
 
-        boxCollider = this.gameObject.AddComponent<BoxCollider>();
-        boxCollider.GetComponent<MeshRenderer>().enabled = true;
-        boxCollider.isTrigger = true;
-        //boxCollider.size = new Vector3(spread, 1f, range);
-        this.transform.localScale = new Vector3(spread, 1f, range);
-
-
-        //Sound
-        AudioSource SoundSourceSpe = gameObject.AddComponent<AudioSource>();
-        SoundSourceSpe.clip = soundSpe;
-        SoundSourceSpe.Play();
-
-
-
-        //Animation
-        StartCoroutine(Duration()); // Launch the attack
-    }
-
-    IEnumerator Duration()
-    {
-        yield return new WaitForSeconds(1f);
-        Destroy(this.gameObject);
-        this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = false;
-        this.gameObject.GetComponentInParent<PlayerController>().enabled = true;
+            this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = false;
+            FinishAttack();
+        }
 
     }
 
-
-    private void OnTriggerEnter(Collider other)
+    private new void OnTriggerEnter(Collider other)
     {
         Vector3 dir;
         if (other.gameObject.tag == "ennemy")
@@ -98,7 +56,7 @@ public class JojoAttackSpe : MonoBehaviour
 
             if (other.gameObject.GetComponent<TestEnnemy>() != null)
             {
-                other.gameObject.GetComponent<TestEnnemy>().onHit(new Vector2(dir.x, dir.z) * knockBackForce, 500, knockBackDuration, damageSpe);
+                other.gameObject.GetComponent<TestEnnemy>().onHit(new Vector2(dir.x, dir.z) * knockBackForce, 500, knockBackDuration, damage);
             }
         }
     }

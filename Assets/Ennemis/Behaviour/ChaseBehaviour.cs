@@ -7,14 +7,16 @@ public class ChaseBehaviour : StateMachineBehaviour {
 
     private NavMeshAgent agent;
     private TargetingSystem targetSys;
+    private AttackSystem attackSys;
     private SteeringSystem steerSys;
 
     // onstateenter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
     {
-        agent = animator.gameObject.GetComponent<NavMeshAgent>();
-        targetSys = animator.gameObject.GetComponent<TargetingSystem>();
-        steerSys = animator.gameObject.GetComponent<SteeringSystem>();
+        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
+        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
+        attackSys = animator.gameObject.transform.parent.GetComponentInChildren<AttackSystem>();
 
         agent.speed = EnnemiParams.Instance.ChaseSpeed;
 
@@ -30,16 +32,16 @@ public class ChaseBehaviour : StateMachineBehaviour {
         if (!targetSys.hasTarget())
         {
             animator.SetBool("IsChasing", false);
-        }
-        else
+        }else if(attackSys.getCount() > 0)
         {
-            agent.SetDestination(agent.transform.position + (steerSys.Force() * agent.speed));
+            animator.SetBool("IsAttacking", true);
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
     {
+        steerSys.AllOff();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

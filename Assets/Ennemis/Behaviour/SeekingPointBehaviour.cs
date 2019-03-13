@@ -12,14 +12,13 @@ public class SeekingPointBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent = animator.gameObject.GetComponent<NavMeshAgent>();
-        targetSys = animator.gameObject.GetComponent<TargetingSystem>();
-        steerSys = animator.gameObject.GetComponent<SteeringSystem>();
+        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
+        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
 
         agent.speed = EnnemiParams.Instance.ChaseSpeed;
 
         steerSys.AllOff();
-        steerSys.FlockingOn();
         steerSys.SetSeekPos(animator.gameObject.GetComponent<HordeMemberComponent>().getHorde().GetSeekPos());
         steerSys.SeekOn();
     }
@@ -31,22 +30,20 @@ public class SeekingPointBehaviour : StateMachineBehaviour
         {
             animator.SetBool("IsChasing", true);
         }
-        else if (animator.gameObject.GetComponent<HordeMemberComponent>().getHorde() == null)
+        else if (animator.gameObject.GetComponentInParent<HordeMemberComponent>().getHorde() == null)
         {
             animator.SetBool("IsSeeking", false);
         }
         else
         {
-            /*if (animator.gameObject.GetComponent<HordeMemberComponent>().getHorde().isHuntOn())
-                steerSys.SetSeekPos(animator.gameObject.GetComponent<HordeMemberComponent>().getHorde().GetSeekPos());*/
-            agent.SetDestination(agent.transform.position + (steerSys.Force() * agent.speed));
+            steerSys.SetSeekPos(animator.gameObject.GetComponentInParent<HordeMemberComponent>().getHorde().GetSeekPos());
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        steerSys.SeekOff();
+        steerSys.AllOff();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

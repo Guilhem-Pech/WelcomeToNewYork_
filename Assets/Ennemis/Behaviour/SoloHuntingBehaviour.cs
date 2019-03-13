@@ -12,14 +12,19 @@ public class SoloHuntingBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent = animator.gameObject.GetComponent<NavMeshAgent>();
-        targetSys = animator.gameObject.GetComponent<TargetingSystem>();
-        steerSys = animator.gameObject.GetComponent<SteeringSystem>();
+        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
+        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
 
         agent.speed = EnnemiParams.Instance.ChaseSpeed;
 
         steerSys.AllOff();
-        steerSys.FlockingOn();
+        GameObject nearestPlayer = getNearestPlayer(animator);
+        if (nearestPlayer != null)
+        {
+            steerSys.SetSeekPos(nearestPlayer.transform.position);
+            steerSys.SeekOn();
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -32,7 +37,7 @@ public class SoloHuntingBehaviour : StateMachineBehaviour
             return;
         }
 
-        Horde nearestHorde = HordesManager.Instance.getNearestHordeFromPos(animator.gameObject.transform.position);
+        Horde nearestHorde = null; //HordesManager.Instance.getNearestHordeFromPos(animator.gameObject.transform.position);
         if (nearestHorde != null) //Si il existe une horde
         {   //On passe dans l'état HordeSearching
             animator.SetBool("IsHordeSearching", true);
@@ -40,30 +45,20 @@ public class SoloHuntingBehaviour : StateMachineBehaviour
         }
         else //Sinon il n'existe pas de horde proche
         { //On se dirige vers le joueur le plus proche
-            GameObject nearestPlayer = null;
-            float nearestPlayerDistance = float.MaxValue;
-
-            foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+            steerSys.AllOff();
+            GameObject nearestPlayer = getNearestPlayer(animator);
+            if (nearestPlayer != null)
             {
-                if (nearestPlayerDistance > (animator.gameObject.transform.position - player.transform.position).magnitude)
-                {
-                    nearestPlayer = player;
-                    nearestPlayerDistance = (animator.gameObject.transform.position - player.transform.position).magnitude;
-                }
+                steerSys.SetSeekPos(nearestPlayer.transform.position);
+                steerSys.SeekOn();
             }
-            if (nearestPlayer == null)
-                return;
-
-            steerSys.SetSeekPos(nearestPlayer.transform.position);
-            steerSys.SeekOn();
-            agent.SetDestination(agent.transform.position + (steerSys.Force() * agent.speed));
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        steerSys.SeekOff();
+        steerSys.AllOff();
         animator.SetBool("IsSoloHunting", false);
     }
 
@@ -78,4 +73,21 @@ public class SoloHuntingBehaviour : StateMachineBehaviour
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
+
+    public GameObject getNearestPlayer(Animator animator)
+    {
+        GameObject nearestPlayer = null;
+        float nearestPlayerDistance = float.MaxValue;
+
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (nearestPlayerDistance > (animator.gameObject.transform.position - player.transform.position).magnitude)
+            {
+                nearestPlayer = player;
+                nearestPlayerDistance = (animator.gameObject.transform.position - player.transform.position).magnitude;
+            }
+        }
+
+        return nearestPlayer;
+    }
 }

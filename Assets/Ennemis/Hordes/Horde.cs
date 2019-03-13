@@ -66,7 +66,6 @@ public class Horde : ScriptableObject
     //gestion des comportements
     private void applyBehaviour()
     {
-        
         if (isSeekOn())
         {
             if (isNearEnoughOfPos(GetSeekPos()))
@@ -112,7 +111,7 @@ public class Horde : ScriptableObject
         float nearestPlayerDistance = float.MaxValue;
 
         foreach (GameObject player in players)
-            if (nearestPlayerDistance > (centre - player.transform.position).magnitude)
+            if (nearestPlayerDistance > (centre - player.transform.position).magnitude && player.GetComponent<BaseEntity>().enabled)
             {
                 nearestPlayer = player;
                 nearestPlayerDistance = (centre - player.transform.position).magnitude;
@@ -178,7 +177,7 @@ public class Horde : ScriptableObject
         varUpdate();
 
         //Mise à jour des comportements
-        applyBehaviour();
+        //applyBehaviour();
     }
 
     private List<List<int>> getSeparatedHordes()

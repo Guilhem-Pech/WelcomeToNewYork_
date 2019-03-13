@@ -31,7 +31,7 @@ public class DistChar : BaseChar
 
     }
 
-    protected override void AttackSpeciale(Vector3 playerPosition_, Vector2 vecteurDirection_)
+    protected override void AttackSpeciale(Vector3 playerPosition_, float vecteurDirection_)
     {
         print("Bonjour je suis naerly le gentil !");
     }
@@ -57,9 +57,9 @@ public class DistChar : BaseChar
             if (Physics.Raycast(ray, out hit))
             {
                 Vector3 PlayPos = this.GetComponent<BaseChar>().transform.position;
-                Vector2 hitPoint = new Vector2(hit.point.x - PlayPos.x, hit.point.z - PlayPos.z);
+                float angleMain = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
 
-                AttackSpeciale(PlayPos, hitPoint);
+                AttackSpeciale(PlayPos, angleMain);
             }
         }
         if (Time.time > nextActionTime)

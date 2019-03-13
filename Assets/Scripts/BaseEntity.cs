@@ -9,7 +9,7 @@ public abstract class BaseEntity : MonoBehaviour
     public bool isHit = false;
     protected float tps = 1;
 
-    public void takeDamage(int dmg)
+    public virtual void takeDamage(int dmg)
     {
         isHit = true;
         currentHealth = currentHealth - dmg;
@@ -17,7 +17,7 @@ public abstract class BaseEntity : MonoBehaviour
             death();
     }
 
-    public void getHeal(int heal)
+    public virtual void getHeal(int heal)
     {
         currentHealth = currentHealth + heal ;
         if (currentHealth > maxHealth)

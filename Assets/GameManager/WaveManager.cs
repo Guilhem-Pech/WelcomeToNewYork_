@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    public int multEnnemiesPerWave = 1;
-    public int maxAliveEnnemies = 5;
+    public int multEnnemiesPerWave = 3;
+    public int maxAliveEnnemies = 50;
     [ReadOnly] public int numVague = 0;
     [ReadOnly] public int numEnnemisVague;
     [ReadOnly] public List<GameObject> ennemiVivant;

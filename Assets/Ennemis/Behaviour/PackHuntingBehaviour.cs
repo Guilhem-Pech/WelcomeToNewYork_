@@ -13,14 +13,13 @@ public class PackHuntingBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent = animator.gameObject.GetComponent<NavMeshAgent>();
-        targetSys = animator.gameObject.GetComponent<TargetingSystem>();
-        steerSys = animator.gameObject.GetComponent<SteeringSystem>();
+        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
+        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
 
         agent.speed = EnnemiParams.Instance.ChaseSpeed;
 
         steerSys.AllOff();
-        steerSys.FlockingOn();
         steerSys.SetSeekPos(animator.gameObject.GetComponent<HordeMemberComponent>().getHorde().GetHuntPos());
         steerSys.SeekOn();
     }
@@ -28,7 +27,7 @@ public class PackHuntingBehaviour : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Horde horde = animator.gameObject.GetComponent<HordeMemberComponent>().getHorde();
+        Horde horde = animator.gameObject.GetComponentInParent<HordeMemberComponent>().getHorde();
         if (targetSys.hasTarget())
         {
             animator.SetBool("IsChasing", true);
@@ -40,15 +39,14 @@ public class PackHuntingBehaviour : StateMachineBehaviour
         }
         else
         {
-            steerSys.SetSeekPos(animator.gameObject.GetComponent<HordeMemberComponent>().getHorde().GetHuntPos());
-            agent.SetDestination(agent.transform.position + (steerSys.Force() * agent.speed));
+            steerSys.SetSeekPos(animator.gameObject.GetComponentInParent<HordeMemberComponent>().getHorde().GetHuntPos());
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        steerSys.SeekOff();
+        steerSys.AllOff();
         animator.SetBool("IsPackHunting", false);
     }
 

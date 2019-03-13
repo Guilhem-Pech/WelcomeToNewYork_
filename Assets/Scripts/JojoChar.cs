@@ -7,7 +7,7 @@ public class JojoChar : MeleeChar
 
     public bool AttSpeReady = true;
     public bool RechargeSpe = false;
-    public float Cooldown = 10f;
+    public float Cooldown = 0.001f;
     public GameObject AttSpe;
 
 
@@ -15,20 +15,34 @@ public class JojoChar : MeleeChar
     {
 
         
-        period = 0.5f;
+        period = 0.001f;
         maxHealth = 250;
         maxStamina = 75;
         base.Start();
 
     }
 
-    protected override void AttackSpeciale(Vector3 playerPosition_, Vector2 vecteurDirection_)
+    protected override void AttackSpeciale(Vector3 playerPosition_, float angle)
     {
-        if (AttSpeReady)
+        /*if (AttSpeReady)
         {
             GameObject theAttack = Instantiate(AttSpe, this.gameObject.transform);
-            theAttack.GetComponent<JojoAttackSpe>().AttackSpe(playerPosition_, vecteurDirection_);
+            theAttack.GetComponent<JojoAttackSpe>().AttackSpe(playerPosition_, angle);
             //StartCoroutine(playerAnimation.DisableEnableHands(theAttack.GetComponent<MeleeAttack>().animationDuration));
+
+            AttSpeReady = false;
+            RechargeSpe = true;
+        }*/
+
+        if (AttSpeReady)
+        {
+            this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
+            isAttacking = true;
+            Vector3 playerPos = this.gameObject.transform.position; // position du joueur
+
+            float angleSpe = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
+            GameObject theAttackSpe = Instantiate(AttSpe, this.gameObject.transform);
+            theAttackSpe.GetComponent<JojoAttackSpe>().Initialisation(playerPos, angleSpe);
 
             AttSpeReady = false;
             RechargeSpe = true;
@@ -47,7 +61,7 @@ public class JojoChar : MeleeChar
             {
                 RechargeSpe = false;
                 AttSpeReady = true;
-                Cooldown = 10f;
+                Cooldown = 0.001f;
             }
         }
 

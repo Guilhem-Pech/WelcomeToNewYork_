@@ -12,13 +12,16 @@ public class HordeSearchingBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent = animator.gameObject.GetComponent<NavMeshAgent>();
-        targetSys = animator.gameObject.GetComponent<TargetingSystem>();
-        steerSys = animator.gameObject.GetComponent<SteeringSystem>();
+        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
+        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
 
         agent.speed = EnnemiParams.Instance.ChaseSpeed;
 
         steerSys.AllOff();
+        Horde nearestHorde = HordesManager.Instance.getNearestHordeFromPos(animator.gameObject.transform.position);
+        steerSys.SetSeekPos(nearestHorde.getGlobalCenter());
+        steerSys.SeekOn();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -31,7 +34,7 @@ public class HordeSearchingBehaviour : StateMachineBehaviour
             return;
         }
 
-        Horde horde = animator.gameObject.GetComponent<HordeMemberComponent>().getHorde();
+        Horde horde = animator.gameObject.GetComponentInParent<HordeMemberComponent>().getHorde();
         if (horde == null) //Si il n'a pas de horde
         {   //On check la horde la plus proche + si il reste une horde active
             Horde nearestHorde = HordesManager.Instance.getNearestHordeFromPos(animator.gameObject.transform.position);
@@ -41,15 +44,11 @@ public class HordeSearchingBehaviour : StateMachineBehaviour
             }
             else //Sinon
             {   //Il seek le centre la horde la plus proche
-                Debug.Log(nearestHorde.getGlobalCenter());
                 steerSys.SetSeekPos(nearestHorde.getGlobalCenter());
-                steerSys.SeekOn();
-                agent.SetDestination(agent.transform.position + (steerSys.Force() * agent.speed));
             }
         }
         else //Sinon si il a une horde
         {   //On sort de cet état
-            Debug.Log("Leaving Horde Searching");
             animator.SetBool("IsHordeSearching", false);
         }
     }
@@ -57,7 +56,7 @@ public class HordeSearchingBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        steerSys.SeekOff();
+        steerSys.AllOff();
         animator.SetBool("IsHordeSearching", false);
     }
 

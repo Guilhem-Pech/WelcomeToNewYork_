@@ -9,7 +9,7 @@ public abstract class MeleeChar : BaseChar
     public float period = 1.0f;
 
     public GameObject[] Attacks; // tableau répértoriant les attaques du joueur
-    int nextAttackID = 0; //numéro de l'attaque qui va être utiliser pour la prochaine attaque du joueur
+    public int nextAttackID = 0; //numéro de l'attaque qui va être utiliser pour la prochaine attaque du joueur
 
     protected override void attack(Vector3 point)
     {
@@ -17,22 +17,23 @@ public abstract class MeleeChar : BaseChar
         GameObject currentAttack = Attacks[nextAttackID]; // On récupère le prefab de l'attaque
         if (currentStamina >= currentAttack.GetComponent<MeleeAttack>().staminaCost )
         {
+            if (this.gameObject.GetComponentInChildren<MeleeAttack>() != null)
+                Destroy(this.gameObject.GetComponentInChildren<MeleeAttack>().gameObject);
+            this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             isAttacking = true;
             print("Clic du joueur " +point);
             useStamina(currentAttack.GetComponent<MeleeAttack>().staminaCost);
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
-            Vector2 vecteurRangeNorm; // vecteur partant du joueur et allant vers le point cliqué
-            vecteurRangeNorm.x = point.x - playerPos.x;
-            vecteurRangeNorm.y = point.z - playerPos.z;
-            vecteurRangeNorm.Normalize() ;
 
             float angle = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
 
 
             GameObject theAttack = Instantiate(currentAttack, this.gameObject.transform);
             theAttack.GetComponent<MeleeAttack>().Initialisation(playerPos, angle);
-            StartCoroutine(playerAnimation.DisableEnableHands(theAttack.GetComponent<MeleeAttack>().animationDuration));
-
+            if (nextAttackID < Attacks.Length - 1)
+                nextAttackID += 1;
+            else
+                nextAttackID = 0;
         }
 
     }
@@ -49,18 +50,19 @@ public abstract class MeleeChar : BaseChar
             {
                 attack(hit.point);
             }
-            
+
         }
-        if (Input.GetButtonDown("Fire2"))
+
+            if (Input.GetButtonDown("Fire2"))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
                 Vector3 PlayPos = this.GetComponent<BaseChar>().transform.position;
-                Vector2 hitPoint = new Vector2(hit.point.x - PlayPos.x, hit.point.z - PlayPos.z);
+                float angleMain = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
 
-                AttackSpeciale(PlayPos, hitPoint);
+                AttackSpeciale(PlayPos, angleMain);
             }
         }
         if (Time.time > nextActionTime)

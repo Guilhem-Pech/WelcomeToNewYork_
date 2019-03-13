@@ -12,14 +12,13 @@ public class PackTravellingBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent = animator.gameObject.GetComponent<NavMeshAgent>();
-        targetSys = animator.gameObject.GetComponent<TargetingSystem>();
-        steerSys = animator.gameObject.GetComponent<SteeringSystem>();
+        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
+        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
 
         agent.speed = EnnemiParams.Instance.ChaseSpeed;
 
         steerSys.AllOff();
-        steerSys.FlockingOn();
         steerSys.SetSeekPos(animator.gameObject.GetComponent<HordeMemberComponent>().getHorde().GetSeekPos());
         steerSys.SeekOn();
     }
@@ -27,7 +26,7 @@ public class PackTravellingBehaviour : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Horde horde = animator.gameObject.GetComponent<HordeMemberComponent>().getHorde();
+        Horde horde = animator.gameObject.GetComponentInParent<HordeMemberComponent>().getHorde();
         if (targetSys.hasTarget())
         {
             animator.SetBool("IsChasing", true);
@@ -39,14 +38,14 @@ public class PackTravellingBehaviour : StateMachineBehaviour
         }
         else
         {
-            agent.SetDestination(agent.transform.position + (steerSys.Force() * agent.speed));
+            steerSys.SetSeekPos(animator.gameObject.GetComponentInParent<HordeMemberComponent>().getHorde().GetSeekPos());
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        steerSys.SeekOff();
+        steerSys.AllOff();
         animator.SetBool("IsPackTravelling", false);
     }
 
