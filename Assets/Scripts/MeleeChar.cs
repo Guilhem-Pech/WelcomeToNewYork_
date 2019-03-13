@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public abstract class MeleeChar : BaseChar
 {
@@ -11,7 +12,7 @@ public abstract class MeleeChar : BaseChar
     public GameObject[] Attacks; // tableau répértoriant les attaques du joueur
     int nextAttackID = 0; //numéro de l'attaque qui va être utiliser pour la prochaine attaque du joueur
 
-    protected override void attack(Vector3 point)
+    protected override void Attack(Vector3 point)
     {
         
         GameObject currentAttack = Attacks[nextAttackID]; // On récupère le prefab de l'attaque
@@ -19,7 +20,7 @@ public abstract class MeleeChar : BaseChar
         {
             isAttacking = true;
             print("Clic du joueur " +point);
-            useStamina(currentAttack.GetComponent<MeleeAttack>().staminaCost);
+            UseStamina(currentAttack.GetComponent<MeleeAttack>().staminaCost);
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
             Vector2 vecteurRangeNorm; // vecteur partant du joueur et allant vers le point cliqué
             vecteurRangeNorm.x = point.x - playerPos.x;
@@ -47,7 +48,7 @@ public abstract class MeleeChar : BaseChar
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
-                attack(hit.point);
+                Attack(hit.point);
             }
             
         }
@@ -68,16 +69,16 @@ public abstract class MeleeChar : BaseChar
             nextActionTime = Time.time + period;
             if (currentStamina != maxStamina)
             {
-                gainStamina(1);
+                GainStamina(1);
             }
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            takeDamage(50);
+            TakeDamage(50);
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            getHeal(50);
+            AddHealth(50);
         }
 
 

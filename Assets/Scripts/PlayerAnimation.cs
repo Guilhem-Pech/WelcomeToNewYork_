@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 [RequireComponent(typeof(PlayerController))]
-public class PlayerAnimation : MonoBehaviour
+public class PlayerAnimation : NetworkBehaviour
 {
     [Header("Base")]
     public SpriteRenderer bodySpriteRenderer;
@@ -33,6 +33,8 @@ public class PlayerAnimation : MonoBehaviour
 
     bool idle = true;
 
+    [SyncVar]
+    Vector3 PointHand;
 
     private PlayerController playerController;
 
@@ -42,13 +44,21 @@ public class PlayerAnimation : MonoBehaviour
      playerController = GetComponent<PlayerController>();
     }
 
+
+    [Command]
+    void CmdChangePointHand(Vector3 point)
+    {
+        PointHand = point;
+    }
+
     // Update is called once per frame
     void Update()
     {
-
+        
         Vector3 moveDirection = playerController.getMoveDirection(); //new Vector3(horizontalDirection, 0 , verticalDirection);
         moveDirection = moveDirection.normalized;
         moveSpeed = (moveDirection.normalized.magnitude) * 6f;
+
         //a supprimer lorsque j'aurais les valeurs de movespeed
 
         if (moveDirection != new Vector3(0, 0, 0)) // si on se déplace
@@ -81,35 +91,42 @@ public class PlayerAnimation : MonoBehaviour
             bodySpriteRenderer.flipX = true;
         }
 
-        /*if (!isLocalPlayer)
-            return;
-            */
+        //if (!isLocalPlayer)
+          //  return;
+            
 
         Vector2 mousePosition = Input.mousePosition;
         Ray castPoint = Camera.main.ScreenPointToRay(mousePosition);
 
         RaycastHit hit;
-        if (Physics.Raycast(castPoint, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
+        Vector3 HandPos = PointHand;
+        if (isLocalPlayer && Physics.Raycast(castPoint, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
         {
-            if (hit.point.x > this.gameObject.transform.position.x)
-            {
-                headSpriteRenderer.flipX = false;
-                handClothesSpriteRenderer.flipY = false;
-            }
-            else
-            {
-                headSpriteRenderer.flipX = true;
-                handClothesSpriteRenderer.flipY = true;
-            }
-
-
-            Vector3 playerPosition = this.gameObject.transform.position;
-            Vector3 dir = hit.point - playerPosition;
-            dir = dir.normalized;
-            float angle = Mathf.Atan2(dir.z+dir.y, dir.x) * Mathf.Rad2Deg;
-            handGameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
+            CmdChangePointHand(hit.point);
+            HandPos = hit.point;
         }
+
+         
+
+        if (HandPos.x > this.gameObject.transform.position.x)
+        {
+            headSpriteRenderer.flipX = false;
+            handClothesSpriteRenderer.flipY = false;
+        }
+        else
+        {
+            headSpriteRenderer.flipX = true;
+            handClothesSpriteRenderer.flipY = true;
+        }
+
+
+        Vector3 playerPosition = this.gameObject.transform.position;
+        Vector3 dir = HandPos - playerPosition;
+        dir = dir.normalized;
+        float angle = Mathf.Atan2(dir.z + dir.y, dir.x) * Mathf.Rad2Deg;
+        handGameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+
 
         ClothesUpdate();
     }

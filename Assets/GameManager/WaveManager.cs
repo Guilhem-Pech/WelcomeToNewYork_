@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class WaveManager : MonoBehaviour
+public class WaveManager : NetworkBehaviour
 {
     public int multEnnemiesPerWave = 1;
     public int maxAliveEnnemies = 5;
@@ -14,6 +15,7 @@ public class WaveManager : MonoBehaviour
     private HordesManager HordeMan;
 
     // Start is called before the first frame update
+    [ServerCallback]
     void Start()
     {
         spawnMan = gameObject.AddComponent<SpawnerManager>() as SpawnerManager;
@@ -22,22 +24,24 @@ public class WaveManager : MonoBehaviour
     }
 
     // Update is called once per frame
+    [ServerCallback]
     void Update()
     {
         if (ennemiRestant == 0 && ennemiVivant.Count == 0)
         {
             print("Fin de la vague numéro : " + numVague );
-            this.GetComponentInParent<GameManager>().finVague();        
+            this.GetComponentInParent<GameManager>().FinVague();        
         }
         if (ennemiRestant > 0 && ennemiVivant.Count < maxAliveEnnemies)
         {
-            GameObject ennemi = spawnMan.spawnEnnemiRandom();
+            GameObject ennemi = spawnMan.SpawnEnnemiRandom();
             ennemiRestant -= 1;
             ennemiVivant.Add(ennemi);
         }
     }
 
-    public void debutVague()
+    [Server]
+    public void DebutVague()
     {
         numVague += 1;
         print("Numéro de la vague : " + numVague);

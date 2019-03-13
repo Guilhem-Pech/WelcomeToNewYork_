@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : NetworkBehaviour
 {
     public List<GameObject> joueurMort = new List<GameObject>();
     public List<GameObject> players = new List<GameObject>();
 
 
     // Start is called before the first frame update
+    [ServerCallback]
     void Awake()
     {
         players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
@@ -21,50 +23,59 @@ public class PlayerManager : MonoBehaviour
         
     }
 
-    public void death(GameObject Entité)
+    [Server]
+    public void Death(GameObject entity)
     {
-        joueurMort.Add(Entité);
-        foreach (SpriteRenderer i in Entité.GetComponentsInChildren<SpriteRenderer>())
-        {
-            i.color = Color.gray;
-        }
-        Entité.GetComponent<PlayerController>().enabled = false;
-        Entité.GetComponent<PlayerAnimation>().enabled = false;
-        Entité.GetComponent<BaseChar>().enabled = false;
+        joueurMort.Add(entity.gameObject);
+        RpcDeath(entity.gameObject);
         print(joueurMort);
     }
 
-    public void spawnAll(Vector3 position)
+    [ClientRpc]
+   public void RpcDeath(GameObject entity)
+    {
+        foreach (SpriteRenderer i in entity.GetComponentsInChildren<SpriteRenderer>())
+        {
+            i.color = Color.gray;
+        }
+        entity.GetComponent<PlayerController>().enabled = false;
+        entity.GetComponent<PlayerAnimation>().enabled = false;
+        entity.GetComponent<BaseChar>().enabled = false;
+    }
+
+    public void SpawnAll(Vector3 position)
     {
 
     }
 
-    public void respawnAll()
+    [Server]
+    public void RespawnAll()
     {
         foreach (GameObject entite in joueurMort)
         {
-            foreach (SpriteRenderer i in entite.GetComponentsInChildren<SpriteRenderer>())
-            {
-                i.color = Color.white;
-            }
-            entite.GetComponent<PlayerController>().enabled = true;
-            entite.GetComponent<PlayerAnimation>().enabled = true;
-            entite.GetComponent<BaseChar>().enabled = true;
-            entite.GetComponent<BaseChar>().Start();
+            Respawn(entite);
         }
         joueurMort.Clear();
     }
 
-    public void respawn(GameObject Entite)
+    [Server]
+    public void Respawn(GameObject entity)
     {
-        foreach (SpriteRenderer i in Entite.GetComponentsInChildren<SpriteRenderer>())
+        joueurMort.Remove(entity);
+        RpcRespawn(entity);
+        entity.GetComponent<BaseChar>().Start();
+    }
+
+    [ClientRpc]
+    public void RpcRespawn(GameObject entity)
+    {
+        foreach (SpriteRenderer i in entity.GetComponentsInChildren<SpriteRenderer>())
         {
             i.color = Color.white;
         }
-        Entite.GetComponent<PlayerController>().enabled = true;
-        Entite.GetComponent<PlayerAnimation>().enabled = true;
-        Entite.GetComponent<BaseChar>().enabled = true;
-        joueurMort.Remove(Entite);
-        Entite.GetComponent<BaseChar>().Start();
+        entity.GetComponent<PlayerController>().enabled = true;
+        entity.GetComponent<PlayerAnimation>().enabled = true;
+        entity.GetComponent<BaseChar>().enabled = true;
+        entity.GetComponent<BaseChar>().Start();
     }
 }

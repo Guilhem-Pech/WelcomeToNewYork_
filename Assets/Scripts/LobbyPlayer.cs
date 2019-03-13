@@ -11,26 +11,36 @@ public class LobbyPlayer : NetworkBehaviour
     private NetworkLobbyPlayer networkLobbyPlayer;
     public Button ReadyButton;
 
-    [SyncVar (hook="OnChangePseudo")]
-    public string pseudo;
+    [SyncVar (hook= nameof(OnChangePseudo))]
+    public string pseudo = "Player";
 
     private Text ReadyText;
     public String ReadyTextStr = "Prêt";
     public String NotReadyStr = "En attente";
     public String NotReadyLocalStr = "Prêt ?";
     private bool IsReady;
-    private InputField field;
-    private Text textPseudo;
+    public InputField field;
+    public Text textPseudo;
 
-    [SyncVar(hook = "OnChangechar")]
-    private int ChoosenGameplayPlayer = 0;
+    [SyncVar(hook = nameof(OnChangechar))]
+    public int ChoosenGameplayPlayer = 0;
 
     private Transform parent;
 
     
     private NetworkIdentity ChoosenChar;
 
-    private void OnChangePseudo(String newPseudo)
+    private void Awake()
+    {
+        field = this.transform.Find("InputField").gameObject.GetComponent<InputField>();
+        textPseudo = this.transform.Find("Pseudo").gameObject.GetComponent<Text>();
+        GameObject canvas = GameObject.Find("Canvas");
+        parent = canvas.transform.Find("LobbyMenuJoin");
+        ReadyButton = this.transform.Find("ButtonReady").gameObject.GetComponent<Button>();
+        ReadyText = ReadyButton.GetComponentInChildren<Text>();
+    }
+
+    public void OnChangePseudo(string newPseudo)
     {
         textPseudo.text = newPseudo;
         field.text = newPseudo;
@@ -43,13 +53,15 @@ public class LobbyPlayer : NetworkBehaviour
         this.transform.Find("InputField").gameObject.SetActive(true);
         this.transform.Find("Pseudo").gameObject.SetActive(false);
         CmdChangeChar(true);
+
     }
 
-    private void OnChangechar(int newChar){
+    public void OnChangechar(int newChar){
        Image sprite = transform.Find("clothes").GetComponent<Image>();
        List<NetworkIdentity> Choosable = parent.gameObject.GetComponent<LobbyHUD>().GameplayPlayers;
        sprite.sprite = Choosable[newChar].gameObject.GetComponent<PlayerSprite>().PlayerLobbySprite;
     }
+
 
     public void ClicChange(bool isPrevious)
     {
@@ -58,13 +70,12 @@ public class LobbyPlayer : NetworkBehaviour
     }
 
     [Command]
-    private void CmdChangeChar(bool previous)
+    public void CmdChangeChar(bool previous)
     {
-        print("Do you want to RP");
+        
         List<NetworkIdentity> Choosable = parent.gameObject.GetComponent<LobbyHUD>().GameplayPlayers;
 
-        foreach (NetworkIdentity i in Choosable)
-            print(i.name);
+     
 
         if (previous)
         {
@@ -99,27 +110,41 @@ public class LobbyPlayer : NetworkBehaviour
         button.colors = colors;
     }
 
+  
     private void Start()
     {
-        field = this.transform.Find("InputField").gameObject.GetComponent<InputField>();
-        textPseudo = this.transform.Find("Pseudo").gameObject.GetComponent<Text>();
-        GameObject canvas = GameObject.Find("Canvas");
-        parent = canvas.transform.Find("LobbyMenuHost");
 
-        if (isServer)
-            this.pseudo = "Joueur " + networkLobbyPlayer.Index;
-        textPseudo.text = this.pseudo;
-        networkLobbyPlayer = this.GetComponent<NetworkLobbyPlayer>();
-        ReadyText = ReadyButton.GetComponentInChildren<Text>(); 
+        networkLobbyPlayer = gameObject.GetComponent<NetworkLobbyPlayer>();
+        base.OnStartClient();
+
+        GameObject canvas = GameObject.Find("Canvas");
+       
+        parent = canvas.transform.Find("LobbyMenuJoin");
+
+        this.gameObject.transform.SetParent(parent);
+
+        RectTransform rectTransform = this.GetComponent<RectTransform>();
+        int i = networkLobbyPlayer.Index;
+        int round = (i / 4);
+        float posX = -270 + (182 * (i % 4));
+        float posY = 66 - (122 * round);
+
+
+        rectTransform.localPosition = new Vector3(posX, posY, 0);
+
+        //textPseudo.text = this.pseudo;
+        
         if (!isLocalPlayer)
             ReadyButton.interactable = false;
          else 
             NotReadyStr = NotReadyLocalStr;
         
-        ReadyText.text = NotReadyStr; 
+        ReadyText.text = NotReadyStr;
+
+        CmdChangePseudo("Joueur " + networkLobbyPlayer.Index);
     }
 
-
+  
     [Command]
     public void CmdChangeReadyState(bool ReadyState)
     {
@@ -130,12 +155,16 @@ public class LobbyPlayer : NetworkBehaviour
     }
 
     [Command]
-    private void CmdChangePseudo(string inputField)
+    public void CmdChangePseudo(string inputField)
     {
-        pseudo = inputField;
+        SetPseudo(inputField);
     }
 
-   
+    private void SetPseudo(string pseudo)
+    {
+        this.pseudo = pseudo;
+    }
+
 
     public void ClicReady()
     {
@@ -143,6 +172,7 @@ public class LobbyPlayer : NetworkBehaviour
             return;
 
         CmdChangeReadyState(!networkLobbyPlayer.ReadyToBegin);
+        CmdChangePseudo(field.text);
        // ReadyButton.colors = networkLobbyPlayer.ReadyToBegin ? ReadyColor : NotReadyColor;
 
     }
@@ -151,15 +181,13 @@ public class LobbyPlayer : NetworkBehaviour
     private void Update()
     {
        if (isClient && IsReady != networkLobbyPlayer.ReadyToBegin)
-        {
+        {           
             IsReady = networkLobbyPlayer.ReadyToBegin;
             ReadyText.text = IsReady ? ReadyTextStr : NotReadyStr;
             if (IsReady)
-            {
+            {                
+                TurnGreen(ReadyButton);                
                 
-                TurnGreen(ReadyButton);
-                CmdChangePseudo(field.text);
-
                 if (isLocalPlayer)
                 { 
                     field.gameObject.SetActive(false);                
@@ -186,26 +214,8 @@ public class LobbyPlayer : NetworkBehaviour
     
     public override void OnStartClient()
     {
-        networkLobbyPlayer = gameObject.GetComponent<NetworkLobbyPlayer>();
-        base.OnStartLocalPlayer();
-
-        GameObject canvas = GameObject.Find("Canvas");
-        if (isClientOnly)
-            parent = canvas.transform.Find("LobbyMenuJoin");
-        else
-            parent = canvas.transform.Find("LobbyMenuHost");
-
-        this.gameObject.transform.SetParent(parent);
- 
-        RectTransform rectTransform = this.GetComponent<RectTransform>();
-        int i = networkLobbyPlayer.Index;
-        int round = (i / 4); 
-        float posX = -270 + (182 * (i%4));
-        float posY = 66 - (122 * round);  
         
-      
-        rectTransform.localPosition = new Vector3(posX, posY, 0);
         
-
     }
+
 }

@@ -167,6 +167,8 @@ GameObject:
   - component: {fileID: 1347468017}
   - component: {fileID: 8109447161021086523}
   - component: {fileID: 8561457495242134123}
+  - component: {fileID: 1145206883576002947}
+  - component: {fileID: 4251997620867178847}
   m_Layer: 0
   m_Name: Ennemi
   m_TagString: ennemy
@@ -197,7 +199,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2475085703572205648}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3
@@ -220,7 +222,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2475085703572205648}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7d9a50073ed6fb44dab453fff6686f28, type: 2}
   m_CullingMode: 0
@@ -238,11 +240,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2475085703572205648}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f20300ad76ff194aa51edc651c6f3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncInterval: 0.1
   fleeVec: {x: 0, y: 0}
   seekVec: {x: 0, y: 0}
   wanderVec: {x: 0, y: 0}
@@ -264,11 +267,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2475085703572205648}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b975810c3cbead8479502f6a7e0f57f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncInterval: 0.1
   alertDist: 3
 --- !u!114 &4442100354338921146
 MonoBehaviour:
@@ -277,11 +281,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2475085703572205648}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35ae938bf4823494bbf081c633a699c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncInterval: 0.1
 --- !u!114 &1347468017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,13 +299,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd0bee5c6afc4934dbe6bae1eeac8225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncInterval: 0.1
   maxHealth: 100
   currentHealth: 0
   isHit: 0
   m_knockBackNormalDir: {x: 0, y: 0, z: 0}
   m_knockBackStrength: 0
   m_knockBackDuration: 0
-  hurtSound: {fileID: 0}
+  ServerScripts:
+  - {fileID: 4442100354338921146}
+  - {fileID: 4442100354338921146}
+  - {fileID: 179016508782292709}
+  - {fileID: 4518407791235010917}
+  hurtSound: {fileID: 8300000, guid: e9ab3679b65201a419d767472835a312, type: 3}
 --- !u!54 &8109447161021086523
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -330,3 +341,71 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1145206883576002947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2475085703572205648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+  m_AssetId: 407efa53fed63d442ade6e7d1d100ce0
+--- !u!114 &4251997620867178847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2475085703572205648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad225009ad414e1428332cab226f38fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0.1
+  interpolationBackTime: 0.1
+  extrapolationMode: 1
+  useExtrapolationTimeLimit: 1
+  extrapolationTimeLimit: 5
+  useExtrapolationDistanceLimit: 0
+  extrapolationDistanceLimit: 20
+  sendPositionThreshold: 0
+  sendRotationThreshold: 0
+  sendScaleThreshold: 0
+  sendVelocityThreshold: 0
+  sendAngularVelocityThreshold: 0
+  receivedPositionThreshold: 0
+  receivedRotationThreshold: 0
+  snapPositionThreshold: 0
+  snapRotationThreshold: 0
+  snapScaleThreshold: 0
+  positionLerpSpeed: 0.85
+  rotationLerpSpeed: 0.85
+  scaleLerpSpeed: 0.85
+  timeCorrectionSpeed: 0.1
+  snapTimeThreshold: 3
+  syncPosition: 0
+  syncRotation: 0
+  syncScale: 0
+  syncVelocity: 0
+  syncAngularVelocity: 0
+  isPositionCompressed: 0
+  isRotationCompressed: 0
+  isScaleCompressed: 0
+  isVelocityCompressed: 0
+  isAngularVelocityCompressed: 0
+  isSmoothingAuthorityChanges: 0
+  whenToUpdateTransform: 0
+  sendRate: 30
+  childObjectToSync: {fileID: 0}
+  setVelocityInsteadOfPositionOnNonOwners: 0
+  maxPositionDifferenceForVelocitySyncing: 10
+  ownerChangeIndicator: 1
+  receivedStatesCounter: 0

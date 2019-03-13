@@ -312,8 +312,7 @@ namespace Mirror
             if (connections.Count < s_MaxConnections)
             {
                 // get ip address from connection
-                string address;
-                NetworkManager.singleton.transport.GetConnectionInfo(connectionId, out address);
+                string address = NetworkManager.singleton.transport.ServerGetClientAddress(connectionId);
 
                 // add player info
                 NetworkConnection conn = new NetworkConnection(address, s_ServerHostId, connectionId);
@@ -555,7 +554,7 @@ namespace Mirror
         {
             if (LogFilter.Debug) { Debug.Log("NetworkServer SetupLocalPlayerForConnection netID:" + identity.netId); }
 
-            var localConnection = conn as ULocalConnectionToClient;
+            ULocalConnectionToClient localConnection = conn as ULocalConnectionToClient;
             if (localConnection != null)
             {
                 if (LogFilter.Debug) { Debug.Log("NetworkServer AddPlayer handling ULocalConnectionToClient"); }
@@ -672,7 +671,7 @@ namespace Mirror
 
             conn.isReady = true;
 
-            var localConnection = conn as ULocalConnectionToClient;
+            ULocalConnectionToClient localConnection = conn as ULocalConnectionToClient;
             if (localConnection != null)
             {
                 if (LogFilter.Debug) { Debug.Log("NetworkServer Ready handling ULocalConnectionToClient"); }
@@ -907,11 +906,10 @@ namespace Mirror
 
         public static void DestroyPlayerForConnection(NetworkConnection conn)
         {
-            if (conn.playerController == null)
-            {
-                // null if players are still in a lobby etc., no need to show a warning
-                return;
-            }
+            // note: conn.playerController/clientOwnedObjects might be null if
+            // the player is still in a lobby and hasn't joined the world yet,
+            // so we need null checks for both of them.
+            // => destroy what we can destroy.
 
             if (conn.clientOwnedObjects != null)
             {

@@ -1,23 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public abstract class BaseEntity : MonoBehaviour
-{
+public abstract class BaseEntity : NetworkBehaviour {
+
+    [SyncVar] //Need to be synchronised bot not to all clients like it does right now (= Can be optimized)
     public int maxHealth = 100;
+
+    [SyncVar]
     public int currentHealth ;
+    
     public bool isHit = false;
+
     protected float tps = 1;
 
-    public void takeDamage(int dmg)
+    [Server]
+    public void TakeDamage(int dmg)
     {
-        isHit = true;
+        RpcTakeDamage();
         currentHealth = currentHealth - dmg;
         if (currentHealth <= 0)
-            death();
+            Death();
     }
-
-    public void getHeal(int heal)
+    
+    [ClientRpc]
+    public void RpcTakeDamage()
+    {
+        isHit = true;
+    }
+    
+    [Server]
+    public void AddHealth(int heal)
     {
         currentHealth = currentHealth + heal ;
         if (currentHealth > maxHealth)
@@ -25,9 +39,9 @@ public abstract class BaseEntity : MonoBehaviour
     }
 
     // Update is called once per frame
+    [ClientCallback]
     public virtual void Update()
     {
-
         if (isHit)
         {
             tps -= Time.deltaTime;
@@ -45,17 +59,19 @@ public abstract class BaseEntity : MonoBehaviour
             }
         }
     }
-    public virtual void death()
+
+    [Server]
+    public virtual void Death()
     {
         GameObject gm = GameObject.FindGameObjectWithTag("GameController");
-        gm.GetComponent<GameManager>().playerMan.death(this.gameObject);
+        gm.GetComponent<GameManager>().playerMan.Death(this.gameObject);
     }
 
-    public int getMaxHealth()
+    public int GetMaxHealth()
     {
         return maxHealth;
     }
-    public int setHeal()
+    public int GetHealth()
     {
         return currentHealth;
     }

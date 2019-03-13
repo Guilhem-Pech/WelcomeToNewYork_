@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Mirror;
 
 
 
-public class SteeringSystem : MonoBehaviour
+public class SteeringSystem : NetworkBehaviour
 {
     //Variables de débogage
     [ReadOnly] public Vector2 fleeVec = Vector2.zero;
@@ -91,70 +92,73 @@ public class SteeringSystem : MonoBehaviour
     /* --- Fonctions pour définition des comportements --- */
     /* --- ------------------------------------------- --- */
         //état des comportements
-        private bool On(behavior_type bt) { return (m_iFlags & ((int) bt) ) == ((int)bt); }
+        [Server]private bool On(behavior_type bt) { return (m_iFlags & ((int) bt) ) == ((int)bt); }
 
-        public bool isFleeOn() { return On(behavior_type.flee); }
-        public bool isSeekOn() { return On(behavior_type.seek); }
-        public bool isWanderOn() { return On(behavior_type.wander); }
-        public bool isPursuitOn() { return On(behavior_type.pursuit); }
-        public bool isEvadeOn() { return On(behavior_type.evade); }
-        public bool isCohesionOn() { return On(behavior_type.cohesion); }
-        public bool isSeparationOn() { return On(behavior_type.separation); }
-        public bool isAlignmentOn() { return On(behavior_type.allignment); }
-        public bool isInterposeOn() { return On(behavior_type.interpose); }
-        public bool isHideOn() { return On(behavior_type.hide); }
-        public bool isOffsetPursuitOn() { return On(behavior_type.offset_pursuit); }
-        public bool isObstacleAvoidanceOn() { return On(behavior_type.hide); }
-        public bool isWallAvoidanceOn() { return On(behavior_type.offset_pursuit); }
+    [Server] public bool isFleeOn() { return On(behavior_type.flee); }
+    [Server] public bool isSeekOn() { return On(behavior_type.seek); }
+    [Server] public bool isWanderOn() { return On(behavior_type.wander); }
+    [Server] public bool isPursuitOn() { return On(behavior_type.pursuit); }
+    [Server] public bool isEvadeOn() { return On(behavior_type.evade); }
+    [Server] public bool isCohesionOn() { return On(behavior_type.cohesion); }
+    [Server] public bool isSeparationOn() { return On(behavior_type.separation); }
+    [Server] public bool isAlignmentOn() { return On(behavior_type.allignment); }
+    [Server] public bool isInterposeOn() { return On(behavior_type.interpose); }
+    [Server] public bool isHideOn() { return On(behavior_type.hide); }
+    [Server] public bool isOffsetPursuitOn() { return On(behavior_type.offset_pursuit); }
+    [Server] public bool isObstacleAvoidanceOn() { return On(behavior_type.hide); }
+    [Server] public bool isWallAvoidanceOn() { return On(behavior_type.offset_pursuit); }
 
-        //Activation comportement
-        public void SeekOn() { m_iFlags |= (int)behavior_type.seek; }
-        public void WanderOn() { m_dWanderJitterElapsedTime = 0; SetWanderTargetPosition(m_dWanderRadius); m_iFlags |= (int)behavior_type.wander; }
-        public void PursuitOn(GameObject o1) { m_iFlags |= (int)behavior_type.pursuit; m_objTarget = o1; }
-        public void EvadeOn(GameObject o1) { m_iFlags |= (int)behavior_type.evade; m_objTarget2 = o1; }
-        public void CohesionOn() { m_iFlags |= (int)behavior_type.cohesion; }
-        public void SeparationOn() { m_iFlags |= (int)behavior_type.separation; }
-        public void AlignmentOn() { m_iFlags |= (int)behavior_type.allignment; }
-        public void InterposeOn(GameObject o1, GameObject o2) { m_iFlags |= (int)behavior_type.interpose; m_objTarget1 = o1; m_objTarget2 = o2; }
-        public void HideOn(GameObject o1) { m_iFlags |= (int)behavior_type.hide; m_objTarget1 = o1; }
-        public void OffsetPursuitOn(GameObject o1, Vector2 offset){m_iFlags |= (int) behavior_type.offset_pursuit; m_vOffset = offset; m_objTarget1 = o1;}
-        public void FlockingOn() { CohesionOn(); AlignmentOn(); SeparationOn(); }
-        public void ObstacleAvoidanceOn() { m_iFlags |= (int)behavior_type.obstacle_avoidance; }
-        public void WallAvoidanceOn() { m_iFlags |= (int)behavior_type.wall_avoidance; }
+    //Activation comportement
+    [Server] public void SeekOn() { m_iFlags |= (int)behavior_type.seek; }
+    [Server] public void WanderOn() { m_dWanderJitterElapsedTime = 0; SetWanderTargetPosition(m_dWanderRadius); m_iFlags |= (int)behavior_type.wander; }
+    [Server] public void PursuitOn(GameObject o1) { m_iFlags |= (int)behavior_type.pursuit; m_objTarget = o1; }
+    [Server] public void EvadeOn(GameObject o1) { m_iFlags |= (int)behavior_type.evade; m_objTarget2 = o1; }
+    [Server] public void CohesionOn() { m_iFlags |= (int)behavior_type.cohesion; }
+    [Server] public void SeparationOn() { m_iFlags |= (int)behavior_type.separation; }
+    [Server] public void AlignmentOn() { m_iFlags |= (int)behavior_type.allignment; }
+    [Server] public void InterposeOn(GameObject o1, GameObject o2) { m_iFlags |= (int)behavior_type.interpose; m_objTarget1 = o1; m_objTarget2 = o2; }
+    [Server] public void HideOn(GameObject o1) { m_iFlags |= (int)behavior_type.hide; m_objTarget1 = o1; }
+    [Server] public void OffsetPursuitOn(GameObject o1, Vector2 offset){m_iFlags |= (int) behavior_type.offset_pursuit; m_vOffset = offset; m_objTarget1 = o1;}
+    [Server] public void FlockingOn() { CohesionOn(); AlignmentOn(); SeparationOn(); }
+    [Server] public void ObstacleAvoidanceOn() { m_iFlags |= (int)behavior_type.obstacle_avoidance; }
+    [Server] public void WallAvoidanceOn() { m_iFlags |= (int)behavior_type.wall_avoidance; }
 
-        //Désactivation comportement
-        public void FleeOff() { if (On(behavior_type.flee)) m_iFlags ^= (int)behavior_type.flee; }
-        public void SeekOff() { if (On(behavior_type.seek)) m_iFlags ^= (int)behavior_type.seek; }
-        public void WanderOff() { if (On(behavior_type.wander)) m_iFlags ^= (int)behavior_type.wander; }
-        public void PursuitOff() { if (On(behavior_type.pursuit)) m_iFlags ^= (int)behavior_type.pursuit; }
-        public void EvadeOff() { if (On(behavior_type.evade)) m_iFlags ^= (int)behavior_type.evade; }
-        public void CohesionOff() { if (On(behavior_type.cohesion)) m_iFlags ^= (int)behavior_type.cohesion; }
-        public void SeparationOff() { if (On(behavior_type.separation)) m_iFlags ^= (int)behavior_type.separation; }
-        public void AlignmentOff() { if (On(behavior_type.allignment)) m_iFlags ^= (int)behavior_type.allignment; }
-        public void InterposeOff() { if (On(behavior_type.interpose)) m_iFlags ^= (int)behavior_type.interpose; }
-        public void HideOff() { if (On(behavior_type.hide)) m_iFlags ^= (int)behavior_type.hide; }
-        public void OffsetPursuitOff() { if (On(behavior_type.offset_pursuit)) m_iFlags ^= (int)behavior_type.offset_pursuit; }
-        public void FlockingOff() { CohesionOff(); AlignmentOff(); SeparationOff(); WanderOff(); }
-        public void ObstacleAvoidanceOff() { if (On(behavior_type.obstacle_avoidance)) m_iFlags ^= (int)behavior_type.obstacle_avoidance; }
-        public void WallAvoidanceOff() { if (On(behavior_type.wall_avoidance)) m_iFlags ^= (int)behavior_type.wall_avoidance; }
+    //Désactivation comportement
+    [Server] public void FleeOff() { if (On(behavior_type.flee)) m_iFlags ^= (int)behavior_type.flee; }
+    [Server] public void SeekOff() { if (On(behavior_type.seek)) m_iFlags ^= (int)behavior_type.seek; }
+    [Server] public void WanderOff() { if (On(behavior_type.wander)) m_iFlags ^= (int)behavior_type.wander; }
+    [Server] public void PursuitOff() { if (On(behavior_type.pursuit)) m_iFlags ^= (int)behavior_type.pursuit; }
+    [Server] public void EvadeOff() { if (On(behavior_type.evade)) m_iFlags ^= (int)behavior_type.evade; }
+    [Server] public void CohesionOff() { if (On(behavior_type.cohesion)) m_iFlags ^= (int)behavior_type.cohesion; }
+    [Server] public void SeparationOff() { if (On(behavior_type.separation)) m_iFlags ^= (int)behavior_type.separation; }
+    [Server] public void AlignmentOff() { if (On(behavior_type.allignment)) m_iFlags ^= (int)behavior_type.allignment; }
+    [Server] public void InterposeOff() { if (On(behavior_type.interpose)) m_iFlags ^= (int)behavior_type.interpose; }
+    [Server] public void HideOff() { if (On(behavior_type.hide)) m_iFlags ^= (int)behavior_type.hide; }
+    [Server] public void OffsetPursuitOff() { if (On(behavior_type.offset_pursuit)) m_iFlags ^= (int)behavior_type.offset_pursuit; }
+    [Server] public void FlockingOff() { CohesionOff(); AlignmentOff(); SeparationOff(); WanderOff(); }
+    [Server] public void ObstacleAvoidanceOff() { if (On(behavior_type.obstacle_avoidance)) m_iFlags ^= (int)behavior_type.obstacle_avoidance; }
+    [Server] public void WallAvoidanceOff() { if (On(behavior_type.wall_avoidance)) m_iFlags ^= (int)behavior_type.wall_avoidance; }
 
-        public void AllOff() { m_iFlags = 0; }
+    [Server] public void AllOff() { m_iFlags = 0; }
 
     /* --- ------------------ --- */
     /* --- Fonctions Usuelles --- */
     /* --- ------------------ --- */
-        private Vector2 GetHidingPosition(Vector2 posOb,  double radiusOb, Vector2 posHunter)
+    [Server]
+    private Vector2 GetHidingPosition(Vector2 posOb,  double radiusOb, Vector2 posHunter)
         {
             /* A COMPLETER*/
             return gameObject.transform.position;
         }
 
-        private void SetWanderTargetPosition(float radius)
+    [Server]
+    private void SetWanderTargetPosition(float radius)
         {
             m_vWanderTarget = new Vector2(Random.Range(-radius, radius), Random.Range(-radius, radius));
         }
 
-        private void AddJitterToWanderTargetPosition(float jitter, float elpasedTime)
+    [Server]
+    private void AddJitterToWanderTargetPosition(float jitter, float elpasedTime)
         {
             float effectiveJitter = elpasedTime * jitter;
 
@@ -163,42 +167,50 @@ public class SteeringSystem : MonoBehaviour
             m_vWanderTarget = new Vector2(rotatedVector.x, rotatedVector.z);
         }
 
-        private void AccumulateForce(ref Vector2 sf, Vector2 ForceToAdd)
+    [Server]
+    private void AccumulateForce(ref Vector2 sf, Vector2 ForceToAdd)
         {
             sf += ForceToAdd.normalized;
         }
 
-        public void SetSeekPos(Vector3 pos) { seekPos = new Vector2(pos.x,pos.z); }
-        public void SetFleePos(Vector3 pos) { fleePos = new Vector2(pos.x, pos.z); }
+    [Server] public void SetSeekPos(Vector3 pos) { seekPos = new Vector2(pos.x,pos.z); }
+       [Server]
+    public void SetTarget(GameObject agent) {m_objTarget = agent; }
+       [Server]
+    public void SetTargetAgent1(GameObject agent) { m_objTarget1 = agent; }
+       [Server]
+    public void SetTargetAgent2(GameObject agent) { m_objTarget2 = agent; }
 
-        public void SetTarget(GameObject agent) {m_objTarget = agent; }
-        public void SetTargetAgent1(GameObject agent) { m_objTarget1 = agent; }
-        public void SetTargetAgent2(GameObject agent) { m_objTarget2 = agent; }
+       [Server]
+    public void SetOffset(Vector3 offset) { m_vOffset = new Vector2(offset.x, offset.z); }
+       [Server]
+    public Vector3 GetOffset(){return new Vector3(m_vOffset.x, 0,m_vOffset.y); }
 
-        public void SetOffset(Vector3 offset) { m_vOffset = new Vector2(offset.x, offset.z); }
-        public Vector3 GetOffset(){return new Vector3(m_vOffset.x, 0,m_vOffset.y); }
-
-        public Vector3 Force(){return new Vector3(m_vSteeringForce.x, 0, m_vSteeringForce.y);}
+    [Server]
+    public Vector3 Force(){return new Vector3(m_vSteeringForce.x, 0, m_vSteeringForce.y);}
 
     /* --- -------------------------------------------- --- */
     /* --- Fonctions calcul des forces comportementales --- */
     /* --- -------------------------------------------- --- */
         //Déplacement vers une position donnée
-        private Vector2 Seek(Vector2 TargetPos)
+       [Server]
+    private Vector2 Seek(Vector2 TargetPos)
         {
             Vector2 localPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.z);
             return (TargetPos - localPos).normalized;
         }
 
         //Déplacement visant à s'éloigner de la position donnée
-        private Vector2 Flee(Vector2 TargetPos)
+       [Server]
+    private Vector2 Flee(Vector2 TargetPos)
         {
             Vector2 localPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.z);
             return (localPos - TargetPos).normalized;
         }
 
-        //Déplacement qui consiste à "intercepter" l'objet ciblé
-        private Vector2 Pursuit(GameObject agent)
+    //Déplacement qui consiste à "intercepter" l'objet ciblé
+    [Server]
+    private Vector2 Pursuit(GameObject agent)
         {
             Vector3 predictedEvaderPos = Vector3.zero;
             if (agent.GetComponent<CharacterController>() != null)
@@ -219,22 +231,25 @@ public class SteeringSystem : MonoBehaviour
             return new Vector2(ToEvader.x, ToEvader.z);
         }
 
-        //Déplacement qui consiste à "intercepter" l'objet ciblé tout en maintenant un décalage par rapport à sa position
-        private Vector2 OffsetPursuit(GameObject agent, Vector2 offset)
+    //Déplacement qui consiste à "intercepter" l'objet ciblé tout en maintenant un décalage par rapport à sa position
+    [Server]
+    private Vector2 OffsetPursuit(GameObject agent, Vector2 offset)
         {
             // A COMPLETER
             return Vector2.zero;
         }
 
-        //Déplacement visant à s'éloigner d'un objet en prévoyant sa vélocité
-        private Vector2 Evade(GameObject agent)
+    //Déplacement visant à s'éloigner d'un objet en prévoyant sa vélocité
+    [Server]
+    private Vector2 Evade(GameObject agent)
         {
             // A COMPLETER
             return Vector2.zero;
         }
 
         //Déplacement aléatoire
-        private Vector2 Wander()
+       [Server]
+    private Vector2 Wander()
         {
             AddJitterToWanderTargetPosition(m_dWanderJitter, m_dWanderJitterElapsedTime);
             m_dWanderJitterElapsedTime = 0;
@@ -242,41 +257,47 @@ public class SteeringSystem : MonoBehaviour
         }
 
         //Déplacement visant à se positionner entre 2 objets donnés
-        private Vector2 Interpose(GameObject agentA, GameObject agentB)
+       [Server]
+    private Vector2 Interpose(GameObject agentA, GameObject agentB)
         {   
             // A COMPLETER
             return Vector2.zero;
         }
 
-        //Déplacement visant à se cacher d'un agent donné, à l'aide d'une liste des obstacles possibles
-        private Vector2 Hide(GameObject hunter, List<GameObject> obstacles)
+    //Déplacement visant à se cacher d'un agent donné, à l'aide d'une liste des obstacles possibles
+    [Server]
+    private Vector2 Hide(GameObject hunter, List<GameObject> obstacles)
+        {
+            // A COMPLETER
+            return Vector2.zero;
+        }
+
+    //Déplacement visant à se cacher d'un agent donné, à l'aide d'une liste des obstacles possibles
+    [Server]
+    private Vector2 ObstacleAvoidance(List<GameObject> obstacles)
         {
             // A COMPLETER
             return Vector2.zero;
         }
 
         //Déplacement visant à se cacher d'un agent donné, à l'aide d'une liste des obstacles possibles
-        private Vector2 ObstacleAvoidance(List<GameObject> obstacles)
-        {
-            // A COMPLETER
-            return Vector2.zero;
-        }
-
-        //Déplacement visant à se cacher d'un agent donné, à l'aide d'une liste des obstacles possibles
-        private Vector2 WallAvoidance(List<GameObject> walls)
+       [Server]
+    private Vector2 WallAvoidance(List<GameObject> walls)
         {
             // A COMPLETER
             return Vector2.zero;
         }
 
         //Comportements de flocking
-        private Vector2 Cohesion(Horde horde)
+       [Server]
+    private Vector2 Cohesion(Horde horde)
         {
             Vector3 globalCenter = new Vector2(horde.getGlobalCenter().x, horde.getGlobalCenter().z);
             return Seek(globalCenter);
         }
 
-        private Vector2 Separation(List<GameObject> agents)
+    [Server]
+    private Vector2 Separation(List<GameObject> agents)
         {
             Vector3 SteeringForce = Vector3.zero;
 
@@ -294,7 +315,8 @@ public class SteeringSystem : MonoBehaviour
             return (new Vector2(SteeringForce.x, SteeringForce.z)).normalized ;
         }
 
-        private Vector2 Alignment(Horde horde)
+    [Server]
+    private Vector2 Alignment(Horde horde)
         {
             Vector2 hordeVelocity = new Vector2(horde.getGlobalVelocity().x, horde.getGlobalVelocity().z);
             return hordeVelocity.normalized;
@@ -303,6 +325,7 @@ public class SteeringSystem : MonoBehaviour
     /* --- -------------------------------------- --- */
     /* --- Fonction calcul de la somme des forces --- */
     /* --- -------------------------------------- --- */
+    [Server]
     private Vector2 Calculate()
     {
         //reset the steering force
@@ -412,42 +435,50 @@ public class SteeringSystem : MonoBehaviour
     }
 
     // Start is called before the first frame update
+    [ServerCallback]
     void Start()
     {
-        m_iFlags = 0;
+       
+            m_iFlags = 0;
+
+            EnnemiParams paramsScript = EnnemiParams.Instance;
+
+            m_SteeringUpdateCooldown = paramsScript.SteeringUpdateCooldown;
+            m_SteeringUpdateCurrentCooldown = 0;
+
+            m_dWanderJitterElapsedTime = 0;
+            m_dWanderRadius = paramsScript.WanderRadius;
+            m_dWanderJitter = paramsScript.WanderJitter;
+
+            m_dWeightSeparation = paramsScript.WeightSeparation;
+            m_dWeightCohesion = paramsScript.WeightCohesion;
+            m_dWeightAlignment = paramsScript.WeightAlignment;
+            m_dWeightWander = paramsScript.WeightWander;
+            m_dWeightSeek = paramsScript.WeightSeek;
+            m_dWeightFlee = paramsScript.WeightFlee;
+            m_dWeightPursuit = paramsScript.WeightPursuit;
+            m_dWeightOffsetPursuit = paramsScript.WeightOffsetPursuit;
+            m_dWeightInterpose = paramsScript.WeightInterpose;
+            m_dWeightHide = paramsScript.WeightHide;
+            m_dWeightEvade = paramsScript.WeightEvade;
         
-        EnnemiParams paramsScript = EnnemiParams.Instance;
-
-        m_SteeringUpdateCooldown = paramsScript.SteeringUpdateCooldown;
-        m_SteeringUpdateCurrentCooldown = 0;
-
-        m_dWanderJitterElapsedTime = 0;
-        m_dWanderRadius = paramsScript.WanderRadius;
-        m_dWanderJitter = paramsScript.WanderJitter;
-
-        m_dWeightSeparation = paramsScript.WeightSeparation;
-        m_dWeightCohesion = paramsScript.WeightCohesion;
-        m_dWeightAlignment = paramsScript.WeightAlignment;
-        m_dWeightWander = paramsScript.WeightWander;
-        m_dWeightSeek = paramsScript.WeightSeek;
-        m_dWeightFlee = paramsScript.WeightFlee;
-        m_dWeightPursuit = paramsScript.WeightPursuit;
-        m_dWeightOffsetPursuit = paramsScript.WeightOffsetPursuit;
-        m_dWeightInterpose = paramsScript.WeightInterpose;
-        m_dWeightHide = paramsScript.WeightHide;
-        m_dWeightEvade = paramsScript.WeightEvade;
+        
     }
-    
+
     // Update is called once per frame
+    [ServerCallback]
     void Update()
     {
-        m_dWanderJitterElapsedTime += Time.deltaTime;
+        
+            m_dWanderJitterElapsedTime += Time.deltaTime;
 
-        m_SteeringUpdateCurrentCooldown += Time.deltaTime;
-        if (m_SteeringUpdateCurrentCooldown >= m_SteeringUpdateCooldown)
-        {
-            m_SteeringUpdateCurrentCooldown = 0;
-            Calculate();
-        }
+            m_SteeringUpdateCurrentCooldown += Time.deltaTime;
+            if (m_SteeringUpdateCurrentCooldown >= m_SteeringUpdateCooldown)
+            {
+                m_SteeringUpdateCurrentCooldown = 0;
+                Calculate();
+            }
+        
+       
     }
 }

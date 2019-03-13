@@ -117,5 +117,64 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6156873697282996660, guid: e5fdc0ee69c598a4c8fdc156c1820a85,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156873697282996660, guid: e5fdc0ee69c598a4c8fdc156c1820a85,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156873697282996660, guid: e5fdc0ee69c598a4c8fdc156c1820a85,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 389919455812498593}
+    - target: {fileID: 6156873697282996660, guid: e5fdc0ee69c598a4c8fdc156c1820a85,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StopClient
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156873697282996660, guid: e5fdc0ee69c598a4c8fdc156c1820a85,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156873697282996660, guid: e5fdc0ee69c598a4c8fdc156c1820a85,
+        type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 8066057959317475980}
+    - target: {fileID: 6156873697282996660, guid: e5fdc0ee69c598a4c8fdc156c1820a85,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5fdc0ee69c598a4c8fdc156c1820a85, type: 3}
+--- !u!114 &389919455812498593 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6320809169095933679, guid: e5fdc0ee69c598a4c8fdc156c1820a85,
+    type: 3}
+  m_PrefabInstance: {fileID: 5967625604660005454}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6afdfa87c709df94bbc1618b48be7b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8066057959317475980 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4404844950221330626, guid: e5fdc0ee69c598a4c8fdc156c1820a85,
+    type: 3}
+  m_PrefabInstance: {fileID: 5967625604660005454}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
