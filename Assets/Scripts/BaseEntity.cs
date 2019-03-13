@@ -16,7 +16,7 @@ public abstract class BaseEntity : NetworkBehaviour {
     protected float tps = 1;
 
     [Server]
-    public void TakeDamage(int dmg)
+    public virtual void TakeDamage(int dmg)
     {
         RpcTakeDamage();
         currentHealth = currentHealth - dmg;
@@ -31,7 +31,7 @@ public abstract class BaseEntity : NetworkBehaviour {
     }
 
     [Server]
-    public void AddHealth(int heal)
+    public virtual void AddHealth(int heal)
     {
         currentHealth = currentHealth + heal ;
         if (currentHealth > maxHealth)

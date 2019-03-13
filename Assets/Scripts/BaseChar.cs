@@ -57,18 +57,18 @@ public abstract class BaseChar : BaseEntity
         return currentStamina;
     }
 
-    public override void takeDamage(int dmg)
+    public override void TakeDamage(int dmg)
     {
-        base.takeDamage(dmg);
+        base.TakeDamage(dmg);
         if (UI != null)
         {
             UI.GetComponentInChildren<Life>().DisplayLife(dmg);
         }
     }
 
-    public override void getHeal(int heal)
+    public override void AddHealth(int heal)
     {
-        base.getHeal(heal);
+        base.AddHealth(heal);
         if (UI != null)
         {
             UI.GetComponentInChildren<Life>().AddLife(heal);
