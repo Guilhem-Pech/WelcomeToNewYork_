@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class SpawnController : MonoBehaviour
+using Mirror;
+public class SpawnController : NetworkBehaviour
 {
     public float spawnRadius = 1;
     public GameObject prefab;
@@ -12,21 +12,22 @@ public class SpawnController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!isServer)
+            Destroy(this);
     }
 
     public GameObject spawn()
     {
-    Vector3 position = new Vector3(
-    transform.position.x + Random.Range(-spawnRadius, spawnRadius),
-    1,
-    transform.position.z + Random.Range(-spawnRadius, spawnRadius)
-    );
-    GameObject entity = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
-    //entity.transform.parent = transform;
-    entity.transform.position = position;
-    GameObject spawnedEntitie = entity ;
-
-        return spawnedEntitie;
+        Vector3 position = new Vector3(
+        transform.position.x + Random.Range(-spawnRadius, spawnRadius),
+        1,
+        transform.position.z + Random.Range(-spawnRadius, spawnRadius)
+        );
+        GameObject entity = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
+        NetworkServer.Spawn(entity);
+        //entity.transform.parent = transform;
+        entity.transform.position = position;
+        
+        return entity;
     }
 }
