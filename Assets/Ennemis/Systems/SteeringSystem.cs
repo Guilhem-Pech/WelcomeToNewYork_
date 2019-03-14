@@ -199,10 +199,9 @@ public class SteeringSystem : NetworkBehaviour
        [Server]
     public Vector3 GetOffset(){return new Vector3(m_vOffset.x, 0,m_vOffset.y); }
 
-        public void SetOffset(Vector3 offset) { m_vOffset = new Vector2(offset.x, offset.z); }
-        public Vector3 GetOffset(){return new Vector3(m_vOffset.x, 0,m_vOffset.y); }
 
-        public Vector3 SteeringPos(){return new Vector3(m_vSteeringPos.x, 0, m_vSteeringPos.y);}
+
+    public Vector3 SteeringPos(){return new Vector3(m_vSteeringPos.x, 0, m_vSteeringPos.y);}
 
     /* --- -------------------------------------------- --- */
     /* --- Fonctions calcul des forces comportementales --- */
