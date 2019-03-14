@@ -13,11 +13,11 @@ public class IdleBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
-        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
-        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
+        targetSys = animator.gameObject.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
+        agent = animator.gameObject.GetComponent<NavMeshAgent>();
 
-        agent.speed = EnnemiParams.Instance.WanderSpeed;
+        agent.speed = EnnemiParams.Instance.SeekSpeed;
 
         timeSinceStateEnter = 0f;
 

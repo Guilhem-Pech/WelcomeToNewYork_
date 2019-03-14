@@ -7,8 +7,9 @@ public class EnnemiParams : Singleton<EnnemiParams>
     public float SteeringUpdateCooldown = 0.1f;
 
     /* --- Param Speeds --- */
-    public float ChaseSpeed = 3.5f;
-    public float WanderSpeed = 1.5f;
+    public float ChaseSpeed = 4f;
+    public float SeekSpeed = 2.5f;
+    public float WalkingSpeed = 1.5f;
 
     /* --- Param comportement Général --- */
     public float ProximityDistance = 1f;

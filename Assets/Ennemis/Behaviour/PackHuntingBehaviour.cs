@@ -13,9 +13,9 @@ public class PackHuntingBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
-        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
-        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
+        agent = animator.gameObject.GetComponent<NavMeshAgent>();
+        targetSys = animator.gameObject.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
 
         agent.speed = EnnemiParams.Instance.ChaseSpeed;
 
