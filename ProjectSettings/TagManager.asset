@@ -6,10 +6,12 @@ TagManager:
   tags:
   - ennemy
   - Spawner
-  - NeighboursTrigger
   - UIImageBar
   - UIImageBarRed
   - UI
+  - EnnemyNeighboursTrigger
+  - EnnemyAttackTrigger
+  - EnnemyTargetsTrigger
   layers:
   - Default
   - TransparentFX
@@ -21,9 +23,9 @@ TagManager:
   - 
   - Attack
   - Ground
-  - NeighboursTrigger
-  - 
-  - 
+  - EnnemyNeighboursTrigger
+  - EnnemyAttackTrigger
+  - EnnemyTargetsTrigger
   - 
   - 
   - 
