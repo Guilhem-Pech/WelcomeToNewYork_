@@ -13,17 +13,21 @@ public class ChaseBehaviour : StateMachineBehaviour {
     // onstateenter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
     {
-        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
-        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
-        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
-        attackSys = animator.gameObject.transform.parent.GetComponentInChildren<AttackSystem>();
+        agent = animator.gameObject.GetComponent<NavMeshAgent>();
+        targetSys = animator.gameObject.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
+        attackSys = animator.gameObject.GetComponentInChildren<AttackSystem>();
 
         agent.speed = EnnemiParams.Instance.ChaseSpeed;
 
         steerSys.AllOff();
 
-        if(targetSys.hasTarget())
+        if (targetSys.hasTarget())
+        {
+            animator.gameObject.transform.Find("Sprite").gameObject.GetComponent<Animator>().Play("Chasing");
             steerSys.PursuitOn(targetSys.getTarget());
+        }
+            
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

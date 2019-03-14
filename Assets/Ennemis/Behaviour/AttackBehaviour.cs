@@ -18,10 +18,10 @@ public class AttackBehaviour : StateMachineBehaviour
     // onstateenter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
     {
-        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
-        targetSys = animator.gameObject.transform.parent.GetComponentInChildren<TargetingSystem>();
-        steerSys = animator.gameObject.transform.parent.GetComponentInChildren<SteeringSystem>();
-        attackSys = animator.gameObject.transform.parent.GetComponentInChildren<AttackSystem>();
+        agent = animator.gameObject.GetComponent<NavMeshAgent>();
+        targetSys = animator.gameObject.GetComponentInChildren<TargetingSystem>();
+        steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
+        attackSys = animator.gameObject.GetComponentInChildren<AttackSystem>();
 
         steerSys.AllOff();
         agent.speed = 0;
@@ -29,6 +29,7 @@ public class AttackBehaviour : StateMachineBehaviour
         agent.isStopped = true;
         agent.SetDestination(animator.gameObject.transform.position);
 
+        animator.gameObject.transform.Find("Sprite").gameObject.GetComponent<Animator>().Play("Attacking");
         timeSinceStateEnter = 0f;
         attackStart = false;
     }

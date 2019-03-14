@@ -19,19 +19,19 @@ public class KnockedBackBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //Init Knockback Parameters
-        knockBackNormalDir = animator.gameObject.GetComponentInParent<TestEnnemy>().m_knockBackNormalDir;
-        knockBackStrength = animator.gameObject.GetComponentInParent<TestEnnemy>().m_knockBackStrength;
-        knockBackDuration = animator.gameObject.GetComponentInParent<TestEnnemy>().m_knockBackDuration;
+        knockBackNormalDir = animator.gameObject.GetComponent<TestEnnemy>().m_knockBackNormalDir;
+        knockBackStrength = animator.gameObject.GetComponent<TestEnnemy>().m_knockBackStrength;
+        knockBackDuration = animator.gameObject.GetComponent<TestEnnemy>().m_knockBackDuration;
 
         //Init State Parameters
-        rigidbody = animator.gameObject.GetComponentInParent<Rigidbody>();
-        agent = animator.gameObject.GetComponentInParent<NavMeshAgent>();
+        rigidbody = animator.gameObject.GetComponent<Rigidbody>();
+        agent = animator.gameObject.GetComponent<NavMeshAgent>();
         timeSinceStateEnter = 0f;
 
         //On active le déplacement via le rigidbody et on désactive le navmesh
         rigidbody.isKinematic = false;
         agent.updatePosition = false;
-
+        animator.gameObject.transform.Find("Sprite").gameObject.GetComponent<Animator>().Play("KnockedBack");
         rigidbody.AddForce(knockBackNormalDir * knockBackStrength * knockBackDuration);
     }
 
