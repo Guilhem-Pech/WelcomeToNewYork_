@@ -19,7 +19,11 @@ public class HordeSearchingBehaviour : StateMachineBehaviour
         agent.speed = EnnemiParams.Instance.ChaseSpeed;
 
         steerSys.AllOff();
-        Horde nearestHorde = HordesManager.Instance.getNearestHordeFromPos(animator.gameObject.transform.position);
+        
+       
+
+
+        Horde nearestHorde = HordesSingleton.Instance.manager.GetNearestHordeFromPos(animator.gameObject.transform.position);
         steerSys.SetSeekPos(nearestHorde.getGlobalCenter());
         steerSys.SeekOn();
     }

@@ -47,9 +47,9 @@ public class DistChar : BaseChar
 
 
     [Command]
-    void CmdAttaqueSpeciale(Vector3 playerPosplayerPos, Vector2 vecteurDirection_)
+    void CmdAttaqueSpeciale(Vector3 playerPosplayerPos, float angle)
     {
-        AttackSpeciale(playerPosplayerPos, vecteurDirection_);
+        AttackSpeciale(playerPosplayerPos, angle);
     }
 
     [Command]
@@ -66,7 +66,7 @@ public class DistChar : BaseChar
 
 
 
-    protected override void AttackSpeciale(Vector3 playerPosition_, Vector2 vecteurDirection_)
+    protected override void AttackSpeciale(Vector3 playerPosition_, float angle)
     {
         print("Bonjour je suis naerly le gentil !");
     }
@@ -119,7 +119,7 @@ public class DistChar : BaseChar
                 Vector3 PlayPos = this.GetComponent<BaseChar>().transform.position;
                 float angleMain = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
 
-                CmdAttaqueSpeciale(PlayPos, hitPoint);
+                CmdAttaqueSpeciale(PlayPos, angleMain);
             }
         }
 

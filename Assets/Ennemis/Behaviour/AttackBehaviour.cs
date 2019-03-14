@@ -45,7 +45,7 @@ public class AttackBehaviour : StateMachineBehaviour
 
             foreach (GameObject player in attackSys.getTargetList())
             {
-                player.GetComponentInParent<BaseChar>().takeDamage(10);
+                player.GetComponentInParent<BaseChar>().TakeDamage(10);
             }
         }
         else if (attackStart && timeSinceStateEnter > 0.5f)
