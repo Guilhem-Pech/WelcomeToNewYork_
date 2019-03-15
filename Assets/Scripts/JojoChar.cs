@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class JojoChar : MeleeChar
 {
@@ -10,16 +11,18 @@ public class JojoChar : MeleeChar
     public float Cooldown = 0.001f;
     public GameObject AttSpe;
 
-
-    public new void Start()
+    [ServerCallback]
+    public override void Awake()
     {
-
-        
         period = 0.001f;
         maxHealth = 250;
         maxStamina = 75;
-        base.Start();
+    }
 
+    [ServerCallback]
+    public override void Start()
+    {
+        base.Start();
     }
 
     protected override void AttackSpeciale(Vector3 playerPosition_, float angle)

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1007362457014556458}
   - component: {fileID: 8092309591426025332}
   - component: {fileID: 70937209168203026}
+  - component: {fileID: 6397475176204137658}
   m_Layer: 0
   m_Name: Jojo-Attaque-Spe
   m_TagString: Untagged
@@ -100,3 +101,19 @@ MonoBehaviour:
   hitBoxGO: {fileID: 0}
   sound: {fileID: 0}
   spriteRenderer: {fileID: 0}
+--- !u!114 &6397475176204137658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619184190625883108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+  m_AssetId: 935193d6be34d1c4695995cc30fac424

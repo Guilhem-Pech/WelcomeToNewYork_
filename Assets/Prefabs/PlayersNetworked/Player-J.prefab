@@ -287,6 +287,12 @@ PrefabInstance:
       propertyPath: playerAnimation
       value: 
       objectReference: {fileID: 2069727881282540201}
+    - target: {fileID: 5838706241456192784, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
+        type: 3}
+      propertyPath: Attacks.Array.data[1]
+      value: 
+      objectReference: {fileID: 1812041652108394998, guid: 7469ac5d23dc1764dad3bc1de3d11f25,
+        type: 3}
     - target: {fileID: 2044468380314859864, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
         type: 3}
       propertyPath: m_IsActive

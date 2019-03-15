@@ -17,8 +17,12 @@ public abstract class BaseChar : BaseEntity
 
     protected GameObject UI;
 
+
+    public abstract void Awake();
+
+
     [ServerCallback]
-    public void Start()
+    public virtual void Start()
     {
         currentStamina = maxStamina;
         currentHealth = maxHealth;

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class MeleeAttack : MonoBehaviour
+public class MeleeAttack : NetworkBehaviour
 {
     public int damage;
     public int staminaCost;
@@ -27,8 +28,16 @@ public class MeleeAttack : MonoBehaviour
 
     protected float animationSpeed = 1f;
 
+   
+    private MeleeChar player;
+
     public void Initialisation(Vector3 playerPosition_, float angle)
-    {
+    {        
+        
+        player = this.gameObject.GetComponentInParent<MeleeChar>();
+        
+
+        
         playerPosition = playerPosition_;
         vecteurDirection = new Vector3(Mathf.Cos(-angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad));
 
@@ -42,6 +51,16 @@ public class MeleeAttack : MonoBehaviour
         hitBoxGO.SetActive(false);
 
         //Sound
+               
+        this.gameObject.SetActive(true);
+        
+    }
+
+    [ClientRpc]
+    public void RpcInitClient(GameObject p)
+    {
+        this.transform.SetParent(p.transform);
+        player = p.GetComponent<MeleeChar>();
         AudioSource SoundSource = gameObject.AddComponent<AudioSource>();
         SoundSource.clip = sound;
         SoundSource.Play();
@@ -51,20 +70,28 @@ public class MeleeAttack : MonoBehaviour
 
     protected void Start()
     {
+        if(isServer)
+            player = this.gameObject.GetComponentInParent<MeleeChar>();
+        if(isClient)
+            RpcInitClient(player.gameObject);
         animationAnimator = this.gameObject.GetComponentInChildren<Animator>();
         animationAnimator.SetFloat("AnimationSpeedMultiplier", animationSpeed);
 
-        this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.DisplayHands(false); //on cache les mains
+        player.playerAnimation.DisplayHands(false); //on cache les mains
     }
 
     protected void Update()
     {
-        if (AnimatorIsInState("Startup")) // L'attaque commence
-        {
-            //spriteRenderer.color = Color.yellow;
+        if (isServer)
+            UpdateServer();
+        if (isClient)
+            UpdateClient();
+    }
+   
 
-        }
-        else if (AnimatorIsInState("Attacking")) // L'attaque est en cours
+    void UpdateServer()
+    {
+        if (AnimatorIsInState("Attacking")) // L'attaque est en cours
         {
             //spriteRenderer.color = Color.red;
             hitBoxGO.SetActive(true);
@@ -72,7 +99,7 @@ public class MeleeAttack : MonoBehaviour
         else if (AnimatorIsInState("Ending")) // L'attaque est en train de se terminer
         {
             hitBoxGO.SetActive(false);
-            this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = false;
+            player.isAttacking = false;
 
             //spriteRenderer.color = Color.blue;
         }
@@ -80,13 +107,25 @@ public class MeleeAttack : MonoBehaviour
         {
             //spriteRenderer.color = Color.black;
             FinishAttack();
-            this.gameObject.GetComponentInParent<MeleeChar>().nextAttackID = 0;
+            player.nextAttackID = 0;
         }
+    }
 
+
+    void UpdateClient()
+    {        
+       if (AnimatorIsInState("Finished"))
+        {
+            
+            FinishAttack();
+        }
     }
 
     protected void OnTriggerEnter(Collider other)
     {
+        if (!isServer)
+            return;
+
         if (other.gameObject.tag == "ennemy")
         {
             if (other.gameObject.GetComponent<TestEnnemy>() != null)
@@ -105,9 +144,9 @@ public class MeleeAttack : MonoBehaviour
     }
 
     protected void FinishAttack()
-    {
-        this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.DisplayHands(true); //on reaffiche les mains
-        this.gameObject.GetComponentInParent<MeleeChar>().GetComponent<PlayerController>().enabled = true;
+    {               
+        player.playerAnimation.DisplayHands(true); //on reaffiche les mains
+        player.GetComponent<PlayerController>().enabled = true;
         Destroy(this.gameObject);
     }
 }

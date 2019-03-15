@@ -49,9 +49,12 @@ MonoBehaviour:
   staminaCost: 5
   duration: 0.25
   knockBackForce: 2
+  knockBackDuration: 0
   spread: 2.5
   range: 2
+  hitBoxGO: {fileID: 0}
   sound: {fileID: 8300000, guid: 567c9d0cea739c441a719f0a4b2b0129, type: 3}
+  spriteRenderer: {fileID: 0}
 --- !u!23 &1007362457014556458
 MeshRenderer:
   m_ObjectHideFlags: 0

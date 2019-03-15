@@ -134,4 +134,8 @@ public class DistChar : BaseChar
 
     }
 
+    public override void Awake()
+    {
+        throw new System.NotImplementedException();
+    }
 }

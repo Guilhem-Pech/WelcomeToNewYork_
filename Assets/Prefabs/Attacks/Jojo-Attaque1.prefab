@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9009512511216596679}
   - component: {fileID: 8176317944374019099}
   - component: {fileID: 2451242530065665451}
+  - component: {fileID: 332665527107541211}
   m_Layer: 0
   m_Name: Jojo-Attaque1
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df7a14096c46174bac21e759b20e043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncInterval: 0.1
   damage: 50
   staminaCost: 15
   duration: 2.5
@@ -72,6 +74,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &332665527107541211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619184190625883108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+  m_AssetId: 80b7074aa3895ff4da4ecd44b8bde54d
 --- !u!1 &5254035887163463543
 GameObject:
   m_ObjectHideFlags: 0

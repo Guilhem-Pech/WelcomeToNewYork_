@@ -31,6 +31,8 @@ public abstract class MeleeChar : BaseChar
 
             GameObject theAttack = Instantiate(currentAttack, this.gameObject.transform);
             theAttack.GetComponent<MeleeAttack>().Initialisation(playerPos, angle);
+            NetworkServer.SpawnWithClientAuthority(theAttack,this.gameObject);
+            
             if (nextAttackID < Attacks.Length - 1)
                 nextAttackID += 1;
             else
@@ -39,17 +41,41 @@ public abstract class MeleeChar : BaseChar
 
     }
 
+    [Command]
+    void CmdAttaque(Vector3 hitVector)
+    {
+        Attack(hitVector);
+    }
+
     // Update is called once per frame
     public override void Update()
     {
         base.Update();
+
+
+        if (isServer)
+        {
+            if (Time.time > nextActionTime)
+            {
+                nextActionTime = Time.time + period;
+                if (currentStamina != maxStamina)
+                {
+                    GainStamina(1);
+                }
+            }
+        }
+
+
+        if (!isLocalPlayer)
+            return;
+
         if (Input.GetButtonDown("Fire1") && ! isAttacking)
         {
             RaycastHit hit ;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
-                Attack(hit.point);
+                CmdAttaque(hit.point);
             }
 
         }
@@ -66,22 +92,8 @@ public abstract class MeleeChar : BaseChar
                 AttackSpeciale(PlayPos, angleMain);
             }
         }
-        if (Time.time > nextActionTime)
-        {
-            nextActionTime = Time.time + period;
-            if (currentStamina != maxStamina)
-            {
-                GainStamina(1);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            TakeDamage(50);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            AddHealth(50);
-        }
+
+          
 
 
     }
