@@ -21,7 +21,7 @@ public class SpawnerManager : NetworkBehaviour
     {
         spawners.Clear();
         spawners.AddRange(GameObject.FindObjectsOfType<SpawnController>());
-        print("Nombre de spawner : " + spawners.Count);
+        //print("Nombre de spawner : " + spawners.Count);
     }
 
     [Server]
@@ -43,7 +43,7 @@ public class SpawnerManager : NetworkBehaviour
     public GameObject SpawnEnnemiRandom()
     {
         int rand = Random.Range(1, spawners.Count + 1);
-        print("random : " + rand);
+        //print("random : " + rand);
         GameObject spawnedEnnemy;
         try
         {

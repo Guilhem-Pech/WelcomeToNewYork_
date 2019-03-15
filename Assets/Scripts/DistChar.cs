@@ -82,8 +82,6 @@ public class DistChar : BaseChar
     public override void Update()
     {
         base.Update();
-
-        print("update");
         if (isServer)
             UpdateServer();
         if (isLocalPlayer)
