@@ -43,8 +43,6 @@ public class JojoAttackSpe : MeleeAttack
             Transform test = this.transform;
             Vector3 PosRelative = test.InverseTransformPoint(other.transform.position);
 
-            vecteurDirection = new Vector3(vecteurDirection.x, 0, vecteurDirection.y);
-
             if (PosRelative.x > 0)
             {
                 dir = -Vector3.Cross(vecteurDirection, new Vector3(0, 1, 0)).normalized;
