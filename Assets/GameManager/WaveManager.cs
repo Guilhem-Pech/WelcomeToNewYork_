@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-
+[RequireComponent(typeof(SpawnerManager))]
+[RequireComponent(typeof(HordesManager))]
 public class WaveManager : NetworkBehaviour
 {
     public int multEnnemiesPerWave = 3;
@@ -18,8 +19,8 @@ public class WaveManager : NetworkBehaviour
     [ServerCallback]
     void Start()
     {
-        spawnMan = gameObject.AddComponent<SpawnerManager>() as SpawnerManager;
-        HordeMan = gameObject.AddComponent<HordesManager>() as HordesManager;
+        spawnMan = gameObject.GetComponent<SpawnerManager>() as SpawnerManager;
+        HordeMan = gameObject.GetComponent<HordesManager>() as HordesManager;
         ennemiVivant = new List<GameObject>();
     }
 

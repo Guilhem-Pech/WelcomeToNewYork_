@@ -28,7 +28,6 @@ public class PlayerManager : NetworkBehaviour
     {
         joueurMort.Add(entity.gameObject);
         RpcDeath(entity.gameObject);
-        print(joueurMort);
     }
 
     [ClientRpc]
