@@ -34,6 +34,7 @@ public class TargetingSystem : NetworkBehaviour
                 biggestThreat = playerThreat;
                 currentTarget = it.Value;
             }
+            Debug.Log(it.Value.name);
         }
     }
 
@@ -94,6 +95,7 @@ public class TargetingSystem : NetworkBehaviour
         if (collidedEntity.tag == "Player"
             && !IsPotentialTarget(collidedEntity))
         {
+            Debug.Log("Entering : " + other.gameObject.name);
             currentPotentialTargets.Add(collidedEntity.GetInstanceID(), collidedEntity);
         }
     }
@@ -105,6 +107,7 @@ public class TargetingSystem : NetworkBehaviour
         if (collidedEntity.tag == "Player"
             && IsPotentialTarget(collidedEntity))
         {
+            Debug.Log("Leaving : " + other.gameObject.name);
             currentPotentialTargets.Remove(collidedEntity.GetInstanceID());
         }
     }

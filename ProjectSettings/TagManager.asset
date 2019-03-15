@@ -12,6 +12,7 @@ TagManager:
   - UI
   - EnnemyNeighboursTrigger
   - EnnemyAttackTrigger
+  - EnnemyTargetsTrigger
   layers:
   - Default
   - TransparentFX
