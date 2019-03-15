@@ -28,6 +28,10 @@ public class PlayerAnimation : NetworkBehaviour
     [Header("Dust")]
     public ParticleSystem dustParticleSystem;
 
+    [Header("Sprite Game Object")]
+    public GameObject GOSprite;
+    public GameObject GOSpecialSprite;
+
     Vector3 moveDirection;
     float moveSpeed = 0f;
 
@@ -234,6 +238,13 @@ public class PlayerAnimation : NetworkBehaviour
     {
         handClothesSpriteRenderer.gameObject.GetComponent<Animator>().Play("Shoot");
         handClothesSpriteRenderer.gameObject.GetComponent<Animator>().CrossFadeInFixedTime("Shoot", 0f);
+    }
+
+    public void ShowSpecialSprite(bool theBool)
+    {
+        GOSpecialSprite.GetComponentInChildren<Animator>().CrossFadeInFixedTime("Default", 0f);
+        GOSpecialSprite.SetActive(theBool);
+        GOSprite.SetActive(theBool);
     }
 
 
