@@ -24,6 +24,7 @@ public class GameManager : NetworkBehaviour
     public void FinVague()
     {
         playerMan.RespawnAll();
+        playerMan.HealAll();
         waveMan.DebutVague(); 
     }
 }

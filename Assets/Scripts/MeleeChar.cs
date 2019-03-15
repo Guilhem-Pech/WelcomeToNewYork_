@@ -69,7 +69,7 @@ public abstract class MeleeChar : BaseChar
         if (!isLocalPlayer)
             return;
 
-        if (Input.GetButtonDown("Fire1") && ! isAttacking)
+        if (Input.GetButton("Fire1") && ! isAttacking)
         {
             RaycastHit hit ;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

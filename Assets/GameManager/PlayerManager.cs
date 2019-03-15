@@ -59,6 +59,16 @@ public class PlayerManager : NetworkBehaviour
     }
 
     [Server]
+    public void HealAll()
+    {
+        foreach (GameObject entite in players)
+        {
+            entite.GetComponent<BaseChar>().AddHealth(entite.GetComponent<BaseChar>().GetMaxHealth() - entite.GetComponent<BaseChar>().currentHealth);
+        }
+    }
+
+
+    [Server]
     public void Respawn(GameObject entity)
     {
         joueurMort.Remove(entity);

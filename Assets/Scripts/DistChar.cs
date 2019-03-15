@@ -14,27 +14,38 @@ public class DistChar : BaseChar
     public float fireRate ;
     public float spreadMax;
     private float currentSpread = 0;
-
     private float lastShot ;
 
+    public Camera camera;
+    public float shake = 0;
+    public float decreaseFactor = 30.0f;
 
     protected override void Attack(Vector3 point)
     {
-        print("On Tir");
         GameObject currentShot = Projectile[nextAttackID]; // On récupère le prefab du projectile
         if (currentStamina >= currentShot.GetComponent<Projectile>().stamCost)
         {
-            UseStamina(currentShot.GetComponent<Projectile>().stamCost); // on utilise le stamina
-            Vector3 playerPosition = this.transform.position; // position du joueur
-            //playerPosition.y += 1.35f; // Add the height of the character
+            if (Time.time > lastShot + 1 / fireRate)
+            {
+                shake = 1;
+                lastShot = Time.time;
+                if (currentSpread < spreadMax)
+                    currentSpread += 0.5f;
+                else
+                    currentSpread = spreadMax;
 
-            float angle = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
+                UseStamina(currentShot.GetComponent<Projectile>().stamCost); // on utilise le stamina
+                Vector3 playerPosition = this.transform.position; // position du joueur
+                //playerPosition.y += 1.35f; // Add the height of the character
 
-            GameObject theShot = Instantiate(currentShot); // On instantie le projectile
-            NetworkServer.Spawn(theShot);
-            float randAngle = Random.Range(angle-(currentSpread / 2) , angle+(currentSpread / 2));
-            theShot.GetComponent<Projectile>().initialisation(randAngle, playerPosition); // On initialise les valeurs
-            RpcAttaque();
+                float angle = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
+
+                GameObject theShot = Instantiate(currentShot); // On instantie le projectile
+                NetworkServer.Spawn(theShot);
+                float randAngle = Random.Range(angle - (currentSpread / 2), angle + (currentSpread / 2));
+                theShot.GetComponent<Projectile>().initialisation(randAngle, playerPosition); // On initialise les valeurs
+                RpcAttaque();
+            }
         }
 
     }
@@ -110,18 +121,11 @@ public class DistChar : BaseChar
     {
         if (Input.GetButton("Fire1"))
         {
-            if (Time.time > lastShot + 1/fireRate)
+            
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit))
-                {
-                    CmdAttaque(hit.point); //Lance le code coté client
-                    lastShot = Time.time;
-                    if (currentSpread < spreadMax)
-                        currentSpread += 0.5f;
-                    else
-                        currentSpread = spreadMax;
-                }
+                CmdAttaque(hit.point); //Lance le code coté client
             }
         }
         else
@@ -147,7 +151,16 @@ public class DistChar : BaseChar
         {
             CmdAddHealth(50);
         }
-
+        if (shake > 0)
+        {
+            camera.transform.localPosition = new Vector3(Random.Range(-0.1f, 0.1f), 15, Random.Range(-16.4f, -16.6f));
+            shake -= Time.deltaTime * decreaseFactor;
+        }
+        else
+        {
+            shake = 0.0f;
+            camera.transform.localPosition = new Vector3(0, 15, -16.5f);
+        }
     }
 
     public override void Awake()
