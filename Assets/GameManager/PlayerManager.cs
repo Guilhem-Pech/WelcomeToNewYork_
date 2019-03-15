@@ -14,7 +14,7 @@ public class PlayerManager : NetworkBehaviour
     void Awake()
     {
         players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
-        print("Nombre de Joueur : " + players.Count);
+      //  print("Nombre de Joueur : " + players.Count);
     }
 
     // Update is called once per frame

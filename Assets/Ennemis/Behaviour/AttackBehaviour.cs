@@ -46,7 +46,7 @@ public class AttackBehaviour : StateMachineBehaviour
         if (!attackStart && timeSinceStateEnter > 0.1f)
         {
             attackStart = true;
-            Debug.Log("Started Attacking !");
+           //Debug.Log("Started Attacking !");
 
             foreach (GameObject player in attackSys.getTargetList())
             {
@@ -55,7 +55,7 @@ public class AttackBehaviour : StateMachineBehaviour
         }
         else if (attackStart && timeSinceStateEnter > 0.5f)
         {
-            Debug.Log("Finished Attacking !");
+           // Debug.Log("Finished Attacking !");
             animator.SetBool("IsAttacking", false);
         }
     }

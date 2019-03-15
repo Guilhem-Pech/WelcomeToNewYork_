@@ -44,10 +44,10 @@ public class WaveManager : NetworkBehaviour
     public void DebutVague()
     {
         numVague += 1;
-        print("Numéro de la vague : " + numVague);
+       // print("Numéro de la vague : " + numVague);
         numEnnemisVague = (numVague + this.GetComponentInParent<PlayerManager>().players.Count) * multEnnemiesPerWave;
         ennemiRestant = numEnnemisVague;
-        print("Nombre ennemis dans la vague : " + numEnnemisVague);
+       // print("Nombre ennemis dans la vague : " + numEnnemisVague);
     }
 
    
