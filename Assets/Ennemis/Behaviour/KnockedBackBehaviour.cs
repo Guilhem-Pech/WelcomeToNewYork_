@@ -14,6 +14,9 @@ public class KnockedBackBehaviour : StateMachineBehaviour
     [ReadOnly] public Rigidbody rigidbody;
     [ReadOnly] public NavMeshAgent agent;
     [ReadOnly] public float timeSinceStateEnter;
+    private AnimationsReplicationBridge animBridge;
+    
+    
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -24,6 +27,7 @@ public class KnockedBackBehaviour : StateMachineBehaviour
         knockBackDuration = animator.gameObject.GetComponent<TestEnnemy>().m_knockBackDuration;
 
         //Init State Parameters
+        animBridge = animator.gameObject.GetComponent<AnimationsReplicationBridge>();
         rigidbody = animator.gameObject.GetComponent<Rigidbody>();
         agent = animator.gameObject.GetComponent<NavMeshAgent>();
         timeSinceStateEnter = 0f;
@@ -31,7 +35,7 @@ public class KnockedBackBehaviour : StateMachineBehaviour
         //On active le déplacement via le rigidbody et on désactive le navmesh
         rigidbody.isKinematic = false;
         agent.updatePosition = false;
-        animator.gameObject.transform.Find("Sprite").gameObject.GetComponent<Animator>().Play("KnockedBack");
+        animBridge.playAnimation("KnockedBack");
         rigidbody.AddForce(knockBackNormalDir * knockBackStrength * knockBackDuration);
     }
 

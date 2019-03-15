@@ -8,17 +8,19 @@ public class WanderBehaviour : StateMachineBehaviour
     private NavMeshAgent agent;
     private TargetingSystem targetSys;
     private SteeringSystem steerSys;
+    private AnimationsReplicationBridge animBridge;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animBridge = animator.gameObject.GetComponent<AnimationsReplicationBridge>();
         agent = animator.gameObject.GetComponent<NavMeshAgent>();
         targetSys = animator.gameObject.GetComponentInChildren<TargetingSystem>();
         steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
 
         agent.speed = EnnemiParams.Instance.WalkingSpeed;
 
-        animator.gameObject.transform.Find("Sprite").gameObject.GetComponent<Animator>().Play("Walking");
+        animBridge.playAnimation("Walking");
         steerSys.AllOff();
         steerSys.WanderOn();
     }

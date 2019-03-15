@@ -9,10 +9,14 @@ public class ChaseBehaviour : StateMachineBehaviour {
     private TargetingSystem targetSys;
     private AttackSystem attackSys;
     private SteeringSystem steerSys;
+    private AnimationsReplicationBridge animBridge;
+    
+    
 
     // onstateenter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
     {
+        animBridge = animator.gameObject.GetComponent<AnimationsReplicationBridge>();
         agent = animator.gameObject.GetComponent<NavMeshAgent>();
         targetSys = animator.gameObject.GetComponentInChildren<TargetingSystem>();
         steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
@@ -24,7 +28,7 @@ public class ChaseBehaviour : StateMachineBehaviour {
 
         if (targetSys.hasTarget())
         {
-            animator.gameObject.transform.Find("Sprite").gameObject.GetComponent<Animator>().Play("Chasing");
+            animBridge.playAnimation("Chasing");
             steerSys.PursuitOn(targetSys.getTarget());
         }
             

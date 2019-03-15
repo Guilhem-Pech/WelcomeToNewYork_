@@ -14,10 +14,14 @@ public class AttackBehaviour : StateMachineBehaviour
     public Rigidbody rigidbody;
     public float timeSinceStateEnter;
     public bool attackStart;
+    private AnimationsReplicationBridge animBridge;
+    
+    
 
     // onstateenter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
     {
+        animBridge = animator.gameObject.GetComponent<AnimationsReplicationBridge>();
         agent = animator.gameObject.GetComponent<NavMeshAgent>();
         targetSys = animator.gameObject.GetComponentInChildren<TargetingSystem>();
         steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
@@ -29,7 +33,7 @@ public class AttackBehaviour : StateMachineBehaviour
         agent.isStopped = true;
         agent.SetDestination(animator.gameObject.transform.position);
 
-        animator.gameObject.transform.Find("Sprite").gameObject.GetComponent<Animator>().Play("Attacking");
+        animBridge.playAnimation("Attacking");
         timeSinceStateEnter = 0f;
         attackStart = false;
     }

@@ -8,10 +8,14 @@ public class SoloHuntingNoSearchBehaviour : StateMachineBehaviour
     private NavMeshAgent agent;
     private TargetingSystem targetSys;
     private SteeringSystem steerSys;
+    private AnimationsReplicationBridge animBridge;
+    
+    
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animBridge = animator.gameObject.GetComponent<AnimationsReplicationBridge>();
         agent = animator.gameObject.GetComponent<NavMeshAgent>();
         targetSys = animator.gameObject.GetComponentInChildren<TargetingSystem>();
         steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
@@ -22,7 +26,7 @@ public class SoloHuntingNoSearchBehaviour : StateMachineBehaviour
         GameObject nearestPlayer = getNearestPlayer(animator);
         if (nearestPlayer != null)
         {
-            animator.gameObject.transform.Find("Sprite").gameObject.GetComponent<Animator>().Play("SeekingPrey");
+            animBridge.playAnimation("SeekingPrey");
 
             steerSys.SetSeekPos(nearestPlayer.transform.position);
             steerSys.SeekOn();
