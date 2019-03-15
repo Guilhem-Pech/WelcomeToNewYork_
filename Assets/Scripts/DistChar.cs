@@ -11,6 +11,12 @@ public class DistChar : BaseChar
     public GameObject[] Projectile; // tableau répértoriant les attaques du joueur
     int nextAttackID = 0; //numéro de l'attaque qui va être utiliser pour la prochaine attaque du joueur
 
+    public float fireRate ;
+    public float spreadMax;
+    private float currentSpread = 0;
+
+    private float lastShot ;
+
 
     protected override void Attack(Vector3 point)
     {
@@ -26,7 +32,8 @@ public class DistChar : BaseChar
 
             GameObject theShot = Instantiate(currentShot); // On instantie le projectile
             NetworkServer.Spawn(theShot);
-            theShot.GetComponent<Projectile>().initialisation(angle, playerPosition); // On initialise les valeurs
+            float randAngle = Random.Range(angle-(currentSpread / 2) , angle+(currentSpread / 2));
+            theShot.GetComponent<Projectile>().initialisation(randAngle, playerPosition); // On initialise les valeurs
             RpcAttaque();
         }
 
@@ -103,18 +110,34 @@ public class DistChar : BaseChar
     [Client]
     public void UpdateClient()
     {
+<<<<<<< HEAD
         
         if (Input.GetButtonDown("Fire1"))
         {
             
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
+=======
+        if (Input.GetButton("Fire1"))
+        {
+            if (Time.time > lastShot + 1/fireRate)
+>>>>>>> origin/BranchKikiMerde
             {
-                CmdAttaque(hit.point); //Lance le code coté client
-
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    CmdAttaque(hit.point); //Lance le code coté client
+                    lastShot = Time.time;
+                    if (currentSpread < spreadMax)
+                        currentSpread += 0.5f;
+                    else
+                        currentSpread = spreadMax;
+                }
             }
-
         }
+        else
+            currentSpread = 0; 
+
         if (Input.GetButtonDown("Fire2"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -131,6 +154,10 @@ public class DistChar : BaseChar
 
     public override void Awake()
     {
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> origin/BranchKikiMerde
     }
 }
