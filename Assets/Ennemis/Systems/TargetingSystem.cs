@@ -34,7 +34,6 @@ public class TargetingSystem : NetworkBehaviour
                 biggestThreat = playerThreat;
                 currentTarget = it.Value;
             }
-           // Debug.Log(it.Value.name);
         }
     }
 
