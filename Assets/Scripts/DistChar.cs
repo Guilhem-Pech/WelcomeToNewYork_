@@ -110,18 +110,10 @@ public class DistChar : BaseChar
     [Client]
     public void UpdateClient()
     {
-<<<<<<< HEAD
-        
-        if (Input.GetButtonDown("Fire1"))
-        {
-            
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-=======
         if (Input.GetButton("Fire1"))
         {
             if (Time.time > lastShot + 1/fireRate)
->>>>>>> origin/BranchKikiMerde
+
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit))
@@ -136,7 +128,7 @@ public class DistChar : BaseChar
             }
         }
         else
-            currentSpread = 0; 
+            currentSpread = 0;
 
         if (Input.GetButtonDown("Fire2"))
         {
@@ -154,10 +146,6 @@ public class DistChar : BaseChar
 
     public override void Awake()
     {
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> origin/BranchKikiMerde
     }
 }
