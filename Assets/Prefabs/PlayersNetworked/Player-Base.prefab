@@ -278,6 +278,7 @@ GameObject:
   - component: {fileID: 8701189933833513575}
   - component: {fileID: 6593570281951980691}
   - component: {fileID: 7949208374886536349}
+  - component: {fileID: 3154528051708176776}
   m_Layer: 0
   m_Name: Player-Base
   m_TagString: Player
@@ -438,6 +439,19 @@ MonoBehaviour:
   maxPositionDifferenceForVelocitySyncing: 10
   ownerChangeIndicator: 1
   receivedStatesCounter: 0
+--- !u!65 &3154528051708176776
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9186962741301816459}
+  m_Material: {fileID: 13400000, guid: 0dc81e2bb143a8149a5b7a2575c0a1d5, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5203418, y: 1.300909, z: 0.3292658}
+  m_Center: {x: -0.01465392, y: -0.1692804, z: -0.001265883}
 --- !u!1 &9186962741433202867
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &6718378995421885093
+--- !u!114 &912479500431804018
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2595192204433423284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e44e7dc3c32c25041b7fbb4fa74f0876, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e6d1d6ecec05fb479c4da96ab092d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
@@ -17,63 +17,16 @@ MonoBehaviour:
   currentHealth: 0
   isHit: 0
   maxStamina: 50
-  currentStamina: 50
+  currentStamina: 0
+  canMoveWhileAttacking: 1
   playerAnimation: {fileID: 6091739891390892533}
-  period: 0.1
+  period: 1
   Projectile:
   - {fileID: 8886192973171554369, guid: b720a98b8931d624b8af689e7cdfef01, type: 3}
---- !u!114 &114743791814800886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2595192204433423284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnClientConnected:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnClientDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventByteArray, Mirror, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  OnClientError:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventException, Mirror, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  OnClientDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnServerConnected:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventInt, Mirror, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnServerDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventIntByteArray, Mirror, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  OnServerError:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventIntException, Mirror, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  OnServerDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventInt, Mirror, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  port: 7777
-  NoDelay: 1
+  AttSpeReady: 1
+  RechargeSpe: 0
+  Cooldown: 0.001
+  AttSpe: {fileID: 0}
 --- !u!1001 &6592527130424694591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81,41 +34,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9186962740861974752, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300014, guid: 96aff840ed7a3734f90730ab906340f9,
+        type: 3}
     - target: {fileID: 9186962741301816459, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_Name
       value: Player-Ae
-      objectReference: {fileID: 0}
-    - target: {fileID: 8701189933833513575, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: PlayerLobbySprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 96aff840ed7a3734f90730ab906340f9,
-        type: 3}
-    - target: {fileID: 9186962741301816463, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9186962741301816463, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9186962741301816463, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9186962741301816463, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7861856408488141555, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_AssetId
-      value: ba596b8c7cd6cd64abfb1a4f7dd3b1be
       objectReference: {fileID: 0}
     - target: {fileID: 1150504060646366922, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
@@ -177,12 +105,37 @@ PrefabInstance:
       propertyPath: dustParticleSystem
       value: 
       objectReference: {fileID: 2595192204394311565}
-    - target: {fileID: 9186962740861974752, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+    - target: {fileID: 8701189933833513575, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
-      propertyPath: m_Sprite
+      propertyPath: PlayerLobbySprite
       value: 
-      objectReference: {fileID: 21300014, guid: 96aff840ed7a3734f90730ab906340f9,
+      objectReference: {fileID: 21300000, guid: 96aff840ed7a3734f90730ab906340f9,
         type: 3}
+    - target: {fileID: 9186962741301816463, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186962741301816463, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186962741301816463, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186962741301816463, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7861856408488141555, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 60ae6c17b1bcb734581d343ef4b03cf9
+      objectReference: {fileID: 0}
     - target: {fileID: 9186962740140420308, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_IsActive
@@ -318,6 +271,12 @@ PrefabInstance:
       propertyPath: dustParticleSystem
       value: 
       objectReference: {fileID: 2595192204394311565}
+    - target: {fileID: 3154528051708176776, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 0dc81e2bb143a8149a5b7a2575c0a1d5,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60ae6c17b1bcb734581d343ef4b03cf9, type: 3}
 --- !u!1 &2595192204433423284 stripped

@@ -1,12 +1,9 @@
 fileFormatVersion: 2
-guid: 615e6c6589cf9e54cad646b5a11e0529
+guid: 1e6d1d6ecec05fb479c4da96ab092d53
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - transport: {instanceID: 0}
-  - playerPrefab: {instanceID: 0}
-  - lobbyPlayerPrefab: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
