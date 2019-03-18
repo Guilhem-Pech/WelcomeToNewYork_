@@ -101,8 +101,10 @@ public class DistChar : BaseChar
     [Client]
     public void UpdateClient()
     {
+        
         if (Input.GetButtonDown("Fire1"))
         {
+            
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
@@ -123,19 +125,10 @@ public class DistChar : BaseChar
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            CmdTakeDamage(50);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            CmdAddHealth(50);
-        }
-
     }
 
     public override void Awake()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

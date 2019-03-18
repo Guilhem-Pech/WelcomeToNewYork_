@@ -1,18 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class JojoAttackSpe : MeleeAttack
 {
     protected new void Update()
     {
-        if (AnimatorIsInState("Startup")) // L'attaque commence
-        {
-            this.GetComponentInParent<PlayerController>().enabled = false;
-            this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.DisplayHands(false); //on cache les mains
-                                                                                                   //cacher le personnage aussi
-        }
-        else if (AnimatorIsInState("Attacking")) // L'attaque est en cours
+        if (isServer)
+            UpdateServer();
+
+        if (isClient)
+            UpdateClient();
+
+    }
+
+
+    private void UpdateServer()
+    {
+        if (AnimatorIsInState("Attacking")) // L'attaque est en cours
         {
             //spriteRenderer.color = Color.red;
             hitBoxGO.SetActive(true);
@@ -30,20 +36,40 @@ public class JojoAttackSpe : MeleeAttack
             this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = false;
             FinishAttack();
         }
-
     }
 
+
+
+    private void UpdateClient()
+    {
+        if (AnimatorIsInState("Startup")) // L'attaque commence
+        {
+            this.GetComponentInParent<PlayerController>().enabled = false;
+            this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.DisplayHands(false); //on cache les mains
+                                                                                                   //cacher le personnage aussi
+        }
+        else if (AnimatorIsInState("Finished"))
+        {
+            //spriteRenderer.color = Color.black;
+            //reafficher le personnage aussi
+
+            this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = false;
+            FinishAttack();
+        }
+    }
+
+    [ServerCallback]
     private new void OnTriggerEnter(Collider other)
     {
+
+        print(vecteurDirection);
         Vector3 dir;
         if (other.gameObject.tag == "ennemy")
         {
-            print(this.transform.position);
+           // print(this.transform.position);
 
             Transform test = this.transform;
             Vector3 PosRelative = test.InverseTransformPoint(other.transform.position);
-
-            vecteurDirection = new Vector3(vecteurDirection.x, 0, vecteurDirection.y);
 
             if (PosRelative.x > 0)
             {

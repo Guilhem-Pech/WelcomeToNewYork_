@@ -30,7 +30,7 @@ namespace Mirror
             // by simple eating the first one before the server starts
             Telepathy.Server.NextConnectionId();
 
-            Debug.Log("TelepathyTransport initialized!");
+           // Debug.Log("TelepathyTransport initialized!");
         }
 
         // client
@@ -116,7 +116,7 @@ namespace Mirror
         // common
         public override void Shutdown()
         {
-            Debug.Log("TelepathyTransport Shutdown()");
+          //  Debug.Log("TelepathyTransport Shutdown()");
             client.Disconnect();
             server.Stop();
         }

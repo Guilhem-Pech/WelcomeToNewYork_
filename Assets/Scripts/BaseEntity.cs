@@ -21,7 +21,11 @@ public abstract class BaseEntity : NetworkBehaviour {
         RpcTakeDamage();
         currentHealth = currentHealth - dmg;
         if (currentHealth <= 0)
+        {
+            print("Death");
             Death();
+        }
+            
     }
 
     [ClientRpc]
@@ -62,7 +66,7 @@ public abstract class BaseEntity : NetworkBehaviour {
 
     [Server]
     public virtual void Death()
-    {
+    {        
         GameObject gm = GameObject.FindGameObjectWithTag("GameController");
         gm.GetComponent<GameManager>().playerMan.Death(this.gameObject);
     }

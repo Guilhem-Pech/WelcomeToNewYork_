@@ -36,12 +36,12 @@ public class TargetingSystem : NetworkBehaviour
             }
         }
     }
-    
+
     public bool hasTarget()
     {
         return currentTarget != null;
     }
-    
+
     public GameObject getTarget()
     {
         return (hasTarget() ? currentTarget : null);
@@ -57,18 +57,18 @@ public class TargetingSystem : NetworkBehaviour
                                      ,evalVDamagesFactor(potentialTarget));
         return factors.magnitude;
     }
-    
+
     private float evalVisibilityFactor(GameObject potentialTarget)
     {
         return 0;
     }
-    
+
     private float evalDistanceFactor(GameObject potentialTarget)
     {
         float distanceToPotentialTarget = (potentialTarget.transform.position - m_parentEntity.transform.position).magnitude;
         return 1-(targetsCollider.radius / distanceToPotentialTarget);
     }
-    
+
     private float evalVDamagesFactor(GameObject potentialTarget)
     {
         return 0;
