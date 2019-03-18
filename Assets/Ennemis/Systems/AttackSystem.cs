@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class AttackSystem : MonoBehaviour
+public class AttackSystem : NetworkBehaviour
 {
     private SphereCollider attackCollider;
     private Dictionary<int, GameObject> currentAttackTargets;
@@ -10,6 +11,7 @@ public class AttackSystem : MonoBehaviour
     private GameObject m_parentEntity;
 
     // Start is called before the first frame update
+    [ServerCallback]
     void Awake()
     {
         currentAttackTargetsList = new List<GameObject>();
@@ -19,6 +21,7 @@ public class AttackSystem : MonoBehaviour
     }
 
     // Update is called once per frame
+    [ServerCallback]
     void Update()
     {
         currentAttackTargetsList = new List<GameObject>();
@@ -71,6 +74,7 @@ public class AttackSystem : MonoBehaviour
     }
 
     /* Triggers */
+    [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
 
@@ -83,6 +87,7 @@ public class AttackSystem : MonoBehaviour
         }
     }
 
+    [ServerCallback]
     private void OnTriggerExit(Collider other)
     {
         GameObject collidedEntity = other.gameObject;

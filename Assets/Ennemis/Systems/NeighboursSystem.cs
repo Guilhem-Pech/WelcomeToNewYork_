@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class NeighboursSystem : MonoBehaviour
+public class NeighboursSystem : NetworkBehaviour
 {
     private SphereCollider neighboursCollider;
     private Dictionary<int, GameObject> currentNeighbours;
@@ -10,6 +11,7 @@ public class NeighboursSystem : MonoBehaviour
     private GameObject m_parentEntity;
 
     // Start is called before the first frame update
+    [ServerCallback]
     void Awake()
     {
         currentNeighboursList = new List<GameObject>();
@@ -19,6 +21,7 @@ public class NeighboursSystem : MonoBehaviour
     }
 
     // Update is called once per frame
+    [ServerCallback]
     void Update()
     {
         currentNeighboursList = new List<GameObject>();
@@ -66,6 +69,7 @@ public class NeighboursSystem : MonoBehaviour
     }
 
     /* Triggers */
+    [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
         GameObject collidedEntity;
@@ -81,6 +85,7 @@ public class NeighboursSystem : MonoBehaviour
         }
     }
 
+    [ServerCallback]
     private void OnTriggerExit(Collider other)
     {
         GameObject collidedEntity;
