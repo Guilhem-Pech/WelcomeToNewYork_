@@ -120,7 +120,7 @@ public class DistChar : BaseChar
     public void UpdateClient()
     {
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
