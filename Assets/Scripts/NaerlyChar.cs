@@ -27,7 +27,19 @@ public class NaerlyChar : DistChar
 
     protected override void AttackSpeciale(Vector3 playerPosition_, float angle)
     {
-        
+
+        if (AttSpeReady)
+        {
+            this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
+            Vector3 playerPos = this.gameObject.transform.position; // position du joueur
+
+            float angleSpe = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
+            GameObject theAttackSpe = Instantiate(AttSpe, this.gameObject.transform);
+            theAttackSpe.GetComponent<JojoAttackSpe>().Initialisation(playerPos, angleSpe);
+
+            AttSpeReady = false;
+            RechargeSpe = true;
+        }
 
     }
 
