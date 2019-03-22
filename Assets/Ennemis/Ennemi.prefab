@@ -443,9 +443,6 @@ MonoBehaviour:
   m_knockBackDuration: 0
   ServerScripts:
   - {fileID: 4518407791235010917}
-  - {fileID: 0}
-  - {fileID: 4442100354338921146}
-  - {fileID: 4442100354338921146}
   - {fileID: 4442100354338921146}
   hurtSound: {fileID: 8300000, guid: e9ab3679b65201a419d767472835a312, type: 3}
 --- !u!54 &8109447161021086523

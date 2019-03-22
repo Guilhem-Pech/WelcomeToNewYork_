@@ -34,9 +34,11 @@ public class KnockedBackBehaviour : StateMachineBehaviour
 
         //On active le déplacement via le rigidbody et on désactive le navmesh
         rigidbody.isKinematic = false;
-        agent.updatePosition = false;
+        agent.enabled = false;
         animBridge.playAnimation("KnockedBack");
         rigidbody.AddForce(knockBackNormalDir * knockBackStrength * knockBackDuration);
+
+        animator.gameObject.GetComponentInChildren<NavMeshObstacle>().enabled = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -51,11 +53,14 @@ public class KnockedBackBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animator.gameObject.GetComponentInChildren<NavMeshObstacle>().enabled = false;
+
         //On désactive le déplacement via le rigidbody et on réactive le navmesh
         rigidbody.velocity = Vector3.zero;
         rigidbody.isKinematic = true;
         agent.nextPosition = animator.gameObject.transform.position;
-        agent.updatePosition = true;
+        agent.enabled = true;
+        agent.SetDestination(animator.gameObject.transform.position);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
