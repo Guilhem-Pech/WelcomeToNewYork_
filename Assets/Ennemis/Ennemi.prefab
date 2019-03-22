@@ -245,7 +245,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7923729046956028045
 MonoBehaviour:
@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 6415688312588478987}
   - component: {fileID: 7073682561778813186}
   - component: {fileID: 5446486060397287282}
+  - component: {fileID: 7933995941762070945}
   m_Layer: 0
   m_Name: Ennemi
   m_TagString: ennemy
@@ -371,7 +372,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 3
   m_Acceleration: 60
-  avoidancePriority: 1
+  avoidancePriority: 30
   m_AngularSpeed: 0
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -434,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
-  maxHealth: 100
+  maxHealth: 1000
   currentHealth: 0
   isHit: 0
   m_knockBackNormalDir: {x: 0, y: 0, z: 0}
@@ -524,6 +525,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
+--- !u!208 &7933995941762070945
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2475085703572205648}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.3, y: 0.25, z: 0.3}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7502486491100666784
 GameObject:
   m_ObjectHideFlags: 0

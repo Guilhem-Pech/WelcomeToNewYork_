@@ -36,6 +36,9 @@ public class AttackBehaviour : StateMachineBehaviour
         animBridge.playAnimation("Attacking");
         timeSinceStateEnter = 0f;
         attackStart = false;
+
+        agent.enabled = false;
+        animator.gameObject.GetComponentInChildren<NavMeshObstacle>().enabled = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -46,6 +49,7 @@ public class AttackBehaviour : StateMachineBehaviour
         if (!attackStart && timeSinceStateEnter > 0.1f)
         {
             attackStart = true;
+            
 
             foreach (GameObject player in attackSys.getTargetList())
             {
@@ -61,7 +65,10 @@ public class AttackBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
     {
+        animator.gameObject.GetComponentInChildren<NavMeshObstacle>().enabled = false;
+        agent.enabled = true;
         agent.isStopped = false;
+        animator.SetBool("IsAttacking", false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
