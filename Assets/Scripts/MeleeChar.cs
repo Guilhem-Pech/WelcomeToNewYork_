@@ -22,7 +22,7 @@ public abstract class MeleeChar : BaseChar
                 Destroy(this.gameObject.GetComponentInChildren<MeleeAttack>().gameObject);
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             isAttacking = true;
-            print("Clic du joueur " +point);
+          //  print("Clic du joueur " +point);
             UseStamina(currentAttack.GetComponent<MeleeAttack>().staminaCost);
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
 
@@ -89,13 +89,15 @@ public abstract class MeleeChar : BaseChar
                 Vector3 PlayPos = this.GetComponent<BaseChar>().transform.position;
                 float angleMain = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
 
-                AttackSpeciale(PlayPos, angleMain);
+                CmdAttaqueSpe(PlayPos, angleMain);
             }
         }
+    }
 
-          
-
-
+    [Command]
+    public void CmdAttaqueSpe(Vector3 playerPos, float angle)
+    {
+        AttackSpeciale(playerPos, angle);
     }
 
 }

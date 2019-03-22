@@ -70,7 +70,7 @@ public class HordesManager : NetworkBehaviour
         
         Horde newHorde = Horde.CreateInstance<Horde>();
 
-        Debug.Log("Creating Horde n°" + newHorde.getID());
+        //Debug.Log("Creating Horde n°" + newHorde.getID());
         hordes.Add(newHorde.getID(), newHorde);
 
         if (IsGoToOn() && currentCallNumber != 0)
@@ -90,7 +90,7 @@ public class HordesManager : NetworkBehaviour
     [Server]
     private void DeleteHorde(Horde toDelete)
     {
-        Debug.Log("Deleting Horde n°" + toDelete.getID());
+      //  Debug.Log("Deleting Horde n°" + toDelete.getID());
         toDelete.clearHorde();
         hordes.Remove(toDelete.getID());
     }

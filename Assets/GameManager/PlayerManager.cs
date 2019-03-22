@@ -14,7 +14,7 @@ public class PlayerManager : NetworkBehaviour
     void Awake()
     {
         players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
-        print("Nombre de Joueur : " + players.Count);
+      //  print("Nombre de Joueur : " + players.Count);
     }
 
     // Update is called once per frame
@@ -28,7 +28,6 @@ public class PlayerManager : NetworkBehaviour
     {
         joueurMort.Add(entity.gameObject);
         RpcDeath(entity.gameObject);
-        print(joueurMort);
     }
 
     [ClientRpc]
