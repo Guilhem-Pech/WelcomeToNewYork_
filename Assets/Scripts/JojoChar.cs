@@ -27,14 +27,13 @@ public class JojoChar : MeleeChar
 
     protected override void AttackSpeciale(Vector3 playerPosition_, float angle)
     {
-        if (AttSpeReady)
+        if (AttSpeReady && !isAttacking)
         {
-            this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             isAttacking = true;
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
 
             float angleSpe = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
-            GameObject theAttackSpe = Instantiate(AttSpe, this.gameObject.transform);            
+            GameObject theAttackSpe = Instantiate(AttSpe, this.gameObject.transform);
             theAttackSpe.GetComponent<JojoAttackSpe>().Initialisation(playerPos, angleSpe);
             NetworkServer.Spawn(theAttackSpe);
 

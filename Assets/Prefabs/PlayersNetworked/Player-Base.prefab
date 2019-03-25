@@ -74,7 +74,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 8, y: 6}
+  m_Size: {x: 9.375, y: 6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -490,7 +490,7 @@ MonoBehaviour:
   m_SceneId: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
-  m_AssetId: 60ae6c17b1bcb734581d343ef4b03cf9
+  m_AssetId: 
 --- !u!114 &8701189933833513575
 MonoBehaviour:
   m_ObjectHideFlags: 0
