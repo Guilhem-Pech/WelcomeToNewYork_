@@ -30,7 +30,6 @@ public class HordeMemberComponent : NetworkBehaviour
     }
 
     /* Getters */
-    [Server]
     public Horde getHorde()
     {
         return m_Horde;
@@ -73,7 +72,7 @@ public class HordeMemberComponent : NetworkBehaviour
                 //Si son nouveau voisin n'a pas de horde non plus
                 else
                 { //Il crée une nouvelle horde
-                Horde createdHorde = hordesManager.CreateNewHorde();
+                    Horde createdHorde = hordesManager.CreateNewHorde();
 
                     joinHorde(createdHorde);
                     neighbour.GetComponent<HordeMemberComponent>().joinHorde(createdHorde);
@@ -110,14 +109,14 @@ public class HordeMemberComponent : NetworkBehaviour
         
     }
 
-    [Server]
+    [ServerCallback]
     private void OnDestroy()
     {
         if(isServer)
             leaveCurrentHorde();
     }
 
-    [Server]
+    [ServerCallback]
     private void OnDisable()
     {
         if(isServer)

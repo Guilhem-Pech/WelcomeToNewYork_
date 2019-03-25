@@ -119,9 +119,10 @@ public class DistChar : BaseChar
     [Client]
     public void UpdateClient()
     {
+
         if (Input.GetButton("Fire1"))
         {
-            
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
@@ -129,7 +130,7 @@ public class DistChar : BaseChar
             }
         }
         else
-            currentSpread = 0; 
+            currentSpread = 0;
 
         if (Input.GetButtonDown("Fire2"))
         {
@@ -165,6 +166,7 @@ public class DistChar : BaseChar
 
     public override void Awake()
     {
+
 
     }
 }

@@ -14,6 +14,7 @@ public class AnimationsReplicationBridge : NetworkBehaviour
     
     public void playAnimation(string animationID)
     {
+        if(isServer)
             RpcPlayAnimationOnAllCLients(animationID);
     }
 

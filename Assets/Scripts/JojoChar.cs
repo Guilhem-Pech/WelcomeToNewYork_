@@ -8,7 +8,7 @@ public class JojoChar : MeleeChar
 
     public bool AttSpeReady = true;
     public bool RechargeSpe = false;
-    public float Cooldown = 0.001f;
+    public float Cooldown = 4f;
     public GameObject AttSpe;
 
     [ServerCallback]
@@ -34,8 +34,9 @@ public class JojoChar : MeleeChar
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
 
             float angleSpe = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
-            GameObject theAttackSpe = Instantiate(AttSpe, this.gameObject.transform);
+            GameObject theAttackSpe = Instantiate(AttSpe, this.gameObject.transform);            
             theAttackSpe.GetComponent<JojoAttackSpe>().Initialisation(playerPos, angleSpe);
+            NetworkServer.Spawn(theAttackSpe);
 
             AttSpeReady = false;
             RechargeSpe = true;
@@ -54,7 +55,7 @@ public class JojoChar : MeleeChar
             {
                 RechargeSpe = false;
                 AttSpeReady = true;
-                Cooldown = 0.001f;
+                Cooldown = 4f;
             }
         }
 

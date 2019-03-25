@@ -21,6 +21,7 @@ public class MeleeAttack : NetworkBehaviour
 
     protected Vector3 playerPosition;
     protected Vector3 vecteurDirection; // vecteur normalisé de la direction dans laquel part l'attaque
+    //protected Vector3 vecteurDirection3D;
 
     protected Animator animationAnimator;
 
@@ -40,7 +41,6 @@ public class MeleeAttack : NetworkBehaviour
         
         playerPosition = playerPosition_;
         vecteurDirection = new Vector3(Mathf.Cos(-angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad));
-
 
         this.transform.Rotate(new Vector3(0, -angle + 90, 0), Space.Self);
 
@@ -70,10 +70,12 @@ public class MeleeAttack : NetworkBehaviour
 
     protected void Start()
     {
-        if(isServer)
+        if (isServer)
+        {
             player = this.gameObject.GetComponentInParent<MeleeChar>();
-        if(isClient)
             RpcInitClient(player.gameObject);
+        }
+            
         animationAnimator = this.gameObject.GetComponentInChildren<Animator>();
         animationAnimator.SetFloat("AnimationSpeedMultiplier", animationSpeed);
 
@@ -131,7 +133,7 @@ public class MeleeAttack : NetworkBehaviour
             if (other.gameObject.GetComponent<TestEnnemy>() != null)
             { 
                 Vector2 knockDirection = new Vector2(other.gameObject.GetComponent<TestEnnemy>().transform.position.x - playerPosition.x, other.gameObject.GetComponent<TestEnnemy>().transform.position.z - playerPosition.z).normalized;
-                print("VDirection " + vecteurDirection + "Direction KnockBack" + knockDirection);
+               // print("VDirection " + vecteurDirection + "Direction KnockBack" + knockDirection);
                     
                 other.gameObject.GetComponent<TestEnnemy>().onHit(knockDirection * knockBackForce, 500, knockBackDuration, damage);
             }
