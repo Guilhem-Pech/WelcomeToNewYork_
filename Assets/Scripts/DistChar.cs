@@ -1,4 +1,4 @@
-﻿using System.Collections;
+  ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
@@ -166,7 +166,6 @@ public class DistChar : BaseChar
 
     public override void Awake()
     {
-
 
     }
 }

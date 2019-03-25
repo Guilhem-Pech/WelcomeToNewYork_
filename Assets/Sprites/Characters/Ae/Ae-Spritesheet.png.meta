@@ -19,10 +19,10 @@ TextureImporter:
     21300028: Ae-WalkingHead5
     21300030: Ae-WalkingHead6
     21300032: Ae-Shoot-1
-    21300034: Ae-Shoot-2
-    21300036: Ae-Shoot-3
-    21300038: Ae-Shoot-4
-    21300040: Ae-Shoot-5
+    21300034: Ae-Shoot-1
+    21300036: Ae-Shoot-2
+    21300038: Ae-Shoot-3
+    21300040: Ae-Shoot-4
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -461,32 +461,12 @@ TextureImporter:
       name: Ae-Shoot-1
       rect:
         serializedVersion: 2
-        x: 160
-        y: 288
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8b32743a388e15f4d8f48d6418661643
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ae-Shoot-2
-      rect:
-        serializedVersion: 2
         x: 192
         y: 288
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -498,7 +478,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ae-Shoot-3
+      name: Ae-Shoot-2
       rect:
         serializedVersion: 2
         x: 224
@@ -506,7 +486,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -518,7 +498,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ae-Shoot-4
+      name: Ae-Shoot-3
       rect:
         serializedVersion: 2
         x: 256
@@ -526,7 +506,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -538,7 +518,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ae-Shoot-5
+      name: Ae-Shoot-4
       rect:
         serializedVersion: 2
         x: 288
@@ -546,7 +526,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
