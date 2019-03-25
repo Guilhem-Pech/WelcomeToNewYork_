@@ -22,7 +22,6 @@ public abstract class BaseEntity : NetworkBehaviour {
         currentHealth = currentHealth - dmg;
         if (currentHealth <= 0)
         {
-            print("Death");
             Death();
         }
             

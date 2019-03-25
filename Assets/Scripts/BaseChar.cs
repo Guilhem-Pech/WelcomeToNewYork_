@@ -67,7 +67,7 @@ public abstract class BaseChar : BaseEntity
         base.TakeDamage(dmg);
         if (UI != null)
         {
-            UI.GetComponentInChildren<Life>().DisplayLife(dmg);
+            UI.GetComponentInChildren<Life>().DisplayLife(dmg, this.GetMaxHealth());
         }
     }
 
