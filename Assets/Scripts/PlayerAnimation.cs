@@ -240,11 +240,25 @@ public class PlayerAnimation : NetworkBehaviour
         handClothesSpriteRenderer.gameObject.GetComponent<Animator>().CrossFadeInFixedTime("Shoot", 0f);
     }
 
-    public void ShowSpecialSprite(bool theBool)
+    public void ShowSpecialSprite(bool showSpecialSpriteBool, bool flipX)
     {
-        GOSpecialSprite.GetComponentInChildren<Animator>().CrossFadeInFixedTime("Default", 0f);
-        GOSpecialSprite.SetActive(theBool);
-        GOSprite.SetActive(theBool);
+        //GOSpecialSprite.GetComponentInChildren<Animator>().CrossFadeInFixedTime("Default", 0f);
+        if (flipX)
+        {
+            GOSpecialSprite.transform.localScale = new Vector3(-1, GOSpecialSprite.transform.localScale.y, GOSpecialSprite.transform.localScale.z);
+        } else
+        {
+            GOSpecialSprite.transform.localScale = new Vector3(1, GOSpecialSprite.transform.localScale.y, GOSpecialSprite.transform.localScale.z);
+        }
+        GOSpecialSprite.SetActive(showSpecialSpriteBool);
+        GOSprite.SetActive(!showSpecialSpriteBool);
+        //GOSpecialSprite.GetComponentInChildren<Animator>().PlayInFixedTime("Default", -1, 0f);
+        GOSpecialSprite.GetComponentInChildren<Animator>().Play("Default");
+        foreach (SpriteRenderer i in this.GetComponentsInChildren<SpriteRenderer>())
+        {
+                i.color = Color.white;
+        }
+
     }
 
 

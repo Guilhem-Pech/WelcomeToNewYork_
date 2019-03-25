@@ -473,6 +473,8 @@ MonoBehaviour:
   handClothesSpriteRenderer: {fileID: 9186962740861974752}
   handGameObject: {fileID: 9186962740600011808}
   dustParticleSystem: {fileID: 9186962741433202866}
+  GOSprite: {fileID: 9186962740896367106}
+  GOSpecialSprite: {fileID: 2869287288135438800}
 --- !u!114 &7861856408488141555
 MonoBehaviour:
   m_ObjectHideFlags: 0

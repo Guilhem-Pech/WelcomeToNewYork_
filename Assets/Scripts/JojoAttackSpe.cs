@@ -47,6 +47,7 @@ public class JojoAttackSpe : MeleeAttack
             this.GetComponentInParent<PlayerController>().enabled = false;
             this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.DisplayHands(false); //on cache les mains
                                                                                                    //cacher le personnage aussi
+            this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.ShowSpecialSprite(true, this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.handClothesSpriteRenderer.flipY);
         }
         else if (AnimatorIsInState("Finished"))
         {
@@ -54,6 +55,7 @@ public class JojoAttackSpe : MeleeAttack
             //reafficher le personnage aussi
 
             this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = false;
+            this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.ShowSpecialSprite(false, this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.handClothesSpriteRenderer.flipY);
             FinishAttack();
         }
     }
