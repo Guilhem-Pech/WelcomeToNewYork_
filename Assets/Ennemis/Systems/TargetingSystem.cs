@@ -37,13 +37,11 @@ public class TargetingSystem : NetworkBehaviour
         }
     }
 
-    [Server]
     public bool hasTarget()
     {
         return currentTarget != null;
     }
 
-    [Server]
     public GameObject getTarget()
     {
         return (hasTarget() ? currentTarget : null);
@@ -87,6 +85,7 @@ public class TargetingSystem : NetworkBehaviour
     }
 
     /* Triggers */
+    [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
         GameObject collidedEntity = other.gameObject;
@@ -94,11 +93,11 @@ public class TargetingSystem : NetworkBehaviour
         if (collidedEntity.tag == "Player"
             && !IsPotentialTarget(collidedEntity))
         {
-           // Debug.Log("Entering : " + other.gameObject.name);
             currentPotentialTargets.Add(collidedEntity.GetInstanceID(), collidedEntity);
         }
     }
 
+    [ServerCallback]
     private void OnTriggerExit(Collider other)
     {
         GameObject collidedEntity = other.gameObject;
@@ -106,7 +105,6 @@ public class TargetingSystem : NetworkBehaviour
         if (collidedEntity.tag == "Player"
             && IsPotentialTarget(collidedEntity))
         {
-            ///Debug.Log("Leaving : " + other.gameObject.name);
             currentPotentialTargets.Remove(collidedEntity.GetInstanceID());
         }
     }

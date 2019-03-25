@@ -70,10 +70,12 @@ public class MeleeAttack : NetworkBehaviour
 
     protected void Start()
     {
-        if(isServer)
+        if (isServer)
+        {
             player = this.gameObject.GetComponentInParent<MeleeChar>();
-        if(isClient)
             RpcInitClient(player.gameObject);
+        }
+            
         animationAnimator = this.gameObject.GetComponentInChildren<Animator>();
         animationAnimator.SetFloat("AnimationSpeedMultiplier", animationSpeed);
 
