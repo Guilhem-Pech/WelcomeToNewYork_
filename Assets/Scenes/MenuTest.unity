@@ -4066,7 +4066,7 @@ MonoBehaviour:
   transport: {fileID: 1521917610}
   networkAddress: localhost
   maxConnections: 8
-  playerPrefab: {fileID: 2595192204433423284, guid: ba596b8c7cd6cd64abfb1a4f7dd3b1be,
+  playerPrefab: {fileID: 2595192204433423284, guid: 38660279196ec8d42a172c421f75b54d,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
@@ -4077,6 +4077,7 @@ MonoBehaviour:
   - {fileID: 1812041652108394998, guid: 7469ac5d23dc1764dad3bc1de3d11f25, type: 3}
   - {fileID: 1619184190625883108, guid: e2bea726819ae9348b8c529a2def9016, type: 3}
   - {fileID: 1619184190625883108, guid: ad40362c12f839f4e861a315c4116d38, type: 3}
+  - {fileID: 8532725347727124117, guid: a6399e2efb1fcc34d8e6493106a0c695, type: 3}
   showLobbyGUI: 0
   minPlayers: 1
   lobbyPlayerPrefab: {fileID: 777211228252411877, guid: 0077714ae18b4cc4db46e0217dab04f9,
