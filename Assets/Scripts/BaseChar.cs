@@ -79,4 +79,18 @@ public abstract class BaseChar : BaseEntity
             UI.GetComponentInChildren<Life>().AddLife(heal);
         }
     }
+
+    [TargetRpc]
+    public void TargetAffichMort(NetworkConnection nC)
+    {
+        GameObject UI = GameObject.Find("UIInGame");
+        UI.GetComponent<DeathScreen>().AfficherLabelMort();
+    }
+
+    [Server]
+    public override void Death()
+    {
+        base.Death(); 
+        TargetAffichMort(connectionToClient);
+    }
 }

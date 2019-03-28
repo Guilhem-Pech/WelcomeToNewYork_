@@ -170,6 +170,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1148452919252934415, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
+        type: 3}
+      propertyPath: m_Name
+      value: Player-J
+      objectReference: {fileID: 0}
     - target: {fileID: 7211070739291902669, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
         type: 3}
       propertyPath: bodySpriteRenderer
@@ -235,11 +240,6 @@ PrefabInstance:
       propertyPath: syncInterval
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1148452919252934415, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
-        type: 3}
-      propertyPath: m_Name
-      value: Player-J
-      objectReference: {fileID: 0}
     - target: {fileID: 1148452919252934411, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -304,7 +304,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Attacks.Array.data[1]
       value: 
-      objectReference: {fileID: 1812041652108394998, guid: 7469ac5d23dc1764dad3bc1de3d11f25,
+      objectReference: {fileID: 1107275526274097858, guid: 7469ac5d23dc1764dad3bc1de3d11f25,
         type: 3}
     - target: {fileID: 2044468380314859864, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
         type: 3}

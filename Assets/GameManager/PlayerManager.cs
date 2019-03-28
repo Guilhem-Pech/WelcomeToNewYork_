@@ -44,10 +44,6 @@ public class PlayerManager : NetworkBehaviour
         entity.GetComponent<PlayerController>().enabled = false;
         entity.GetComponent<PlayerAnimation>().enabled = false;
         entity.GetComponent<BaseChar>().enabled = false;
-
-        GameObject UI = GameObject.Find("UIInGame");
-        UI.GetComponent<DeathScreen>().AfficherLabelMort();
-        print(UI);
     }
 
     public void SpawnAll(Vector3 position)
@@ -94,6 +90,9 @@ public class PlayerManager : NetworkBehaviour
         entity.GetComponent<PlayerAnimation>().enabled = true;
         entity.GetComponent<BaseChar>().enabled = true;
         entity.GetComponent<BaseChar>().Start();
+
+        GameObject UI = GameObject.Find("UIInGame");
+        UI.GetComponent<DeathScreen>().EnleverLabelMort();
     }
 
 

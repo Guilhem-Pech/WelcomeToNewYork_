@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class DeathScreen : MonoBehaviour
+public class DeathScreen : NetworkBehaviour
 {
     public GameObject DSTemp;
 
@@ -10,7 +11,7 @@ public class DeathScreen : MonoBehaviour
 
 
     public void AfficherLabelMort()
-    { 
+    {
         print("Tu es mort");
         DSTemp.SetActive(true);
     }
@@ -18,5 +19,7 @@ public class DeathScreen : MonoBehaviour
     public void EnleverLabelMort()
     {
         print("la sorcière te rez");
+        DSTemp.SetActive(false);
+
     }
 }
