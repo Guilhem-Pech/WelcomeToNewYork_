@@ -689,13 +689,19 @@ PrefabInstance:
     - target: {fileID: 389919455812498593, guid: c84c99feea165384990bf0f398b6e683,
         type: 3}
       propertyPath: GameplayPlayers.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 389919455812498593, guid: c84c99feea165384990bf0f398b6e683,
         type: 3}
       propertyPath: GameplayPlayers.Array.data[0]
       value: 
       objectReference: {fileID: 3920296343390041548, guid: ba596b8c7cd6cd64abfb1a4f7dd3b1be,
+        type: 3}
+    - target: {fileID: 389919455812498593, guid: c84c99feea165384990bf0f398b6e683,
+        type: 3}
+      propertyPath: GameplayPlayers.Array.data[1]
+      value: 
+      objectReference: {fileID: 6423506049547672139, guid: 11d771ded429e8b489c7bfa30584c22a,
         type: 3}
     - target: {fileID: 8780235536596197048, guid: c84c99feea165384990bf0f398b6e683,
         type: 3}
@@ -3984,7 +3990,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1521917611}
   - component: {fileID: 1521917610}
-  - component: {fileID: 1521917612}
+  - component: {fileID: 1521917609}
   m_Layer: 0
   m_Name: NetworkLobby
   m_TagString: Untagged
@@ -3992,6 +3998,49 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1521917609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521917608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f7005961665a9419f56f97755fa064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  runInBackground: 1
+  startOnHeadless: 1
+  serverTickRate: 30
+  showDebugMessages: 0
+  offlineScene: MenuTest
+  onlineScene: 
+  transport: {fileID: 1521917610}
+  networkAddress: localhost
+  maxConnections: 4
+  playerPrefab: {fileID: 2484003023458925365, guid: f7a7dd191fe67d84188dc7dc92bc9390,
+    type: 3}
+  autoCreatePlayer: 1
+  playerSpawnMethod: 0
+  spawnPrefabs:
+  - {fileID: 8886192973171554369, guid: b720a98b8931d624b8af689e7cdfef01, type: 3}
+  - {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
+  - {fileID: 1619184190625883108, guid: 80b7074aa3895ff4da4ecd44b8bde54d, type: 3}
+  - {fileID: 1619184190625883108, guid: 935193d6be34d1c4695995cc30fac424, type: 3}
+  - {fileID: 1812041652108394998, guid: 7469ac5d23dc1764dad3bc1de3d11f25, type: 3}
+  - {fileID: 1619184190625883108, guid: e2bea726819ae9348b8c529a2def9016, type: 3}
+  - {fileID: 1619184190625883108, guid: ad40362c12f839f4e861a315c4116d38, type: 3}
+  - {fileID: 2595192204433423284, guid: ba596b8c7cd6cd64abfb1a4f7dd3b1be, type: 3}
+  - {fileID: 8600722944348430187, guid: 11d771ded429e8b489c7bfa30584c22a, type: 3}
+  showLobbyGUI: 0
+  minPlayers: 1
+  lobbyPlayerPrefab: {fileID: 777211228252411877, guid: 0077714ae18b4cc4db46e0217dab04f9,
+    type: 3}
+  LobbyScene: MenuTest
+  GameplayScene: SceneNetwork
+  allPlayersReady: 0
 --- !u!114 &1521917610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4058,46 +4107,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1521917612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1521917608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 615e6c6589cf9e54cad646b5a11e0529, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 1
-  runInBackground: 1
-  startOnHeadless: 1
-  serverTickRate: 30
-  showDebugMessages: 0
-  offlineScene: MenuTest
-  onlineScene: 
-  transport: {fileID: 1521917610}
-  networkAddress: localhost
-  maxConnections: 8
-  playerPrefab: {fileID: 8600722944348430187, guid: 11d771ded429e8b489c7bfa30584c22a,
-    type: 3}
-  autoCreatePlayer: 1
-  playerSpawnMethod: 0
-  spawnPrefabs:
-  - {fileID: 8886192973171554369, guid: b720a98b8931d624b8af689e7cdfef01, type: 3}
-  - {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
-  - {fileID: 1619184190625883108, guid: 80b7074aa3895ff4da4ecd44b8bde54d, type: 3}
-  - {fileID: 1812041652108394998, guid: 7469ac5d23dc1764dad3bc1de3d11f25, type: 3}
-  - {fileID: 1619184190625883108, guid: e2bea726819ae9348b8c529a2def9016, type: 3}
-  - {fileID: 1619184190625883108, guid: ad40362c12f839f4e861a315c4116d38, type: 3}
-  showLobbyGUI: 0
-  minPlayers: 1
-  lobbyPlayerPrefab: {fileID: 777211228252411877, guid: 0077714ae18b4cc4db46e0217dab04f9,
-    type: 3}
-  LobbyScene: MenuTest
-  GameplayScene: SceneNetwork
-  allPlayersReady: 0
 --- !u!1 &1524563449
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ public class LobbyPlayer : NetworkBehaviour
     private Transform parent;
 
     
-    private NetworkIdentity ChoosenChar;
+    public NetworkIdentity choosenChar;
 
     private void Awake()
     {
@@ -89,7 +89,9 @@ public class LobbyPlayer : NetworkBehaviour
                 ChoosenGameplayPlayer = 0;
             else ++ChoosenGameplayPlayer;
         }
-        
+
+        choosenChar = Choosable[ChoosenGameplayPlayer];
+
     }
 
 
