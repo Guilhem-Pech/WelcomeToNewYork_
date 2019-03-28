@@ -56,7 +56,7 @@ public class LobbyPlayer : NetworkBehaviour
 
     }
 
-    public void OnChangechar(int newChar){
+    public void OnChangechar(int newChar){ 
        Image sprite = transform.Find("clothes").GetComponent<Image>();
        List<NetworkIdentity> Choosable = parent.gameObject.GetComponent<LobbyHUD>().GameplayPlayers;
        sprite.sprite = Choosable[newChar].gameObject.GetComponent<PlayerSprite>().PlayerLobbySprite;
