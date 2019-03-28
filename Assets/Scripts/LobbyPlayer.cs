@@ -28,7 +28,7 @@ public class LobbyPlayer : NetworkBehaviour
     private Transform parent;
 
     
-    private NetworkIdentity ChoosenChar;
+    public NetworkIdentity choosenChar;
 
     private void Awake()
     {
@@ -56,7 +56,7 @@ public class LobbyPlayer : NetworkBehaviour
 
     }
 
-    public void OnChangechar(int newChar){
+    public void OnChangechar(int newChar){ 
        Image sprite = transform.Find("clothes").GetComponent<Image>();
        List<NetworkIdentity> Choosable = parent.gameObject.GetComponent<LobbyHUD>().GameplayPlayers;
        sprite.sprite = Choosable[newChar].gameObject.GetComponent<PlayerSprite>().PlayerLobbySprite;
@@ -89,7 +89,9 @@ public class LobbyPlayer : NetworkBehaviour
                 ChoosenGameplayPlayer = 0;
             else ++ChoosenGameplayPlayer;
         }
-        
+
+        choosenChar = Choosable[ChoosenGameplayPlayer];
+
     }
 
 

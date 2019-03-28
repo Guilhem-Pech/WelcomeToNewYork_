@@ -115,10 +115,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 30006166341802346}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: [{m_Target: {fileID: 8746069940753810008}, m_MethodName: ClicChange,
-          m_Mode: 6, m_Arguments: {m_ObjectArgument: {fileID: 0}, m_ObjectArgumentAssemblyTypeName: 'UnityEngine.Object,
-              UnityEngine', m_IntArgument: 0, m_FloatArgument: 0, m_StringArgument: '',
-            m_BoolArgument: 0}, m_CallState: 2}]
+      m_Calls:
+      - m_Target: {fileID: 8746069940753810008}
+        m_MethodName: ClicChange
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &30006166395897567
@@ -312,8 +320,9 @@ MonoBehaviour:
   ReadyTextStr: "Pr\xEAt"
   NotReadyStr: En attente
   NotReadyLocalStr: "Pr\xEAt ?"
-  GamePlayers:
-  - {fileID: 7116529977736753810, guid: eae9af5d89907554382ac41b5b8ac0ec, type: 3}
+  field: {fileID: 0}
+  textPseudo: {fileID: 0}
+  ChoosenGameplayPlayer: 0
 --- !u!114 &777211228252411877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,10 +454,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 30006167338720753}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: [{m_Target: {fileID: 8746069940753810008}, m_MethodName: ClicChange,
-          m_Mode: 6, m_Arguments: {m_ObjectArgument: {fileID: 0}, m_ObjectArgumentAssemblyTypeName: 'UnityEngine.Object,
-              UnityEngine', m_IntArgument: 0, m_FloatArgument: 0, m_StringArgument: '',
-            m_BoolArgument: 1}, m_CallState: 2}]
+      m_Calls:
+      - m_Target: {fileID: 8746069940753810008}
+        m_MethodName: ClicChange
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &30006167458257539
@@ -968,7 +985,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
+    m_Font: {fileID: 12800000, guid: ef5e3d60e226c2545823358c3d857ce0, type: 3}
     m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0

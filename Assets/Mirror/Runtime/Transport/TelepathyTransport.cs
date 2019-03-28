@@ -1,5 +1,4 @@
-﻿// wraps Telepathy for use as HLAPI TransportLayer
-using System;
+// wraps Telepathy for use as HLAPI TransportLayer
 using UnityEngine;
 namespace Mirror
 {
@@ -30,18 +29,17 @@ namespace Mirror
             // by simple eating the first one before the server starts
             Telepathy.Server.NextConnectionId();
 
-           // Debug.Log("TelepathyTransport initialized!");
+            Debug.Log("TelepathyTransport initialized!");
         }
 
         // client
-        public override bool ClientConnected() { return client.Connected; }
-        public override void ClientConnect(string address) { client.Connect(address, port); }
-        public override bool ClientSend(int channelId, byte[] data) { return client.Send(data); }
+        public override bool ClientConnected() => client.Connected;
+        public override void ClientConnect(string address) => client.Connect(address, port);
+        public override bool ClientSend(int channelId, byte[] data) => client.Send(data);
 
         bool ProcessClientMessage()
         {
-            Telepathy.Message message;
-            if (client.GetNextMessage(out message))
+            if (client.GetNextMessage(out Telepathy.Message message))
             {
                 switch (message.eventType)
                 {
@@ -64,7 +62,7 @@ namespace Mirror
             }
             return false;
         }
-        public override void ClientDisconnect() { client.Disconnect(); }
+        public override void ClientDisconnect() => client.Disconnect();
 
         // IMPORTANT: set script execution order to >1000 to call Transport's
         //            LateUpdate after all others. Fixes race condition where
@@ -76,18 +74,17 @@ namespace Mirror
             // note: we need to check enabled in case we set it to false
             // when LateUpdate already started.
             // (https://github.com/vis2k/Mirror/pull/379)
-            while (enabled && ProcessClientMessage()) { }
-            while (enabled && ProcessServerMessage()) { }
+            while (enabled && ProcessClientMessage()) {}
+            while (enabled && ProcessServerMessage()) {}
         }
 
         // server
-        public override bool ServerActive() { return server.Active; }
-        public override void ServerStart() { server.Start(port); }
-        public override bool ServerSend(int connectionId, int channelId, byte[] data) { return server.Send(connectionId, data); }
+        public override bool ServerActive() => server.Active;
+        public override void ServerStart() => server.Start(port);
+        public override bool ServerSend(int connectionId, int channelId, byte[] data) => server.Send(connectionId, data);
         public bool ProcessServerMessage()
         {
-            Telepathy.Message message;
-            if (server.GetNextMessage(out message))
+            if (server.GetNextMessage(out Telepathy.Message message))
             {
                 switch (message.eventType)
                 {
@@ -109,14 +106,14 @@ namespace Mirror
             }
             return false;
         }
-        public override bool ServerDisconnect(int connectionId) { return server.Disconnect(connectionId); }
-        public override string ServerGetClientAddress(int connectionId) { return server.GetClientAddress(connectionId); }
-        public override void ServerStop() { server.Stop(); }
+        public override bool ServerDisconnect(int connectionId) => server.Disconnect(connectionId);
+        public override string ServerGetClientAddress(int connectionId) => server.GetClientAddress(connectionId);
+        public override void ServerStop() => server.Stop();
 
         // common
         public override void Shutdown()
         {
-          //  Debug.Log("TelepathyTransport Shutdown()");
+            Debug.Log("TelepathyTransport Shutdown()");
             client.Disconnect();
             server.Stop();
         }
