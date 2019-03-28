@@ -51,6 +51,7 @@ public abstract class BaseChar : BaseEntity
     protected abstract void AttackSpeciale(Vector3 playerPosition_, float angle);
     [Server]
     protected abstract void Attack(Vector3 point);
+ 
 
     public int getMaxStamina()
     {

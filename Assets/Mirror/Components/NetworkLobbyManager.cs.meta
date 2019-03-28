@@ -3,7 +3,10 @@ guid: 615e6c6589cf9e54cad646b5a11e0529
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - transport: {instanceID: 0}
+  - playerPrefab: {instanceID: 0}
+  - lobbyPlayerPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

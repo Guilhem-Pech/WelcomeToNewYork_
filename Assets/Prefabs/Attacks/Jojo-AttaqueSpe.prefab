@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4616f383e9ece3c4098ed6e85bdd41f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncInterval: 0.1
   damage: 50
   staminaCost: 0
   duration: 0
@@ -70,7 +71,7 @@ MonoBehaviour:
   knockBackDuration: 3
   spread: 2.5
   range: 6.25
-  hitBoxGO: {fileID: 0}
+  hitBoxGO: {fileID: 7597772938927774000}
   sound: {fileID: 0}
   spriteRenderer: {fileID: 0}
 --- !u!114 &4015298193561430995

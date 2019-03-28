@@ -133,8 +133,7 @@ public class MeleeAttack : NetworkBehaviour
             if (other.gameObject.GetComponent<TestEnnemy>() != null)
             { 
                 Vector2 knockDirection = new Vector2(other.gameObject.GetComponent<TestEnnemy>().transform.position.x - playerPosition.x, other.gameObject.GetComponent<TestEnnemy>().transform.position.z - playerPosition.z).normalized;
-               // print("VDirection " + vecteurDirection + "Direction KnockBack" + knockDirection);
-                    
+                // print("VDirection " + vecteurDirection + "Direction KnockBack" + knockDirection);
                 other.gameObject.GetComponent<TestEnnemy>().onHit(knockDirection * knockBackForce, 500, knockBackDuration, damage);
             }
         }
