@@ -29,6 +29,9 @@ public class JojoChar : MeleeChar
     {
         if (AttSpeReady && !isAttacking)
         {
+            foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
+                Destroy(aMeleeAttack.gameObject);
+            this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             isAttacking = true;
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
 

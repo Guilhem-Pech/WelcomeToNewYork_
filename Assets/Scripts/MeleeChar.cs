@@ -18,6 +18,9 @@ public abstract class MeleeChar : BaseChar
         GameObject currentAttack = Attacks[nextAttackID]; // On récupère le prefab de l'attaque
         if (currentStamina >= currentAttack.GetComponent<MeleeAttack>().staminaCost)
         {
+            foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
+                Destroy(aMeleeAttack.gameObject);
+            this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             isAttacking = true;
             foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
             {

@@ -108,8 +108,8 @@ public class MeleeAttack : NetworkBehaviour
         else if (AnimatorIsInState("Finished"))
         {
             //spriteRenderer.color = Color.black;
-            FinishAttack();
             player.nextAttackID = 0;
+            FinishAttack();
         }
     }
 
