@@ -18,8 +18,8 @@ public abstract class MeleeChar : BaseChar
         GameObject currentAttack = Attacks[nextAttackID]; // On récupère le prefab de l'attaque
         if (currentStamina >= currentAttack.GetComponent<MeleeAttack>().staminaCost )
         {
-            if (this.gameObject.GetComponentInChildren<MeleeAttack>() != null)
-                Destroy(this.gameObject.GetComponentInChildren<MeleeAttack>().gameObject);
+            foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
+                Destroy(aMeleeAttack.gameObject);
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             isAttacking = true;
           //  print("Clic du joueur " +point);
@@ -69,7 +69,7 @@ public abstract class MeleeChar : BaseChar
         if (!isLocalPlayer)
             return;
 
-        if (Input.GetButtonDown("Fire1") && ! isAttacking)
+        if (Input.GetButtonDown("Fire1") && !isAttacking)
         {
             RaycastHit hit ;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
