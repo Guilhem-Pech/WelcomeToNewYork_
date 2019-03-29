@@ -27,16 +27,6 @@ public class JojoChar : MeleeChar
 
     protected override void AttackSpeciale(Vector3 playerPosition_, float angle)
     {
-        /*if (AttSpeReady)
-        {
-            GameObject theAttack = Instantiate(AttSpe, this.gameObject.transform);
-            theAttack.GetComponent<JojoAttackSpe>().AttackSpe(playerPosition_, angle);
-            //StartCoroutine(playerAnimation.DisableEnableHands(theAttack.GetComponent<MeleeAttack>().animationDuration));
-
-            AttSpeReady = false;
-            RechargeSpe = true;
-        }*/
-
         if (AttSpeReady)
         {
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;

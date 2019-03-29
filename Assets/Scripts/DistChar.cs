@@ -9,11 +9,11 @@ public class DistChar : BaseChar
     public float period = 1.0f;
 
     public GameObject[] Projectile; // tableau répértoriant les attaques du joueur
-    int nextAttackID = 0; //numéro de l'attaque qui va être utiliser pour la prochaine attaque du joueur
+    protected int nextAttackID = 0; //numéro de l'attaque qui va être utiliser pour la prochaine attaque du joueur
 
     public float fireRate ;
     public float spreadMax;
-    private float currentSpread = 0;
+    protected float currentSpread = 0;
     private float lastShot ;
 
     public Camera camera;
@@ -58,7 +58,7 @@ public class DistChar : BaseChar
     }
 
     [ClientRpc]
-    void RpcAttaque()
+    protected void RpcAttaque()
     {
         playerAnimation.ShootHands(); // On lance l'animation de tir
     }
