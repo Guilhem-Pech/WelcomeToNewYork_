@@ -47,7 +47,8 @@ public class LobbyJoin : MonoBehaviour
                 if (isFailed){
                     connecting.color = Color.red;
                     connecting.text = "Connection failed";
-                    
+                    Button button = GameObject.Find("ButtonJoin").GetComponent<Button>();
+                    button.interactable = true;
                     isFailed = false;
                 }
             }
@@ -56,6 +57,8 @@ public class LobbyJoin : MonoBehaviour
                 // Connecting
                 connecting.color = Color.green;
                 connecting.text = "Connecting...";
+                Button button = GameObject.Find("ButtonJoin").GetComponent<Button>();
+                button.interactable = false;
                 isFailed = true;
             }
         }
