@@ -16,12 +16,17 @@ public abstract class MeleeChar : BaseChar
     {
         
         GameObject currentAttack = Attacks[nextAttackID]; // On récupère le prefab de l'attaque
-        if (currentStamina >= currentAttack.GetComponent<MeleeAttack>().staminaCost )
+        if (currentStamina >= currentAttack.GetComponent<MeleeAttack>().staminaCost)
         {
-            if (this.gameObject.GetComponentInChildren<MeleeAttack>() != null)
-                Destroy(this.gameObject.GetComponentInChildren<MeleeAttack>().gameObject);
+            foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
+                Destroy(aMeleeAttack.gameObject);
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             isAttacking = true;
+            foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
+            {
+                Destroy(aMeleeAttack.gameObject);
+            }
+            this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
           //  print("Clic du joueur " +point);
             UseStamina(currentAttack.GetComponent<MeleeAttack>().staminaCost);
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
@@ -69,7 +74,7 @@ public abstract class MeleeChar : BaseChar
         if (!isLocalPlayer)
             return;
 
-        if (Input.GetButtonDown("Fire1") && ! isAttacking)
+        if (Input.GetButton("Fire1") && !isAttacking)
         {
             RaycastHit hit ;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -80,7 +85,7 @@ public abstract class MeleeChar : BaseChar
 
         }
 
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire2") && !isAttacking)
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

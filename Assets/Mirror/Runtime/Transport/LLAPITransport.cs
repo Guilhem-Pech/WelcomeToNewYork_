@@ -1,4 +1,4 @@
-﻿// wraps UNET's LLAPI for use as HLAPI TransportLayer
+// wraps UNET's LLAPI for use as HLAPI TransportLayer
 using System;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -83,7 +83,7 @@ namespace Mirror
             Debug.Log("LLAPITransport initialized!");
         }
 
-        // client //////////////////////////////////////////////////////////////
+        #region client
         public override bool ClientConnected()
         {
             return clientConnectionId != -1;
@@ -119,10 +119,7 @@ namespace Mirror
         {
             if (clientId == -1) return false;
 
-            int connectionId;
-            int channel;
-            int receivedSize;
-            NetworkEventType networkEvent = NetworkTransport.ReceiveFromHost(clientId, out connectionId, out channel, clientReceiveBuffer, clientReceiveBuffer.Length, out receivedSize, out error);
+            NetworkEventType networkEvent = NetworkTransport.ReceiveFromHost(clientId, out int connectionId, out int channel, clientReceiveBuffer, clientReceiveBuffer.Length, out int receivedSize, out error);
 
             // note: 'error' is used for extra information, e.g. the reason for
             // a disconnect. we don't necessarily have to throw an error if
@@ -158,25 +155,9 @@ namespace Mirror
             return true;
         }
 
-        // IMPORTANT: set script execution order to >1000 to call Transport's
-        //            LateUpdate after all others. Fixes race condition where
-        //            e.g. in uSurvival Transport would apply Cmds before
-        //            ShoulderRotation.LateUpdate, resulting in projectile
-        //            spawns at the point before shoulder rotation.
-        public void LateUpdate()
-        {
-            // process all messages
-            while (ProcessClientMessage()) { }
-            while (ProcessServerMessage()) { }
-        }
-
         public string ClientGetAddress()
         {
-            string address = "";
-            int port;
-            NetworkID networkId;
-            NodeID node;
-            NetworkTransport.GetConnectionInfo(serverHostId, clientId, out address, out port, out networkId, out node, out error);
+            NetworkTransport.GetConnectionInfo(serverHostId, clientId, out string address, out int port, out NetworkID networkId, out NodeID node, out error);
             return address;
         }
 
@@ -188,14 +169,9 @@ namespace Mirror
                 clientId = -1;
             }
         }
+        #endregion
 
-        public override bool Available()
-        {
-            // websocket is available in all platforms (including webgl)
-            return useWebsockets || base.Available();
-        }
-
-        // server //////////////////////////////////////////////////////////////
+        #region server
         public override bool ServerActive()
         {
             return serverHostId != -1;
@@ -227,9 +203,7 @@ namespace Mirror
             if (serverHostId == -1) return false;
 
             int connectionId = -1;
-            int channel;
-            int receivedSize;
-            NetworkEventType networkEvent = NetworkTransport.ReceiveFromHost(serverHostId, out connectionId, out channel, serverReceiveBuffer, serverReceiveBuffer.Length, out receivedSize, out error);
+            NetworkEventType networkEvent = NetworkTransport.ReceiveFromHost(serverHostId, out connectionId, out int channel, serverReceiveBuffer, serverReceiveBuffer.Length, out int receivedSize, out error);
 
             // note: 'error' is used for extra information, e.g. the reason for
             // a disconnect. we don't necessarily have to throw an error if
@@ -281,11 +255,7 @@ namespace Mirror
 
         public override string ServerGetClientAddress(int connectionId)
         {
-            string address = "";
-            int port;
-            NetworkID networkId;
-            NodeID node;
-            NetworkTransport.GetConnectionInfo(serverHostId, connectionId, out address, out port, out networkId, out node, out error);
+            NetworkTransport.GetConnectionInfo(serverHostId, connectionId, out string address, out int port, out NetworkID networkId, out NodeID node, out error);
             return address;
         }
 
@@ -295,8 +265,27 @@ namespace Mirror
             serverHostId = -1;
             Debug.Log("LLAPITransport.ServerStop");
         }
+        #endregion
 
-        // common //////////////////////////////////////////////////////////////
+        #region common
+        // IMPORTANT: set script execution order to >1000 to call Transport's
+        //            LateUpdate after all others. Fixes race condition where
+        //            e.g. in uSurvival Transport would apply Cmds before
+        //            ShoulderRotation.LateUpdate, resulting in projectile
+        //            spawns at the point before shoulder rotation.
+        public void LateUpdate()
+        {
+            // process all messages
+            while (ProcessClientMessage()) {}
+            while (ProcessServerMessage()) {}
+        }
+
+        public override bool Available()
+        {
+            // websocket is available in all platforms (including webgl)
+            return useWebsockets || base.Available();
+        }
+
         public override void Shutdown()
         {
             NetworkTransport.Shutdown();
@@ -323,5 +312,6 @@ namespace Mirror
             }
             return "LLAPI (inactive/disconnected)";
         }
+        #endregion
     }
 }

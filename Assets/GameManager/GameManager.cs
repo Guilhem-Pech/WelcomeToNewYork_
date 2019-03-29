@@ -22,12 +22,15 @@ public class GameManager : NetworkBehaviour
         playerMan.SpawnAll(position);
         waveMan.DebutVague();
     }
+
+
  
 
     [Server]
     public void FinVague()
     {
         playerMan.RespawnAll();
+        playerMan.HealAll();
         waveMan.DebutVague(); 
     }
 }

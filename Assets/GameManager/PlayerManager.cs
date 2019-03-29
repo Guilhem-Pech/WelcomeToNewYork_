@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System.Linq;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -28,6 +29,9 @@ public class PlayerManager : NetworkBehaviour
     {
         joueurMort.Add(entity.gameObject);
         RpcDeath(entity.gameObject);
+
+        if (players.Count() == joueurMort.Count())
+            GameOver();
     }
 
     [ClientRpc]
@@ -58,6 +62,16 @@ public class PlayerManager : NetworkBehaviour
     }
 
     [Server]
+    public void HealAll()
+    {
+        foreach (GameObject entite in players)
+        {
+            entite.GetComponent<BaseChar>().AddHealth(entite.GetComponent<BaseChar>().GetMaxHealth() - entite.GetComponent<BaseChar>().currentHealth);
+        }
+    }
+
+
+    [Server]
     public void Respawn(GameObject entity)
     {
         joueurMort.Remove(entity);
@@ -76,5 +90,16 @@ public class PlayerManager : NetworkBehaviour
         entity.GetComponent<PlayerAnimation>().enabled = true;
         entity.GetComponent<BaseChar>().enabled = true;
         entity.GetComponent<BaseChar>().Start();
+
+        GameObject UI = GameObject.Find("UIInGame");
+        UI.GetComponent<DeathScreen>().EnleverLabelMort();
+    }
+
+
+    [Server]
+    public void GameOver()
+    {
+        //Affiche un panel avec les stats de la game puis renvoie tout le monde au menu
+        Debug.Log("Vous êtes nuls ptdr");
     }
 }

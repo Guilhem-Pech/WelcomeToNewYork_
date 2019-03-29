@@ -51,6 +51,7 @@ public abstract class BaseChar : BaseEntity
     protected abstract void AttackSpeciale(Vector3 playerPosition_, float angle);
     [Server]
     protected abstract void Attack(Vector3 point);
+ 
 
     public int getMaxStamina()
     {
@@ -66,7 +67,7 @@ public abstract class BaseChar : BaseEntity
         base.TakeDamage(dmg);
         if (UI != null)
         {
-            UI.GetComponentInChildren<Life>().DisplayLife(dmg);
+            UI.GetComponentInChildren<Life>().DisplayLife(dmg, this.GetMaxHealth());
         }
     }
 
@@ -77,5 +78,19 @@ public abstract class BaseChar : BaseEntity
         {
             UI.GetComponentInChildren<Life>().AddLife(heal);
         }
+    }
+
+    [TargetRpc]
+    public void TargetAffichMort(NetworkConnection nC)
+    {
+        GameObject UI = GameObject.Find("UIInGame");
+        UI.GetComponent<DeathScreen>().AfficherLabelMort();
+    }
+
+    [Server]
+    public override void Death()
+    {
+        base.Death(); 
+        TargetAffichMort(connectionToClient);
     }
 }
