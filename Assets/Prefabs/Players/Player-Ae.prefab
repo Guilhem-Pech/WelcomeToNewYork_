@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &6718378995421885093
+--- !u!114 &1800841886616588654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,18 +9,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 2595192204433423284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e44e7dc3c32c25041b7fbb4fa74f0876, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SceneId: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+  m_AssetId: 
+--- !u!114 &4529984123025178891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2595192204433423284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6d1d6ecec05fb479c4da96ab092d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0.1
   maxHealth: 100
   currentHealth: 0
   isHit: 0
   maxStamina: 50
-  currentStamina: 50
+  currentStamina: 0
+  canMoveWhileAttacking: 1
   playerAnimation: {fileID: 0}
-  period: 0.1
+  period: 1
   Projectile:
   - {fileID: 8886192973171554369, guid: b720a98b8931d624b8af689e7cdfef01, type: 3}
+  fireRate: 0.5
+  spreadMax: 40
+  camera: {fileID: 3364850082412901042}
+  shake: 0
+  decreaseFactor: 30
+  AttSpeReady: 1
+  RechargeSpe: 0
+  Cooldown: 0.001
+  AttSpe: {fileID: 1619184190625883108, guid: ad40362c12f839f4e861a315c4116d38, type: 3}
 --- !u!1001 &6592527130424694591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134,6 +161,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 9828c20bd706a5a4a9caf29cb1352d83, type: 2}
+    - target: {fileID: 8489009515222328717, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: bodySpriteRenderer
@@ -385,6 +417,12 @@ Animator:
 --- !u!198 &2595192204394311565 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 9186962741433202866, guid: 36c54d22dccec3e4f92401b1e6d22795,
+    type: 3}
+  m_PrefabInstance: {fileID: 6592527130424694591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &3364850082412901042 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8489009515222328717, guid: 36c54d22dccec3e4f92401b1e6d22795,
     type: 3}
   m_PrefabInstance: {fileID: 6592527130424694591}
   m_PrefabAsset: {fileID: 0}

@@ -20,7 +20,7 @@ public class DistChar : BaseChar
     public float shake = 0;
     public float decreaseFactor = 30.0f;
 
-    protected override void Attack(Vector3 point)
+    protected override void Attack()
     {
         GameObject currentShot = Projectile[nextAttackID]; // On récupère le prefab du projectile
         if (currentStamina >= currentShot.GetComponent<Projectile>().stamCost)
@@ -52,9 +52,9 @@ public class DistChar : BaseChar
 
 
     [Command]
-    void CmdAttaque(Vector3 hitVector)
+    void CmdAttaque()
     {
-        Attack(hitVector);
+        Attack();
     }
 
     [ClientRpc]
@@ -122,12 +122,7 @@ public class DistChar : BaseChar
 
         if (Input.GetButton("Fire1"))
         {
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                CmdAttaque(hit.point); //Lance le code coté client
-            }
+                CmdAttaque(); //Lance le code coté client
         }
         else
             currentSpread = 0;

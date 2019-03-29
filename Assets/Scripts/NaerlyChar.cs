@@ -10,6 +10,7 @@ public class NaerlyChar : DistChar
     public bool RechargeSpe = false;
     public float Cooldown = 0.001f;
     public GameObject AttSpe;
+    
 
     [ServerCallback]
     public override void Awake()
@@ -35,7 +36,10 @@ public class NaerlyChar : DistChar
 
             float angleSpe = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
             GameObject theAttackSpe = Instantiate(AttSpe, this.gameObject.transform);
-            theAttackSpe.GetComponent<JojoAttackSpe>().Initialisation(playerPos, angleSpe);
+            print("La position du joueur : " + playerPos);
+            print("Angle : " + angleSpe);
+            theAttackSpe.GetComponent<NaerlyAttackSpe>().Initialisation(playerPos, angleSpe);
+            NetworkServer.Spawn(theAttackSpe);
 
             AttSpeReady = false;
             RechargeSpe = true;

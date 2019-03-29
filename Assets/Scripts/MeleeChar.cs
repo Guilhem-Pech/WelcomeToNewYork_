@@ -12,7 +12,7 @@ public abstract class MeleeChar : BaseChar
     public GameObject[] Attacks; // tableau répértoriant les attaques du joueur
     public int nextAttackID = 0; //numéro de l'attaque qui va être utiliser pour la prochaine attaque du joueur
 
-    protected override void Attack(Vector3 point)
+    protected override void Attack()
     {
         
         GameObject currentAttack = Attacks[nextAttackID]; // On récupère le prefab de l'attaque
@@ -42,9 +42,9 @@ public abstract class MeleeChar : BaseChar
     }
 
     [Command]
-    void CmdAttaque(Vector3 hitVector)
+    void CmdAttaque()
     {
-        Attack(hitVector);
+        Attack();
     }
 
     // Update is called once per frame
@@ -75,7 +75,7 @@ public abstract class MeleeChar : BaseChar
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
-                CmdAttaque(hit.point);
+                CmdAttaque();
             }
 
         }
