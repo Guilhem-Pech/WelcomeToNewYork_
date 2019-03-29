@@ -126,13 +126,13 @@ PrefabInstance:
         type: 3}
       propertyPath: GameplayPlayers.Array.data[2]
       value: 
-      objectReference: {fileID: 3920296343390041548, guid: 38660279196ec8d42a172c421f75b54d,
+      objectReference: {fileID: 6296840831780418371, guid: 85862ac4350226d499e44362f1d101d3,
         type: 3}
     - target: {fileID: 6320809169095933679, guid: e5fdc0ee69c598a4c8fdc156c1820a85,
         type: 3}
       propertyPath: GameplayPlayers.Array.data[1]
       value: 
-      objectReference: {fileID: 6296840831780418371, guid: 85862ac4350226d499e44362f1d101d3,
+      objectReference: {fileID: 3920296343390041548, guid: 38660279196ec8d42a172c421f75b54d,
         type: 3}
     - target: {fileID: 6156873697282996660, guid: e5fdc0ee69c598a4c8fdc156c1820a85,
         type: 3}

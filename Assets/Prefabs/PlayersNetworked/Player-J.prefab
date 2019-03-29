@@ -240,6 +240,27 @@ PrefabInstance:
       propertyPath: syncInterval
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5838706241456192784, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
+        type: 3}
+      propertyPath: playerAnimation
+      value: 
+      objectReference: {fileID: 2069727881282540201}
+    - target: {fileID: 5838706241456192784, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
+        type: 3}
+      propertyPath: Attacks.Array.data[1]
+      value: 
+      objectReference: {fileID: 1107275526274097858, guid: 7469ac5d23dc1764dad3bc1de3d11f25,
+        type: 3}
+    - target: {fileID: 3455908068013537913, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.434829
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455908068013537913, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.6363927
+      objectReference: {fileID: 0}
     - target: {fileID: 1148452919252934411, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -294,27 +315,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5838706241456192784, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
-        type: 3}
-      propertyPath: playerAnimation
-      value: 
-      objectReference: {fileID: 2069727881282540201}
-    - target: {fileID: 5838706241456192784, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
-        type: 3}
-      propertyPath: Attacks.Array.data[1]
-      value: 
-      objectReference: {fileID: 1107275526274097858, guid: 7469ac5d23dc1764dad3bc1de3d11f25,
-        type: 3}
-    - target: {fileID: 3455908068013537913, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1.434829
-      objectReference: {fileID: 0}
-    - target: {fileID: 3455908068013537913, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 0.6363927
       objectReference: {fileID: 0}
     - target: {fileID: 1148452919252934411, guid: 76f2e5151450ecf4ba2e7e6d2fdd8c35,
         type: 3}

@@ -35,6 +35,7 @@ public abstract class MeleeChar : BaseChar
 
 
             GameObject theAttack = Instantiate(currentAttack, this.gameObject.transform);
+            //theAttack.transform.SetParent(this.transform);
             theAttack.GetComponent<MeleeAttack>().Initialisation(playerPos, angle);
             NetworkServer.SpawnWithClientAuthority(theAttack,this.gameObject);
             
