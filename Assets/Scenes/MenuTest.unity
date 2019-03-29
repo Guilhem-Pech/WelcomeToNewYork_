@@ -701,7 +701,7 @@ PrefabInstance:
         type: 3}
       propertyPath: GameplayPlayers.Array.data[1]
       value: 
-      objectReference: {fileID: 6423506049547672139, guid: 11d771ded429e8b489c7bfa30584c22a,
+      objectReference: {fileID: 6296840831780418371, guid: 85862ac4350226d499e44362f1d101d3,
         type: 3}
     - target: {fileID: 389919455812498593, guid: c84c99feea165384990bf0f398b6e683,
         type: 3}
@@ -4035,11 +4035,14 @@ MonoBehaviour:
   - {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
   - {fileID: 1619184190625883108, guid: 80b7074aa3895ff4da4ecd44b8bde54d, type: 3}
   - {fileID: 1619184190625883108, guid: 935193d6be34d1c4695995cc30fac424, type: 3}
-  - {fileID: 1812041652108394998, guid: 7469ac5d23dc1764dad3bc1de3d11f25, type: 3}
+  - {fileID: 1107275526274097858, guid: 7469ac5d23dc1764dad3bc1de3d11f25, type: 3}
   - {fileID: 1619184190625883108, guid: e2bea726819ae9348b8c529a2def9016, type: 3}
   - {fileID: 1619184190625883108, guid: ad40362c12f839f4e861a315c4116d38, type: 3}
   - {fileID: 2595192204433423284, guid: ba596b8c7cd6cd64abfb1a4f7dd3b1be, type: 3}
-  - {fileID: 8600722944348430187, guid: 11d771ded429e8b489c7bfa30584c22a, type: 3}
+  - {fileID: 4973827835927543099, guid: 85862ac4350226d499e44362f1d101d3, type: 3}
+  - {fileID: 2595192204433423284, guid: 38660279196ec8d42a172c421f75b54d, type: 3}
+  - {fileID: 929470595274396164, guid: 544d949eec6e55e46954d5725087b936, type: 3}
+  - {fileID: 8532725347727124117, guid: a6399e2efb1fcc34d8e6493106a0c695, type: 3}
   showLobbyGUI: 0
   minPlayers: 1
   lobbyPlayerPrefab: {fileID: 777211228252411877, guid: 0077714ae18b4cc4db46e0217dab04f9,

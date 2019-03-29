@@ -30,6 +30,7 @@ public class AjirogChar : DistChar
     {
         if (AttSpeReady)
         {
+            this.lastShot = Time.time;
             GameObject currentShot = Projectile[1]; // On récupère le prefab du projectile
             shake = 1;
             if (currentSpread < spreadMax)
@@ -48,12 +49,12 @@ public class AjirogChar : DistChar
                 NetworkServer.Spawn(theShot);
                 float randAngle = Random.Range(angle - (currentSpread / 2), angle + (currentSpread / 2));
                 theShot.GetComponent<Projectile>().initialisation(randAngle, playerPosition); // On initialise les valeurs
-                RpcAttaque();
+                RpcAttaqueSpecial();
                 angle += 40/shotgunAmmo;
             }
             
 
-
+           
             AttSpeReady = false;
             RechargeSpe = true;
         }

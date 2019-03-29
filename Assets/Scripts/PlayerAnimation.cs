@@ -240,6 +240,12 @@ public class PlayerAnimation : NetworkBehaviour
         handClothesSpriteRenderer.gameObject.GetComponent<Animator>().CrossFadeInFixedTime("Shoot", 0f);
     }
 
+    public void ActivateSpecialDist()
+    {
+        handClothesSpriteRenderer.gameObject.GetComponent<Animator>().Play("Special");
+        handClothesSpriteRenderer.gameObject.GetComponent<Animator>().CrossFadeInFixedTime("Special", 0f);
+    }
+
     public void ShowSpecialSprite(bool showSpecialSpriteBool, bool flipX)
     {
         //GOSpecialSprite.GetComponentInChildren<Animator>().CrossFadeInFixedTime("Default", 0f);
