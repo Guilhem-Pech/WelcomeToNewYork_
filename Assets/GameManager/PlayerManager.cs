@@ -8,14 +8,13 @@ using System.Linq;
 public class PlayerManager : NetworkBehaviour
 {
     public List<GameObject> joueurMort = new List<GameObject>();
-    public List<GameObject> players = new List<GameObject>();
+    public List<BaseChar> players = new List<BaseChar>();
 
 
     // Start is called before the first frame update
     [ServerCallback]
     void Awake()
     {
-        players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
       //  print("Nombre de Joueur : " + players.Count);
     }
 
@@ -65,7 +64,7 @@ public class PlayerManager : NetworkBehaviour
     [Server]
     public void HealAll()
     {
-        foreach (GameObject entite in players)
+        foreach (BaseChar entite in players)
         {
             entite.GetComponent<BaseChar>().AddHealth(entite.GetComponent<BaseChar>().GetMaxHealth() - entite.GetComponent<BaseChar>().currentHealth);
         }

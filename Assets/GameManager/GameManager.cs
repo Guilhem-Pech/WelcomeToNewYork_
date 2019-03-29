@@ -17,6 +17,7 @@ public class GameManager : NetworkBehaviour
     void Start()
     {
         playerMan = gameObject.GetComponent<PlayerManager>() ;
+        playerMan.players.AddRange(GameObject.FindObjectsOfType<BaseChar>());
         waveMan = gameObject.GetComponent<WaveManager>();
         Vector3 position =new Vector3(0,1,0);
         playerMan.SpawnAll(position);
