@@ -22,6 +22,8 @@ public class GameManager : NetworkBehaviour
         playerMan.SpawnAll(position);
         waveMan.DebutVague();
     }
+
+
  
 
     [Server]

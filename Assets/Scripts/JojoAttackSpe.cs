@@ -18,7 +18,12 @@ public class JojoAttackSpe : MeleeAttack
 
     private void UpdateServer()
     {
-        if (AnimatorIsInState("Attacking")) // L'attaque est en cours
+        if (AnimatorIsInState("Startup"))
+        {
+            this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = true;
+            this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.ShowSpecialSprite(true, this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.handClothesSpriteRenderer.flipY);
+        }
+        else if (AnimatorIsInState("Attacking")) // L'attaque est en cours
         {
             //spriteRenderer.color = Color.red;
             hitBoxGO.SetActive(true);
@@ -47,6 +52,8 @@ public class JojoAttackSpe : MeleeAttack
             this.GetComponentInParent<PlayerController>().enabled = false;
             this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.DisplayHands(false); //on cache les mains
                                                                                                    //cacher le personnage aussi
+            this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.ShowSpecialSprite(true, this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.handClothesSpriteRenderer.flipY);
+            this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = true;
         }
         else if (AnimatorIsInState("Finished"))
         {
@@ -86,4 +93,10 @@ public class JojoAttackSpe : MeleeAttack
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.ShowSpecialSprite(false, this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.handClothesSpriteRenderer.flipY);
+    }
+
 }

@@ -47,7 +47,7 @@ public class MeleeAttack : NetworkBehaviour
 
         hitBoxGO = this.gameObject.GetComponentInChildren<BoxCollider>().gameObject; // on récupère la hitbox de l'attaque
         hitBoxGO.transform.localScale = new Vector3(spread, 1f, range);
-        this.hitBoxGO.transform.position = new Vector3((vecteurDirection.x * range / 2 + playerPosition.x), 1.5f, (vecteurDirection.z * range / 2 + playerPosition.z));
+        this.hitBoxGO.transform.position = new Vector3((vecteurDirection.x * range / 2 + playerPosition.x), 0.5f, (vecteurDirection.z * range / 2 + playerPosition.z));
         hitBoxGO.SetActive(false);
 
         //Sound
@@ -108,8 +108,8 @@ public class MeleeAttack : NetworkBehaviour
         else if (AnimatorIsInState("Finished"))
         {
             //spriteRenderer.color = Color.black;
-            FinishAttack();
             player.nextAttackID = 0;
+            FinishAttack();
         }
     }
 
@@ -133,8 +133,7 @@ public class MeleeAttack : NetworkBehaviour
             if (other.gameObject.GetComponent<TestEnnemy>() != null)
             { 
                 Vector2 knockDirection = new Vector2(other.gameObject.GetComponent<TestEnnemy>().transform.position.x - playerPosition.x, other.gameObject.GetComponent<TestEnnemy>().transform.position.z - playerPosition.z).normalized;
-               // print("VDirection " + vecteurDirection + "Direction KnockBack" + knockDirection);
-                    
+                // print("VDirection " + vecteurDirection + "Direction KnockBack" + knockDirection);
                 other.gameObject.GetComponent<TestEnnemy>().onHit(knockDirection * knockBackForce, 500, knockBackDuration, damage);
             }
         }

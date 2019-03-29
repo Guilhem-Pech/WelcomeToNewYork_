@@ -5,9 +5,8 @@ using Mirror;
 public class SpawnController : NetworkBehaviour
 {
     public float spawnRadius = 1;
-    public GameObject prefab;
-
-
+    public GameObject prefabCaC;
+    public GameObject prefabDistance;
 
     // Update is called once per frame
     void Update()
@@ -20,9 +19,11 @@ public class SpawnController : NetworkBehaviour
     {
         Vector3 position = new Vector3(
         transform.position.x + Random.Range(-spawnRadius, spawnRadius),
-        1,
+        0,
         transform.position.z + Random.Range(-spawnRadius, spawnRadius)
         );
+
+        GameObject prefab = ((Random.Range(0, 2)) == 0 ? prefabCaC : prefabDistance);
         GameObject entity = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
         NetworkServer.Spawn(entity);
         //entity.transform.parent = transform;

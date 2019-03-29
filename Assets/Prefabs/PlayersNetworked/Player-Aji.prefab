@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &4505880337567262038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2595192204433423284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c91af413857b4a448b4c78f4f4f64ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerLobbySprite: {fileID: 21300000, guid: f4972fde69cfa7b48ac310a27e4e6571, type: 3}
 --- !u!114 &8013936494523931520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,11 +59,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player-Aji
       objectReference: {fileID: 0}
+    - target: {fileID: 7861856408488141555, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 60ae6c17b1bcb734581d343ef4b03cf9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7861856408488141555, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 767090134
+      objectReference: {fileID: 0}
     - target: {fileID: 8701189933833513575, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: PlayerLobbySprite
       value: 
-      objectReference: {fileID: 21300000, guid: 96aff840ed7a3734f90730ab906340f9,
+      objectReference: {fileID: 21300000, guid: f4972fde69cfa7b48ac310a27e4e6571,
         type: 3}
     - target: {fileID: 9186962741301816463, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
@@ -81,11 +104,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.348
-      objectReference: {fileID: 0}
-    - target: {fileID: 7861856408488141555, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 60ae6c17b1bcb734581d343ef4b03cf9
       objectReference: {fileID: 0}
     - target: {fileID: 1150504060646366922, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
@@ -147,12 +165,47 @@ PrefabInstance:
       propertyPath: dustParticleSystem
       value: 
       objectReference: {fileID: 2595192204394311565}
+    - target: {fileID: 1150504060646366922, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: GOSprite
+      value: 
+      objectReference: {fileID: 2595192203860399421}
+    - target: {fileID: 1150504060646366922, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: GOSpecialSprite
+      value: 
+      objectReference: {fileID: 8983728980931479279}
     - target: {fileID: 3154528051708176776, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: 0dc81e2bb143a8149a5b7a2575c0a1d5,
         type: 2}
+    - target: {fileID: 9186962740861974753, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186962740861974753, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186962740140420308, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186962742028429042, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135123874172071213, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 737852a5616080144bbafdee474e0fb1, type: 2}
     - target: {fileID: 9186962740140420297, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_Controller
@@ -181,31 +234,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300004, guid: f4972fde69cfa7b48ac310a27e4e6571,
         type: 3}
-    - target: {fileID: 9186962740140420308, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9186962742028429042, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135123874172071213, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 737852a5616080144bbafdee474e0fb1, type: 2}
-    - target: {fileID: 9186962740861974753, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9186962740861974753, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 8290664043524974520, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: bodySpriteRenderer
@@ -346,6 +374,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2756bbd3f1be94ea1542081c1a6ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2595192203860399421 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9186962740896367106, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6592527130424694591}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2595192203057867551 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9186962740600011808, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
@@ -415,6 +449,12 @@ ParticleSystem:
 --- !u!20 &2595192204034945065 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 9186962741440243478, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6592527130424694591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8983728980931479279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2869287288135438800, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
     type: 3}
   m_PrefabInstance: {fileID: 6592527130424694591}
   m_PrefabAsset: {fileID: 0}

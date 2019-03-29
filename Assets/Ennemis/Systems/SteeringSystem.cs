@@ -485,7 +485,11 @@ public class SteeringSystem : NetworkBehaviour
             m_SteeringUpdateCurrentCooldown = 0;
             Calculate();
 
-            gameObject.GetComponent<NavMeshAgent>().SetDestination(SteeringPos());
+            if (gameObject.GetComponent<NavMeshAgent>().enabled)
+            {
+                gameObject.GetComponent<NavMeshAgent>().SetDestination(SteeringPos());
+            }
+                
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+  ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
@@ -14,7 +14,7 @@ public class DistChar : BaseChar
     public float fireRate ;
     public float spreadMax;
     protected float currentSpread = 0;
-    private float lastShot ;
+    protected float lastShot ;
 
     public Camera camera;
     public float shake = 0;
@@ -61,6 +61,12 @@ public class DistChar : BaseChar
     protected void RpcAttaque()
     {
         playerAnimation.ShootHands(); // On lance l'animation de tir
+    }
+
+    [ClientRpc]
+    protected void RpcAttaqueSpecial()
+    {
+        playerAnimation.ActivateSpecialDist(); // On lance l'animation de tir
     }
 
 
@@ -161,7 +167,6 @@ public class DistChar : BaseChar
 
     public override void Awake()
     {
-
 
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class AttackBehaviour : StateMachineBehaviour
 {
+    private Animator animController;
     private NavMeshAgent agent;
     private TargetingSystem targetSys;
     private AttackSystem attackSys;
@@ -16,11 +17,10 @@ public class AttackBehaviour : StateMachineBehaviour
     public bool attackStart;
     private AnimationsReplicationBridge animBridge;
 
-
-
     // onstateenter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
     {
+        animController = animator;
         animBridge = animator.gameObject.GetComponent<AnimationsReplicationBridge>();
         agent = animator.gameObject.GetComponent<NavMeshAgent>();
         targetSys = animator.gameObject.GetComponentInChildren<TargetingSystem>();
@@ -32,36 +32,41 @@ public class AttackBehaviour : StateMachineBehaviour
         agent.ResetPath();
         agent.isStopped = true;
         agent.SetDestination(animator.gameObject.transform.position);
-
-        animBridge.playAnimation("Attacking");
-        timeSinceStateEnter = 0f;
+        
         attackStart = false;
+
+        agent.enabled = false;
+        animator.gameObject.GetComponentInChildren<NavMeshObstacle>().enabled = true;
+
+        animBridge.playAnimation("AttackIdle");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timeSinceStateEnter += Time.deltaTime;
-
-        if (!attackStart && timeSinceStateEnter > 0.1f)
+        if ((!attackStart) && attackSys.attackAbility.IsCoolDownDone())
         {
             attackStart = true;
 
-            foreach (GameObject player in attackSys.getTargetList())
-            {
-                player.GetComponentInParent<BaseChar>().TakeDamage(10);
-            }
+            animBridge.playAnimation("Attacking");
+        }else if (false && (!attackStart) && (!attackSys.attackAbility.IsCoolDownDone()) && (attackSys.CanEscape && attackSys.IsTargetTooClose(targetSys.getTarget()))) { //disabled
+            animController.SetBool("IsEscaping", true);
+            animController.SetBool("IsAttacking", false);
         }
-        else if (attackStart && timeSinceStateEnter > 0.5f)
+        else if ((!attackStart) && (!attackSys.attackAbility.IsCoolDownDone()) && !attackSys.attackAbility.IsAttackPossible(targetSys.getTarget()))
         {
-            animator.SetBool("IsAttacking", false);
+            animController.SetBool("IsAttacking", false);
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
     {
+        animBridge.playAnimation("Idle");
+        animator.gameObject.GetComponentInChildren<NavMeshObstacle>().enabled = false;
+        agent.enabled = true;
         agent.isStopped = false;
+        animator.SetBool("IsAttacking", false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
@@ -75,4 +80,18 @@ public class AttackBehaviour : StateMachineBehaviour
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
+
+    public void OnAnimAttackLaunch()
+    {
+        attackSys.attackAbility.Attack(targetSys.getTarget());
+    }
+    public void OnAnimAttackEnd()
+    {
+        if (attackSys.CanEscape && attackSys.IsTargetTooClose(targetSys.getTarget()))
+            animController.SetBool("IsEscaping", true);
+        animController.SetBool("IsAttacking", false);
+    }
+
+
+    
 }

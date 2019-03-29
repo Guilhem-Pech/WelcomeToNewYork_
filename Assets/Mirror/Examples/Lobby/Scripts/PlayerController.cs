@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Mirror.Examples.NetworkLobby
 {
@@ -9,7 +9,7 @@ namespace Mirror.Examples.NetworkLobby
         public int Index;
 
         [SyncVar]
-        public uint score = 0;
+        public uint score;
 
         [SyncVar(hook = nameof(SetColor))]
         public Color playerColor = Color.black;
@@ -18,9 +18,9 @@ namespace Mirror.Examples.NetworkLobby
 
         public float moveSpeed = 300f;
 
-        public float horiz = 0f;
-        public float vert = 0f;
-        public float turn = 0f;
+        public float horiz;
+        public float vert;
+        public float turn;
 
         public float turnSpeedAccel = 30f;
         public float turnSpeedDecel = 30f;
@@ -41,7 +41,6 @@ namespace Mirror.Examples.NetworkLobby
 
         void SetColor(Color color)
         {
-            //Debug.LogWarningFormat("PlayerController SetColor netId:{0} to {1}", netId, color);
             GetComponent<Renderer>().material.color = color;
         }
 
@@ -102,7 +101,6 @@ namespace Mirror.Examples.NetworkLobby
         public void CmdClaimPrize(GameObject hitObject)
         {
             // Null check is required, otherwise close timing of multiple claims could throw a null ref.
-            //if (hitObject != null)
             hitObject?.GetComponent<Reward>().ClaimPrize(gameObject);
         }
 

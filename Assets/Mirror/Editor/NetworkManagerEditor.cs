@@ -1,10 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using UnityObject = UnityEngine.Object;
 
 namespace Mirror
 {
@@ -27,15 +23,16 @@ namespace Mirror
 
                 spawnListProperty = serializedObject.FindProperty("spawnPrefabs");
 
-                spawnList = new ReorderableList(serializedObject, spawnListProperty);
-                spawnList.drawHeaderCallback = DrawHeader;
-                spawnList.drawElementCallback = DrawChild;
-                spawnList.onReorderCallback = Changed;
-                spawnList.onRemoveCallback = RemoveButton;
-                spawnList.onChangedCallback = Changed;
-                spawnList.onReorderCallback = Changed;
-                spawnList.onAddCallback = AddButton;
-                spawnList.elementHeight = 16; // this uses a 16x16 icon. other sizes make it stretch.
+                spawnList = new ReorderableList(serializedObject, spawnListProperty)
+                {
+                    drawHeaderCallback = DrawHeader,
+                    drawElementCallback = DrawChild,
+                    onReorderCallback = Changed,
+                    onRemoveCallback = RemoveButton,
+                    onChangedCallback = Changed,
+                    onAddCallback = AddButton,
+                    elementHeight = 16 // this uses a 16x16 icon. other sizes make it stretch.
+                };
             }
         }
 
