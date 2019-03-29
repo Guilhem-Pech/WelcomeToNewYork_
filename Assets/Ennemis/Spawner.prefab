@@ -47,7 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncInterval: 0.1
   spawnRadius: 1
-  prefab: {fileID: 5592136169436092911, guid: 8819b8f6a91c04340a88e33aaae33a23, type: 3}
+  prefabCaC: {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0,
+    type: 3}
+  prefabDistance: {fileID: 5592136169436092911, guid: 8819b8f6a91c04340a88e33aaae33a23,
+    type: 3}
 --- !u!114 &287723648892546247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,10 +63,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneId: 0
   m_ServerOnly: 1
   m_LocalPlayerAuthority: 0
   m_AssetId: 981a2bc2d2d19d247a89a28ca34a5508
+  m_SceneId: 0
 --- !u!1 &7518756922658121987
 GameObject:
   m_ObjectHideFlags: 0
