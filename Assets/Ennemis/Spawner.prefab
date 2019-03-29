@@ -49,7 +49,7 @@ MonoBehaviour:
   spawnRadius: 1
   prefabCaC: {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0,
     type: 3}
-  prefabDistance: {fileID: 5592136169436092911, guid: 8819b8f6a91c04340a88e33aaae33a23,
+  prefabDistance: {fileID: 8053007204615956632, guid: 8819b8f6a91c04340a88e33aaae33a23,
     type: 3}
 --- !u!114 &287723648892546247
 MonoBehaviour:
