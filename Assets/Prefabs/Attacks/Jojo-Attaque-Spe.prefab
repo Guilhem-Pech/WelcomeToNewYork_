@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8092309591426025332}
   - component: {fileID: 70937209168203026}
   - component: {fileID: 6397475176204137658}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Jojo-Attaque-Spe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4616f383e9ece3c4098ed6e85bdd41f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncInterval: 0.1
   damage: 0
   staminaCost: 0
   duration: 0
@@ -113,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneId: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
   m_AssetId: 935193d6be34d1c4695995cc30fac424
+  m_SceneId: 0

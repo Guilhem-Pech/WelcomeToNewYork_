@@ -92,6 +92,16 @@ PrefabInstance:
       propertyPath: launchingSound
       value: 
       objectReference: {fileID: 8300000, guid: dd3debf1b8bad0c4ba95e88ae7ee9253, type: 3}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3273092604898574500, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: m_Sprite
