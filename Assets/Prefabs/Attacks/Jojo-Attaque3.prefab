@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8176317944374019099}
   - component: {fileID: 2451242530065665451}
   - component: {fileID: 3967515140542873282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Jojo-Attaque3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,10 +86,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneId: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
   m_AssetId: e2bea726819ae9348b8c529a2def9016
+  m_SceneId: 0
 --- !u!1 &5254035887163463543
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 7277212182526759356}
   - component: {fileID: 1606354739076463303}
   - component: {fileID: 5576293119503505747}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 8940105490308640824}
   - component: {fileID: 623585247158943656}
   - component: {fileID: 675837925731377767}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
