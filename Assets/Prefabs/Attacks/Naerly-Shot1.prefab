@@ -4893,6 +4893,8 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 100
   knockbackDuration: 0.1
+  targetTag: ennemy
+  allyTag: Player
   launchingSound: {fileID: 8300000, guid: 55846fd44522f214da3f30ef51bd1176, type: 3}
   touchSound: {fileID: 8300000, guid: d292138cf20a8e14abe9d55efbb193a9, type: 3}
   ImpactParticle: {fileID: 5734760720971303963}

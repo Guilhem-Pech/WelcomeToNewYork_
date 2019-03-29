@@ -3,18 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AttackBehaviour : StateMachineBehaviour
+public class EscapeBehaviour : StateMachineBehaviour
 {
     private Animator animController;
     private NavMeshAgent agent;
     private TargetingSystem targetSys;
     private AttackSystem attackSys;
     private SteeringSystem steerSys;
-
-    //State Parameters
-    public Rigidbody rigidbody;
-    public float timeSinceStateEnter;
-    public bool attackStart;
     private AnimationsReplicationBridge animBridge;
 
     // onstateenter is called when a transition starts and the state machine starts to evaluate this state
@@ -32,41 +27,39 @@ public class AttackBehaviour : StateMachineBehaviour
         agent.ResetPath();
         agent.isStopped = true;
         agent.SetDestination(animator.gameObject.transform.position);
-        
-        attackStart = false;
 
         agent.enabled = false;
         animator.gameObject.GetComponentInChildren<NavMeshObstacle>().enabled = true;
-
-        animBridge.playAnimation("AttackIdle");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if ((!attackStart) && attackSys.attackAbility.IsCoolDownDone())
-        {
-            attackStart = true;
+        //Calcul de la position idéal de la téléportation
+        Vector3 agentPos = animator.gameObject.transform.position;
+        Vector3 directionToTarget = (targetSys.getTarget().transform.position - agentPos).normalized;
+        Vector3 WarpPosition = ((-directionToTarget) * attackSys.escapeRange) + agentPos;
 
-            animBridge.playAnimation("Attacking");
-        }else if (false && (!attackStart) && (!attackSys.attackAbility.IsCoolDownDone()) && (attackSys.CanEscape && attackSys.IsTargetTooClose(targetSys.getTarget()))) { //disabled
-            animController.SetBool("IsEscaping", true);
-            animController.SetBool("IsAttacking", false);
+        //On vérifie à l'aide d'un raycast si la TP ne fait pas sortir du navmesh
+        NavMeshHit hit;
+        if((NavMesh.Raycast(agentPos, WarpPosition, out hit, NavMesh.AllAreas)))
+        { //Si c'est le cas, on ajuste la position de la tp
+            WarpPosition = hit.position;
         }
-        else if ((!attackStart) && (!attackSys.attackAbility.IsCoolDownDone()) && !attackSys.attackAbility.IsAttackPossible(targetSys.getTarget()))
-        {
-            animController.SetBool("IsAttacking", false);
-        }
+
+        agent.Warp(WarpPosition);
+
+        animator.SetBool("IsEscaping", false);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateinfo, int layerindex)
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animBridge.playAnimation("Idle");
         animator.gameObject.GetComponentInChildren<NavMeshObstacle>().enabled = false;
         agent.enabled = true;
         agent.isStopped = false;
-        animator.SetBool("IsAttacking", false);
+        animator.SetBool("IsEscaping", false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
@@ -80,18 +73,4 @@ public class AttackBehaviour : StateMachineBehaviour
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
-
-    public void OnAnimAttackLaunch()
-    {
-        attackSys.attackAbility.Attack(targetSys.getTarget());
-    }
-    public void OnAnimAttackEnd()
-    {
-        if (attackSys.CanEscape && attackSys.IsTargetTooClose(targetSys.getTarget()))
-            animController.SetBool("IsEscaping", true);
-        animController.SetBool("IsAttacking", false);
-    }
-
-
-    
 }

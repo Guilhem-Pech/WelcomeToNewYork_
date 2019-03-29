@@ -8,7 +8,9 @@ public class Projectile : NetworkBehaviour
     public int damage;
     public float knockbackForce;
     public float knockbackDuration;
-
+    
+    public string targetTag;
+    public string allyTag;
 
     public AudioClip launchingSound;
     public AudioClip touchSound;
@@ -34,7 +36,7 @@ public class Projectile : NetworkBehaviour
         this.gameObject.GetComponent<CapsuleCollider>().radius = radius;
         this.gameObject.GetComponent<CapsuleCollider>().height = height;
 
-        this.gameObject.transform.position= new Vector3 (startPos.x + (direction.x/1.1f),startPos.y,startPos.z + (direction.y/1.1f));
+        this.gameObject.transform.position= new Vector3 (startPos.x + (direction.x/1.1f),0.6f,startPos.z + (direction.y/1.1f));
         this.transform.Rotate(new Vector3(0, 0, angle), Space.Self);
         exisTime = Time.time;
         this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x,0f,direction.y) * vitesse);
@@ -73,17 +75,19 @@ public class Projectile : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ( other.gameObject.tag != "Player" && other.gameObject.tag != "NeighboursTrigger")
+        if ( other.gameObject.tag != allyTag && other.gameObject.tag != "NeighboursTrigger")
         {
             StartCoroutine(DestructionProcedure(1f));
             if (!isServer)
                 return;
-            if (other.gameObject.tag == "ennemy")
+            if (other.gameObject.tag == targetTag)
             {
                 if (other.gameObject.GetComponent<TestEnnemy>() != null)
                 {
                     other.gameObject.GetComponent<TestEnnemy>().onHit(direction, knockbackForce, knockbackDuration, damage);
-                
+                }else if (other.gameObject.GetComponent<BaseChar>() != null)
+                {
+                    other.gameObject.GetComponent<BaseChar>().TakeDamage(damage);
                 }
             }
         }

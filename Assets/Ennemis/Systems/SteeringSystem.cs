@@ -487,7 +487,6 @@ public class SteeringSystem : NetworkBehaviour
 
             if (gameObject.GetComponent<NavMeshAgent>().enabled)
             {
-                Debug.Log("Velocity of " + this.gameObject.name + " : " + gameObject.GetComponent<NavMeshAgent>().velocity.magnitude);
                 gameObject.GetComponent<NavMeshAgent>().SetDestination(SteeringPos());
             }
                 

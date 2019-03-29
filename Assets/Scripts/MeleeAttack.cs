@@ -47,7 +47,7 @@ public class MeleeAttack : NetworkBehaviour
 
         hitBoxGO = this.gameObject.GetComponentInChildren<BoxCollider>().gameObject; // on récupère la hitbox de l'attaque
         hitBoxGO.transform.localScale = new Vector3(spread, 1f, range);
-        this.hitBoxGO.transform.position = new Vector3((vecteurDirection.x * range / 2 + playerPosition.x), 1.5f, (vecteurDirection.z * range / 2 + playerPosition.z));
+        this.hitBoxGO.transform.position = new Vector3((vecteurDirection.x * range / 2 + playerPosition.x), 0.5f, (vecteurDirection.z * range / 2 + playerPosition.z));
         hitBoxGO.SetActive(false);
 
         //Sound

@@ -20,7 +20,7 @@ public class SpawnController : NetworkBehaviour
     {
         Vector3 position = new Vector3(
         transform.position.x + Random.Range(-spawnRadius, spawnRadius),
-        1,
+        0,
         transform.position.z + Random.Range(-spawnRadius, spawnRadius)
         );
         GameObject entity = Instantiate(prefab, transform.position, transform.rotation) as GameObject;

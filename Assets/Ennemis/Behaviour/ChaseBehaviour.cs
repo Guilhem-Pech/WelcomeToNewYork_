@@ -40,7 +40,7 @@ public class ChaseBehaviour : StateMachineBehaviour {
         if (!targetSys.hasTarget())
         {
             animator.SetBool("IsChasing", false);
-        }else if(attackSys.getCount() > 0)
+        }else if(attackSys.getCount() > 0 && attackSys.attackAbility.IsAttackPossible(targetSys.getTarget()))
         {
             animator.SetBool("IsAttacking", true);
         }

@@ -5,6 +5,12 @@ using Mirror;
 
 public class AttackSystem : NetworkBehaviour
 {
+    public bool CanEscape;
+    public float escapeTriggerDistance;
+    public float escapeRange;
+
+    public AbstractAttack attackAbility;
+    private Animator animController;
     private SphereCollider attackCollider;
     private Dictionary<int, GameObject> currentAttackTargets;
     private List<GameObject> currentAttackTargetsList;
@@ -16,6 +22,7 @@ public class AttackSystem : NetworkBehaviour
     {
         currentAttackTargetsList = new List<GameObject>();
         currentAttackTargets = new Dictionary<int, GameObject>();
+        animController = transform.parent.GetComponent<Animator>();
         m_parentEntity = gameObject.transform.parent.gameObject;
         attackCollider = gameObject.GetComponent<SphereCollider>();
     }
@@ -48,7 +55,7 @@ public class AttackSystem : NetworkBehaviour
     /* Getter */
     public bool IsAlreadyTarget(GameObject entity)
     {
-        return currentAttackTargets.ContainsKey(entity.GetInstanceID());
+        return entity != null && currentAttackTargets.ContainsKey(entity.GetInstanceID());
     }
 
     public List<int> getTargeIDs()
@@ -97,6 +104,25 @@ public class AttackSystem : NetworkBehaviour
         {
             currentAttackTargets.Remove(collidedEntity.GetInstanceID());
         }
+    }
+
+    [Server]
+    public bool IsTargetTooClose(GameObject target)
+    {
+        if (!CanEscape || target == null)
+            return false;
+        return ((target.transform.position - gameObject.transform.position).magnitude <= escapeTriggerDistance);
+    }
+
+    [Server]
+    public void AnimAttackLaunch()
+    {
+        animController.GetBehaviour<AttackBehaviour>().OnAnimAttackLaunch();
+    }
+    [Server]
+    public void AnimAttackEnd()
+    {
+        animController.GetBehaviour<AttackBehaviour>().OnAnimAttackEnd();
     }
 }
 
