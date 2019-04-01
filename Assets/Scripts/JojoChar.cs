@@ -35,7 +35,7 @@ public class JojoChar : MeleeChar
             isAttacking = true;
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
 
-            float angleSpe = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
+            float angleSpe = this.gameObject.GetComponent<PlayerAnimation>().GetHandAngle(); // on récupère l'angle de la main pour avoir l'angle de tir
             GameObject theAttackSpe = Instantiate(AttSpe, this.gameObject.transform);
             theAttackSpe.GetComponent<JojoAttackSpe>().Initialisation(playerPos, angleSpe);
             NetworkServer.Spawn(theAttackSpe);

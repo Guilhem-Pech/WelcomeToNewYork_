@@ -31,7 +31,7 @@ public abstract class MeleeChar : BaseChar
             UseStamina(currentAttack.GetComponent<MeleeAttack>().staminaCost);
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
 
-            float angle = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
+            float angle = this.gameObject.GetComponent<PlayerAnimation>().GetComponent<PlayerAnimation>().GetHandAngle(); // on récupère l'angle de la main pour avoir l'angle de tir
 
 
             GameObject theAttack = Instantiate(currentAttack, this.gameObject.transform);
@@ -93,7 +93,7 @@ public abstract class MeleeChar : BaseChar
             if (Physics.Raycast(ray, out hit))
             {
                 Vector3 PlayPos = this.GetComponent<BaseChar>().transform.position;
-                float angleMain = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
+                float angleMain = this.gameObject.GetComponent<PlayerAnimation>().GetHandAngle(); // on récupère l'angle de la main pour avoir l'angle de tir
 
                 CmdAttaqueSpe(PlayPos, angleMain);
             }

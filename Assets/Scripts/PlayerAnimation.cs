@@ -272,6 +272,11 @@ public class PlayerAnimation : NetworkBehaviour
 
     }
 
+    public float GetHandAngle()
+    {
+        return -handGameObject.transform.rotation.eulerAngles.y;
+    }
+
 
 
 }
