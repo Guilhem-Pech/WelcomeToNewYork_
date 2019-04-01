@@ -32,8 +32,6 @@ public class PlayerAnimation : NetworkBehaviour
     public GameObject GOSprite;
     public GameObject GOSpecialSprite;
 
-    public AnimationCurve curveScale;
-
     Vector3 moveDirection;
     float moveSpeed = 0f;
 
@@ -129,16 +127,10 @@ public class PlayerAnimation : NetworkBehaviour
         Vector3 playerPosition = this.gameObject.transform.position;
         Vector3 dir = HandPos - playerPosition;
         dir = dir.normalized;
-        float angleRad = Mathf.Atan2(dir.z + dir.y, dir.x);
-        float angle = angleRad * Mathf.Rad2Deg;
-        handGameObject.transform.rotation = Quaternion.Euler(new Vector3(90, 0, angle));
+        float angle = Mathf.Atan2(dir.z + dir.y, dir.x) * Mathf.Rad2Deg;
+        handGameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
 
-        float scaleY = Mathf.Cos(angleRad * 2.0f) * 0.125f + 1.125f;
-        float scaleX = Mathf.Cos((angleRad) * 2.0f + Mathf.PI) * 0.125f + 1.125f;
-        handClothesSpriteRenderer.gameObject.transform.localScale = (new Vector3(scaleX, scaleY, 1));
-
-        Debug.Log(angle + " : angle " + scaleX + " :X / Y: " + scaleY);
 
         ClothesUpdate();
     }
@@ -275,12 +267,6 @@ public class PlayerAnimation : NetworkBehaviour
 
     }
 
-
-    public float GetHandAngle()
-    {
-        Debug.Log("Ceci est un angle: " + handGameObject.transform.rotation.eulerAngles);
-        return -handGameObject.transform.rotation.eulerAngles.y;
-    }
 
 
 }
