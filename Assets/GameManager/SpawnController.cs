@@ -23,7 +23,7 @@ public class SpawnController : NetworkBehaviour
         transform.position.z + Random.Range(-spawnRadius, spawnRadius)
         );
 
-        int ennemiRandNumb = 1 /*(Random.Range(0, 2))*/;
+        int ennemiRandNumb = (Random.Range(0, 2));
         GameObject prefab = (ennemiRandNumb == 0 ? prefabCaC : prefabDistance);
         GameObject entity = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
         NetworkServer.Spawn(entity);
