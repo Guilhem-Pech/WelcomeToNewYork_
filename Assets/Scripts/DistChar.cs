@@ -38,7 +38,8 @@ public class DistChar : BaseChar
                 Vector3 playerPosition = this.transform.position; // position du joueur
                 //playerPosition.y += 1.35f; // Add the height of the character
 
-                float angle = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
+                float angle = this.gameObject.GetComponent<PlayerAnimation>().GetHandAngle(); // on récupère l'angle de la main pour avoir l'angle de tir
+                Debug.Log("Angle: " + angle);
 
                 GameObject theShot = Instantiate(currentShot); // On instantie le projectile
                 NetworkServer.Spawn(theShot);
@@ -144,7 +145,7 @@ public class DistChar : BaseChar
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 Vector3 PlayPos = this.GetComponent<BaseChar>().transform.position;
-                float angleMain = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
+                float angleMain = this.gameObject.GetComponent<PlayerAnimation>().GetHandAngle(); // on récupère l'angle de la main pour avoir l'angle de tir
 
                 CmdAttaqueSpeciale(PlayPos, angleMain);
             }
