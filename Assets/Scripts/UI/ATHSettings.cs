@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ATHSettings : MonoBehaviour { 
+public class ATHSettings : MonoBehaviour {
 
-    
+
+    GameObject personnageGameObject;
+    BaseChar personnage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,11 +19,21 @@ public class ATHSettings : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        GameObject PersonnageGameObject = GameObject.FindGameObjectWithTag("Player");
-        BaseChar Personnage = PersonnageGameObject.GetComponent<BaseChar>();
+        if (personnage == null)
+        {
+            if (personnageGameObject == null)
+            {
+                personnageGameObject = GameObject.FindGameObjectWithTag("Player");
+            }
+            else
+            {
+                personnage = personnageGameObject.GetComponent<BaseChar>();
+            }
+            return;
+        }
 
-        HealthATH(Personnage);
-        StaminaATH(Personnage);
+        //HealthATH(Personnage);
+        //StaminaATH(personnage);
         EnnemyATH();
 
         //JojoChar truc = GetComponent<JojoChar>();

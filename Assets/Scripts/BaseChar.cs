@@ -20,7 +20,6 @@ public abstract class BaseChar : BaseEntity
 
     public abstract void Awake();
 
-
     [ServerCallback]
     public virtual void Start()
     {
@@ -78,6 +77,12 @@ public abstract class BaseChar : BaseEntity
         {
             UI.GetComponentInChildren<Life>().AddLife(heal);
         }
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        this.tag = "Player";
     }
 
     [TargetRpc]
