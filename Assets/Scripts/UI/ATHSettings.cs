@@ -32,8 +32,8 @@ public class ATHSettings : MonoBehaviour {
             return;
         }
 
-        //HealthATH(Personnage);
-        //StaminaATH(personnage);
+        HealthATH();
+        StaminaATH();
         EnnemyATH();
 
         //JojoChar truc = GetComponent<JojoChar>();
@@ -41,43 +41,34 @@ public class ATHSettings : MonoBehaviour {
         //Debug.Log(health);
     }
 
-    void HealthATH(BaseChar truc)
+    void HealthATH()
     {
-        
-        float health = truc.GetHealth();
-        float maxHealth = truc.GetMaxHealth();
+       
+        float health = personnage.GetHealth();
+        float maxHealth = personnage.GetMaxHealth();
 
-        Scrollbar BarrePV = GameObject.Find("BarrePV").GetComponent<Scrollbar>();
+        //Scrollbar BarrePV = GameObject.Find("BarrePV").GetComponent<Scrollbar>();
 
-        BarrePV.size = health / maxHealth;
+        //BarrePV.size = health / maxHealth;
     }
 
-    void StaminaATH(BaseChar truc)
+    void StaminaATH()
     {
-        float stamina = truc.getStamina();
-        float maxStamina = truc.getMaxStamina();
+        float stamina = personnage.getStamina();
+        float maxStamina = personnage.getMaxStamina();
 
-        Scrollbar BarreMana = GameObject.Find("BarreMana").GetComponent<Scrollbar>();
+        //Scrollbar BarreMana = GameObject.Find("BarreMana").GetComponent<Scrollbar>();
 
-        BarreMana.size = stamina / maxStamina;
+        //BarreMana.size = stamina / maxStamina;
     }
 
     void EnnemyATH() {
+
+        int ts = FindObjectOfType<WaveManager>().ennemiRestant;
        
-        var ts = GameObject.FindGameObjectsWithTag("ennemy");
-        //Debug.Log(ts);
-        int count = 0;
-        foreach(GameObject t in ts)
-        {
-            //Debug.Log(t.name);
-            if (t.name == "Ennemi(Clone)")
-            {
-                count++;
-            }
-        }
 
         Text nbRestants = GameObject.Find("EnnemisRestants").GetComponent<Text>();
-        nbRestants.text = count.ToString();
+        nbRestants.text = ts.ToString();
 
 
     }

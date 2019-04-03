@@ -11,7 +11,7 @@ public class WaveManager : NetworkBehaviour
     [ReadOnly] public int numVague = 0;
     [ReadOnly] public int numEnnemisVague;
     [ReadOnly] public List<GameObject> ennemiVivant;
-    public int ennemiRestant;
+    [SyncVar] public int ennemiRestant;
     private SpawnerManager spawnMan;
     private HordesManager HordeMan;
 
