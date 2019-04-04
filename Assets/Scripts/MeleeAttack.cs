@@ -17,8 +17,6 @@ public class MeleeAttack : NetworkBehaviour
     public GameObject hitBoxGO; // gameobject auquel le box collider est rattaché
     protected GameObject animationGO; // gameobject auquel l'animation est rattachée
 
-    public AudioClip sound;
-
     protected Vector3 playerPosition;
     protected Vector3 vecteurDirection; // vecteur normalisé de la direction dans laquel part l'attaque
     //protected Vector3 vecteurDirection3D;
@@ -61,10 +59,6 @@ public class MeleeAttack : NetworkBehaviour
     {
         this.transform.SetParent(p.transform);
         player = p.GetComponent<MeleeChar>();
-        AudioSource SoundSource = gameObject.AddComponent<AudioSource>();
-        SoundSource.clip = sound;
-        SoundSource.Play();
-
         this.gameObject.SetActive(true);
     }
 
