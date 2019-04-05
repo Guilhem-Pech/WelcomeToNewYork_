@@ -40,6 +40,8 @@ public class PlayerManager : NetworkBehaviour
         foreach (MeleeAttack aMeleeAttack in entity.GetComponentsInChildren<MeleeAttack>())
             Destroy(aMeleeAttack.gameObject);
 
+
+        entity.GetComponent<PlayerAnimation>().DisplayHands(true);
         entity.GetComponent<PlayerAnimation>().ShowSpecialSprite(false, false);
         if(entity.GetComponent<MeleeChar>())
         {
