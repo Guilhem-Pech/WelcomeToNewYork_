@@ -19,7 +19,7 @@ public abstract class MeleeChar : BaseChar
         if (currentStamina >= currentAttack.GetComponent<MeleeAttack>().staminaCost)
         {
 
-            soundDispenser.play(attack);
+            soundDispenser.Play(attack);
 
             foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
                 Destroy(aMeleeAttack.gameObject);

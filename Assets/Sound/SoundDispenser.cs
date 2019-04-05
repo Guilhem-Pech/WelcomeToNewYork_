@@ -7,7 +7,7 @@ public class SoundDispenser : MonoBehaviour
     public List<AudioSource> sources;
 
 
-    public void play(AudioClip clip)
+    public void Play(AudioClip clip)
     {
         for (int i = 0; i < sources.Count; i++)
         {

@@ -29,7 +29,7 @@ public class JojoChar : MeleeChar
     {
         if (AttSpeReady && !isAttacking)
         {
-            soundDispenser.play(special);
+            soundDispenser.Play(special);
 
             foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
                 Destroy(aMeleeAttack.gameObject);
