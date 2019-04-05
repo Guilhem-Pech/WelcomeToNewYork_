@@ -124,5 +124,16 @@ public class AttackSystem : NetworkBehaviour
     {
         animController.GetBehaviour<AttackBehaviour>().OnAnimAttackEnd();
     }
+
+    [Server]
+    public void AnimTeleportLaunch()
+    {
+        animController.GetBehaviour<EscapeBehaviour>().OnAnimTeleportLaunch();
+    }
+    [Server]
+    public void AnimTeleportEnd()
+    {
+        animController.GetBehaviour<EscapeBehaviour>().OnAnimTeleportEnd();
+    }
 }
 
