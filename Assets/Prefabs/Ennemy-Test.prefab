@@ -1,35 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &1434976930346821538
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682538704597049513}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.6, y: 1.5, z: 1.6}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7331090033856952258
+--- !u!114 &3608621103735989946
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682538704597049513}
+  m_GameObject: {fileID: 2378755836533958706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd0bee5c6afc4934dbe6bae1eeac8225, type: 3}
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
-  currentHealth: 0
-  vecKnockBack: {x: 0, y: 0, z: 0}
-  isHit: 0
-  hurtSound: {fileID: 0}
+  profile: {fileID: 11400000, guid: 62d52b26b04ec6b4aa4a5de9361e1998, type: 2}
 --- !u!1001 &6808787485824716581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97,11 +80,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5270399230994771852, guid: 36c54d22dccec3e4f92401b1e6d22795,
-        type: 3}
-      propertyPath: m_TagString
-      value: ennemy
-      objectReference: {fileID: 0}
     - target: {fileID: 9186962740896367109, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -115,7 +93,22 @@ PrefabInstance:
     - target: {fileID: 9186962741440243479, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8489009515222328717, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186962741440243478, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270399230994771852, guid: 36c54d22dccec3e4f92401b1e6d22795,
+        type: 3}
+      propertyPath: m_TagString
+      value: ennemy
       objectReference: {fileID: 0}
     - target: {fileID: 1106050760655599497, guid: 36c54d22dccec3e4f92401b1e6d22795,
         type: 3}
@@ -125,10 +118,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8290664043524974520, guid: 36c54d22dccec3e4f92401b1e6d22795, type: 3}
     - {fileID: 6620294331452875395, guid: 36c54d22dccec3e4f92401b1e6d22795, type: 3}
+    - {fileID: 5259576315527513598, guid: 36c54d22dccec3e4f92401b1e6d22795, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 36c54d22dccec3e4f92401b1e6d22795, type: 3}
---- !u!1 &1682538704597049513 stripped
+--- !u!1 &2378755836533958706 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5270399230994771852, guid: 36c54d22dccec3e4f92401b1e6d22795,
+  m_CorrespondingSourceObject: {fileID: 9186962741440243479, guid: 36c54d22dccec3e4f92401b1e6d22795,
     type: 3}
   m_PrefabInstance: {fileID: 6808787485824716581}
   m_PrefabAsset: {fileID: 0}
