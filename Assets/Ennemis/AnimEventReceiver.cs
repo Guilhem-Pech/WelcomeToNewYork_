@@ -21,4 +21,14 @@ public class AnimEventReceiver : MonoBehaviour
     {
         anmRcvServ.AnimAttackEnd();
     }
+
+    public void AnimTeleportLaunch()
+    {
+        anmRcvServ.AnimTeleportLaunch();
+    }
+
+    public void AnimTeleportEnd()
+    {
+        anmRcvServ.AnimTeleportEnd();
+    }
 }
