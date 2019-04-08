@@ -24,4 +24,16 @@ public class AnimEventReceiverServer : NetworkBehaviour
         if (isServer)
             atkSys.AnimAttackEnd();
     }
+
+    public void AnimTeleportLaunch()
+    {
+        if (isServer)
+            atkSys.AnimTeleportLaunch();
+    }
+
+    public void AnimTeleportEnd()
+    {
+        if (isServer)
+            atkSys.AnimTeleportEnd();
+    }
 }
