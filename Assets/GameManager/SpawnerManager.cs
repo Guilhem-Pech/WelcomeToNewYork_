@@ -5,7 +5,7 @@ using Mirror;
 
 public class SpawnerManager : NetworkBehaviour
 {
-    private List<SpawnController> spawners = new List<SpawnController>();
+    private List<SpawnerController> spawners = new List<SpawnerController>();
     // Start is called before the first frame update
 
     [ServerCallback]
@@ -20,7 +20,7 @@ public class SpawnerManager : NetworkBehaviour
     void CheckSpawner()
     {
         spawners.Clear();
-        spawners.AddRange(GameObject.FindObjectsOfType<SpawnController>());
+        spawners.AddRange(GameObject.FindObjectsOfType<SpawnerController>());
         //print("Nombre de spawner : " + spawners.Count);
     }
 
@@ -30,12 +30,12 @@ public class SpawnerManager : NetworkBehaviour
         GameObject spawnedEnnemy = new GameObject();
         try
         {
-            spawnedEnnemy = spawner.GetComponent<SpawnController>().spawn();
+            spawnedEnnemy = spawner.GetComponent<SpawnerController>().spawn();
         }
         catch (System.ArgumentOutOfRangeException e) // If Spawner not found: recheck
         {
             CheckSpawner();
-            spawnedEnnemy = spawner.GetComponent<SpawnController>().spawn();
+            spawnedEnnemy = spawner.GetComponent<SpawnerController>().spawn();
         }
         return spawnedEnnemy;
     }

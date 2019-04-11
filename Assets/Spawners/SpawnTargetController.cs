@@ -10,7 +10,8 @@ public class SpawnTargetController : NetworkBehaviour
     private SphereCollider spawnersCollider;
     private GameObject m_parentEntity;
     private SpawnManager manager;
-    // Start is called before the first frame update
+
+    [ServerCallback]
     void Start()
     {
         m_parentEntity = gameObject.transform.parent.gameObject;
@@ -50,6 +51,7 @@ public class SpawnTargetController : NetworkBehaviour
     }
 
     /* Evaluation d'un spawner */
+    [Server]
     public float EvaluateSpawner(GameObject Spawner)
     {
         float result = 0;

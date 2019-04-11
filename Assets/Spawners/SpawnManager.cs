@@ -10,7 +10,8 @@ public class SpawnManager : NetworkBehaviour
     private Dictionary<int, GameObject> currentSpawners;
     private List<GameObject> currentSpawnersList;
     private List<GameObject> evaluatedSpawnersList;
-    // Start is called before the first frame update
+
+    [ServerCallback]
     void Start()
     {
         evaluatedSpawnersList = new List<GameObject>();
@@ -25,12 +26,14 @@ public class SpawnManager : NetworkBehaviour
     }
 
     /* Pop. Managers */
+    [Server]
     public void AddSpawner(GameObject spawnerToAdd)
     {
 
         OnCurrentSpawnersChange();
     }
 
+    [Server]
     public void RemoveSpawner(GameObject spawnerToRemove)
     {
 
@@ -38,12 +41,14 @@ public class SpawnManager : NetworkBehaviour
     }
 
     /* Var change methods */
+    [Server]
     private void OnCurrentSpawnersChange()
     {
         UpdateAndCleanList();
         EvaluateSpawners();
     }
 
+    [Server]
     private void UpdateAndCleanList()
     {
         currentSpawnersList = new List<GameObject>();
@@ -68,6 +73,7 @@ public class SpawnManager : NetworkBehaviour
     }
 
     /* Evaluation des Spawners */
+    [Server]
     private void EvaluateSpawners()
     {
         evaluatedSpawnersList = new List<GameObject>();
@@ -79,6 +85,8 @@ public class SpawnManager : NetworkBehaviour
             float scoreSum = 0;
             foreach (BaseChar player in GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().playerMan.players)
             {
+                if (!player.enabled)
+                    continue;
                 scoreSum += player.gameObject.GetComponent<SpawnTargetController>().EvaluateSpawner(spawner);
             }
             spawnersDictionnaryBuffer.Add(spawner, scoreSum);
@@ -91,13 +99,16 @@ public class SpawnManager : NetworkBehaviour
         }
     }
 
+    [Server]
     public int HowMuchSpawnersAvaible()
     {
         return evaluatedSpawnersList.Count;
     }
 
+    [Server]
     public List<GameObject> GetTopSpawners(int n)
     {
         return evaluatedSpawnersList.GetRange(0,n);
     }
+    
 }
