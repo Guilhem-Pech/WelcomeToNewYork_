@@ -24,9 +24,6 @@ public class GameManager : NetworkBehaviour
         waveMan.DebutVague();
     }
 
-
- 
-
     [Server]
     public void FinVague()
     {

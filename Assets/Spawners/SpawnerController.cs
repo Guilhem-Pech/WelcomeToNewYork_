@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-public class SpawnController : NetworkBehaviour
+public class SpawnerController : NetworkBehaviour
 {
     public float spawnRadius = 1;
     public GameObject prefabCaC;
