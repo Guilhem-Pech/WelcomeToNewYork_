@@ -4,13 +4,17 @@ using UnityEngine;
 using Mirror;
 [RequireComponent(typeof(SpawnerManager))]
 [RequireComponent(typeof(HordesManager))]
+
+
+public class SyncListEnnemis : SyncList<GameObject> { }
+
 public class WaveManager : NetworkBehaviour
 {
     public int multEnnemiesPerWave = 3;
     public int maxAliveEnnemies = 50;
     [SyncVar] public int numVague = 0;
     [SyncVar] public int numEnnemisVague;
-    [SyncVar] public List<GameObject> ennemiVivant;
+    public SyncListEnnemis ennemiVivant;
     [SyncVar] public int ennemiRestant;
     private SpawnerManager spawnMan;
     private HordesManager HordeMan;
@@ -21,7 +25,7 @@ public class WaveManager : NetworkBehaviour
     {
         spawnMan = gameObject.GetComponent<SpawnerManager>() as SpawnerManager;
         HordeMan = gameObject.GetComponent<HordesManager>() as HordesManager;
-        ennemiVivant = new List<GameObject>();
+        ennemiVivant = new SyncListEnnemis();
     }
 
     // Update is called once per frame
