@@ -4050,7 +4050,7 @@ MonoBehaviour:
   lobbyPlayerPrefab: {fileID: 777211228252411877, guid: 0077714ae18b4cc4db46e0217dab04f9,
     type: 3}
   LobbyScene: MenuTest
-  GameplayScene: SceneNetwork
+  GameplayScene: Ellis
   allPlayersReady: 0
 --- !u!114 &1521917610
 MonoBehaviour:

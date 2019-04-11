@@ -13,6 +13,7 @@ TagManager:
   - EnnemyNeighboursTrigger
   - EnnemyAttackTrigger
   - EnnemyTargetsTrigger
+  - Hand
   layers:
   - Default
   - TransparentFX
