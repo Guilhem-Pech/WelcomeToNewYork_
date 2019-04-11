@@ -211,6 +211,7 @@ namespace Smooth
                 sendAngularVelocity = state.serverShouldRelayAngularVelocity;
                 sendAtPositionalRestTag = state.atPositionalRest;
                 sendAtRotationalRestTag = state.atRotationalRest;
+
             }
             else // If is a server or client trying to send owned object information across the network.
             {
@@ -442,7 +443,15 @@ namespace Smooth
             state.ownerTimestamp = reader.ReadSingle();
 
             // Find the GameObject
-            GameObject ob = NetworkIdentity.spawned[netID].gameObject;
+            GameObject ob = null;
+            if (NetworkServer.active)
+            {
+                ob = NetworkServer.FindLocalObject(netID);
+            }
+            else
+            {
+                ob = ClientScene.FindLocalObject(netID);
+            }
 
             if (!ob)
             {

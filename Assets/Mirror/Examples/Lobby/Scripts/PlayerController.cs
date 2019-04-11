@@ -5,13 +5,6 @@ namespace Mirror.Examples.NetworkLobby
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : NetworkBehaviour
     {
-        CharacterController characterController;
-
-        public float moveSpeed = 300f;
-        public float turnSpeedAccel = 30f;
-        public float turnSpeedDecel = 30f;
-        public float maxTurnSpeed = 100f;
-
         [SyncVar]
         public int Index;
 
@@ -20,6 +13,21 @@ namespace Mirror.Examples.NetworkLobby
 
         [SyncVar(hook = nameof(SetColor))]
         public Color playerColor = Color.black;
+
+        CharacterController characterController;
+
+        public float moveSpeed = 300f;
+
+        public float horiz;
+        public float vert;
+        public float turn;
+
+        public float turnSpeedAccel = 30f;
+        public float turnSpeedDecel = 30f;
+        public float maxTurnSpeed = 100f;
+
+        Vector3 direction = Vector3.zero;
+        GameObject controllerColliderHitObject;
 
         public override void OnStartLocalPlayer()
         {
@@ -36,27 +44,23 @@ namespace Mirror.Examples.NetworkLobby
             GetComponent<Renderer>().material.color = color;
         }
 
-        float horizontal = 0f;
-        float vertical = 0f;
-        float turn = 0f;
-
         void Update()
         {
             if (!isLocalPlayer) return;
 
-            horizontal = Input.GetAxis("Horizontal");
-            vertical = Input.GetAxis("Vertical");
+            horiz = Input.GetAxis("Horizontal");
+            vert = Input.GetAxis("Vertical");
 
-            if (Input.GetKey(KeyCode.Q) && (turn > -maxTurnSpeed))
-                turn -= turnSpeedAccel;
-            else if (Input.GetKey(KeyCode.E) && (turn < maxTurnSpeed))
-                turn += turnSpeedAccel;
+            if ((Input.GetKey(KeyCode.Q)) && (turn > -maxTurnSpeed))
+                turn = turn - turnSpeedAccel;
+            else if ((Input.GetKey(KeyCode.E)) && (turn < maxTurnSpeed))
+                turn = turn + turnSpeedAccel;
             else
             {
                 if (turn > turnSpeedDecel)
-                    turn -= turnSpeedDecel;
+                    turn = turn - turnSpeedDecel;
                 else if (turn < -turnSpeedDecel)
-                    turn += turnSpeedDecel;
+                    turn = turn + turnSpeedDecel;
                 else
                     turn = 0f;
             }
@@ -66,14 +70,11 @@ namespace Mirror.Examples.NetworkLobby
         {
             if (!isLocalPlayer || characterController == null) return;
 
-            transform.Rotate(0f, turn * Time.fixedDeltaTime, 0f);
+            transform.Rotate(0f, turn * Time.deltaTime, 0f);
 
-            Vector3 direction = Vector3.ClampMagnitude(new Vector3(horizontal, 0f, vertical), 1f) * moveSpeed;
-            direction = transform.TransformDirection(direction);
+            direction = transform.TransformDirection((Vector3.ClampMagnitude(new Vector3(horiz, 0f, vert), 1f) * moveSpeed));
             characterController.SimpleMove(direction * Time.fixedDeltaTime);
         }
-
-        GameObject controllerColliderHitObject;
 
         void OnControllerColliderHit(ControllerColliderHit hit)
         {

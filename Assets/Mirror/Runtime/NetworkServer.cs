@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 
 namespace Mirror
 {
     public static class NetworkServer
     {
-        static bool initialized;
-        static int maxConnections;
+        static ULocalConnectionToClient s_LocalConnection;
+        static bool s_Initialized;
+        static int s_MaxConnections;
 
         // original HLAPI has .localConnections list with only m_LocalConnection in it
-        // (for backwards compatibility because they removed the real localConnections list a while ago)
-        // => removed it for easier code. use .localConnection now!
-        public static NetworkConnection localConnection { get; private set; }
+        // (for downwards compatibility because they removed the real localConnections list a while ago)
+        // => removed it for easier code. use .localConection now!
+        public static NetworkConnection localConnection => s_LocalConnection;
 
         // <connectionId, NetworkConnection>
         public static Dictionary<int, NetworkConnection> connections = new Dictionary<int, NetworkConnection>();
@@ -31,7 +31,7 @@ namespace Mirror
 
         public static void Shutdown()
         {
-            if (initialized)
+            if (s_Initialized)
             {
                 DisconnectAll();
 
@@ -49,20 +49,18 @@ namespace Mirror
                 Transport.activeTransport.OnServerDataReceived.RemoveListener(OnDataReceived);
                 Transport.activeTransport.OnServerError.RemoveListener(OnError);
 
-                initialized = false;
+                s_Initialized = false;
             }
             dontListen = false;
             active = false;
-
-            NetworkIdentity.ResetNextNetworkId();
         }
 
         static void Initialize()
         {
-            if (initialized)
+            if (s_Initialized)
                 return;
 
-            initialized = true;
+            s_Initialized = true;
             if (LogFilter.Debug) Debug.Log("NetworkServer Created version " + Version.Current);
 
             //Make sure connections are cleared in case any old connections references exist from previous sessions
@@ -71,6 +69,7 @@ namespace Mirror
             Transport.activeTransport.OnServerConnected.AddListener(OnConnected);
             Transport.activeTransport.OnServerDataReceived.AddListener(OnDataReceived);
             Transport.activeTransport.OnServerError.AddListener(OnError);
+
         }
 
         internal static void RegisterMessageHandlers()
@@ -81,10 +80,10 @@ namespace Mirror
             RegisterHandler<NetworkPingMessage>(NetworkTime.OnServerPing);
         }
 
-        public static bool Listen(int maxConns)
+        public static bool Listen(int maxConnections)
         {
             Initialize();
-            maxConnections = maxConns;
+            s_MaxConnections = maxConnections;
 
             // only start server if we want to listen
             if (!dontListen)
@@ -118,25 +117,29 @@ namespace Mirror
         }
 
         // called by LocalClient to add itself. dont call directly.
-        internal static void SetLocalConnection(ULocalConnectionToClient conn)
+        internal static int AddLocalClient(LocalClient localClient)
         {
-            if (localConnection != null)
+            if (s_LocalConnection != null)
             {
                 Debug.LogError("Local Connection already exists");
-                return;
+                return -1;
             }
 
-            localConnection = conn;
-            OnConnected(localConnection);
+            s_LocalConnection = new ULocalConnectionToClient(localClient)
+            {
+                connectionId = 0
+            };
+            OnConnected(s_LocalConnection);
+            return 0;
         }
 
-        internal static void RemoveLocalConnection()
+        internal static void RemoveLocalClient()
         {
-            if (localConnection != null)
+            if (s_LocalConnection != null)
             {
-                localConnection.Disconnect();
-                localConnection.Dispose();
-                localConnection = null;
+                s_LocalConnection.Disconnect();
+                s_LocalConnection.Dispose();
+                s_LocalConnection = null;
             }
             localClientActive = false;
             RemoveConnection(0);
@@ -163,7 +166,7 @@ namespace Mirror
 
         // this is like SendToReady - but it doesn't check the ready flag on the connection.
         // this is used for ObjectDestroy messages.
-        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("use SendToObservers<T> instead")]
+        [Obsolete("use SendToObservers<T> instead")]
         static bool SendToObservers(NetworkIdentity identity, short msgType, MessageBase msg)
         {
             if (LogFilter.Debug) Debug.Log("Server.SendToObservers id:" + msgType);
@@ -186,7 +189,7 @@ namespace Mirror
 
         // this is like SendToReady - but it doesn't check the ready flag on the connection.
         // this is used for ObjectDestroy messages.
-        static bool SendToObservers<T>(NetworkIdentity identity, T msg) where T: IMessageBase
+        static bool SendToObservers<T>(NetworkIdentity identity, T msg) where T: MessageBase
         {
             if (LogFilter.Debug) Debug.Log("Server.SendToObservers id:" + typeof(T));
 
@@ -205,7 +208,7 @@ namespace Mirror
             return false;
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use SendToAll<T> instead")]
+        [Obsolete("Use SendToAll<T> instead")]
         public static bool SendToAll(int msgType, MessageBase msg, int channelId = Channels.DefaultReliable)
         {
             if (LogFilter.Debug) Debug.Log("Server.SendToAll id:" + msgType);
@@ -222,7 +225,7 @@ namespace Mirror
             return result;
         }
 
-        public static bool SendToAll<T>(T msg, int channelId = Channels.DefaultReliable) where T : IMessageBase
+        public static bool SendToAll<T>(T msg, int channelId = Channels.DefaultReliable) where T : MessageBase
         {
             if (LogFilter.Debug) Debug.Log("Server.SendToAll id:" + typeof(T));
 
@@ -237,7 +240,7 @@ namespace Mirror
             return result;
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use SendToReady<T> instead")]
+        [Obsolete("Use SendToReady<T> instead")]
         public static bool SendToReady(NetworkIdentity identity, short msgType, MessageBase msg, int channelId = Channels.DefaultReliable)
         {
             if (LogFilter.Debug) Debug.Log("Server.SendToReady msgType:" + msgType);
@@ -261,7 +264,7 @@ namespace Mirror
             return false;
         }
 
-        public static bool SendToReady<T>(NetworkIdentity identity,T msg, int channelId = Channels.DefaultReliable) where T : IMessageBase
+        public static bool SendToReady<T>(NetworkIdentity identity,T msg, int channelId = Channels.DefaultReliable) where T: MessageBase
         {
             if (LogFilter.Debug) Debug.Log("Server.SendToReady msgType:" + typeof(T));
 
@@ -286,7 +289,13 @@ namespace Mirror
         public static void DisconnectAll()
         {
             DisconnectAllConnections();
-            localConnection = null;
+
+            if (s_LocalConnection != null)
+            {
+                s_LocalConnection.Disconnect();
+                s_LocalConnection.Dispose();
+                s_LocalConnection = null;
+            }
 
             active = false;
             localClientActive = false;
@@ -294,24 +303,18 @@ namespace Mirror
 
         public static void DisconnectAllConnections()
         {
-            foreach (NetworkConnection conn in connections.Values)
+            foreach (KeyValuePair<int, NetworkConnection> kvp in connections)
             {
+                NetworkConnection conn = kvp.Value;
                 conn.Disconnect();
-                // call OnDisconnected unless local player in host mode
-                if (conn.connectionId != 0)
-                    OnDisconnected(conn);
+                OnDisconnected(conn);
                 conn.Dispose();
             }
             connections.Clear();
         }
 
-        // The user should never need to pump the update loop manually
-        internal static void Update()
+        static void UpdateServerObjects()
         {
-            if (!active)
-                return;
-
-            // update all server objects
             foreach (KeyValuePair<uint, NetworkIdentity> kvp in NetworkIdentity.spawned)
             {
                 if (kvp.Value != null && kvp.Value.gameObject != null)
@@ -324,6 +327,15 @@ namespace Mirror
                     // always call Remove in OnObjectDestroy everywhere.
                     Debug.LogWarning("Found 'null' entry in spawned list for netId=" + kvp.Key + ". Please call NetworkServer.Destroy to destroy networked objects. Don't use GameObject.Destroy.");
                 }
+            }
+        }
+
+        // The user should never need to pump the update loop manually
+        internal static void Update()
+        {
+            if (active)
+            {
+                UpdateServerObjects();
             }
         }
 
@@ -352,7 +364,7 @@ namespace Mirror
             //  less code and third party transport might not do that anyway)
             // (this way we could also send a custom 'tooFull' message later,
             //  Transport can't do that)
-            if (connections.Count < maxConnections)
+            if (connections.Count < s_MaxConnections)
             {
                 // get ip address from connection
                 string address = Transport.activeTransport.ServerGetClientAddress(connectionId);
@@ -395,14 +407,23 @@ namespace Mirror
         static void OnDisconnected(NetworkConnection conn)
         {
             conn.InvokeHandler(new DisconnectMessage());
+
+            if (conn.playerController != null)
+            {
+                //NOTE: should there be default behaviour here to destroy the associated player?
+                Debug.LogWarning("Player not destroyed when connection disconnected.");
+            }
+
             if (LogFilter.Debug) Debug.Log("Server lost client:" + conn.connectionId);
+            conn.RemoveObservers();
+            conn.Dispose();
         }
 
         static void OnDataReceived(int connectionId, byte[] data)
         {
             if (connections.TryGetValue(connectionId, out NetworkConnection conn))
             {
-                conn.TransportReceive(data);
+                OnData(conn, data);
             }
             else
             {
@@ -410,13 +431,60 @@ namespace Mirror
             }
         }
 
-        static void OnError(int connectionId, Exception exception)
+        private static void OnError(int connectionId, Exception exception)
         {
             // TODO Let's discuss how we will handle errors
             Debug.LogException(exception);
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use RegisterHandler<T> instead")]
+        static void OnData(NetworkConnection conn, byte[] data)
+        {
+            conn.TransportReceive(data);
+        }
+
+        static void GenerateConnectError(byte error)
+        {
+            Debug.LogError("Mirror Server Connect Error: " + error);
+            GenerateError(null, error);
+        }
+
+        /* TODO use or remove
+        static void GenerateDataError(NetworkConnection conn, byte error)
+        {
+            NetworkError dataError = (NetworkError)error;
+            Debug.LogError("Mirror Server Data Error: " + dataError);
+            GenerateError(conn, error);
+        }
+
+        static void GenerateDisconnectError(NetworkConnection conn, byte error)
+        {
+            NetworkError disconnectError = (NetworkError)error;
+            Debug.LogError("Mirror Server Disconnect Error: " + disconnectError + " conn:[" + conn + "]:" + conn.connectionId);
+            GenerateError(conn, error);
+        }
+        */
+
+        static void GenerateError(NetworkConnection conn, byte error)
+        {
+            int msgId = MessagePacker.GetId<ErrorMessage>();
+            if (handlers.ContainsKey(msgId))
+            {
+                ErrorMessage msg = new ErrorMessage
+                {
+                    value = error
+                };
+
+                // write the message to a local buffer
+                NetworkWriter writer = new NetworkWriter();
+                msg.Serialize(writer);
+
+                // pass a reader (attached to local buffer) to handler
+                NetworkReader reader = new NetworkReader(writer.ToArray());
+                conn.InvokeHandler(msgId, reader);
+            }
+        }
+
+        [Obsolete("Use RegisterHandler<T> instead")]
         public static void RegisterHandler(int msgType, NetworkMessageDelegate handler)
         {
             if (handlers.ContainsKey(msgType))
@@ -426,35 +494,39 @@ namespace Mirror
             handlers[msgType] = handler;
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use RegisterHandler<T> instead")]
+        [Obsolete("Use RegisterHandler<T> instead")]
         public static void RegisterHandler(MsgType msgType, NetworkMessageDelegate handler)
         {
             RegisterHandler((int)msgType, handler);
         }
 
-        public static void RegisterHandler<T>(Action<NetworkConnection, T> handler) where T: IMessageBase, new()
+        public static void RegisterHandler<T>(Action<NetworkConnection, T> handler) where T: MessageBase, new()
         {
             int msgType = MessagePacker.GetId<T>();
             if (handlers.ContainsKey(msgType))
             {
                 if (LogFilter.Debug) Debug.Log("NetworkServer.RegisterHandler replacing " + msgType);
             }
-            handlers[msgType] = MessagePacker.MessageHandler<T>(handler);
+            handlers[msgType] = networkMessage =>
+            {
+                T message = networkMessage.ReadMessage<T>();
+                handler(networkMessage.conn, message);
+            };
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use UnregisterHandler<T> instead")]
+        [Obsolete("Use UnregisterHandler<T> instead")]
         public static void UnregisterHandler(int msgType)
         {
             handlers.Remove(msgType);
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use UnregisterHandler<T> instead")]
+        [Obsolete("Use UnregisterHandler<T> instead")]
         public static void UnregisterHandler(MsgType msgType)
         {
             UnregisterHandler((int)msgType);
         }
 
-        public static void UnregisterHandler<T>() where T : IMessageBase
+        public static void UnregisterHandler<T>() where T:MessageBase
         {
             int msgType = MessagePacker.GetId<T>();
             handlers.Remove(msgType);
@@ -465,7 +537,7 @@ namespace Mirror
             handlers.Clear();
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use SendToClient<T> instead")]
+        [Obsolete("Use SendToClient<T> instead")]
         public static void SendToClient(int connectionId, int msgType, MessageBase msg)
         {
             if (connections.TryGetValue(connectionId, out NetworkConnection conn))
@@ -476,7 +548,7 @@ namespace Mirror
             Debug.LogError("Failed to send message to connection ID '" + connectionId + ", not found in connection list");
         }
 
-        public static void SendToClient<T>(int connectionId, T msg) where T : IMessageBase
+        public static void SendToClient<T>(int connectionId, T msg) where T : MessageBase
         {
             NetworkConnection conn;
             if (connections.TryGetValue(connectionId, out conn))
@@ -488,7 +560,7 @@ namespace Mirror
         }
 
 
-        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use SendToClientOfPlayer<T> instead")]
+        [Obsolete("Use SendToClientOfPlayer<T> instead")]
         public static void SendToClientOfPlayer(NetworkIdentity identity, int msgType, MessageBase msg)
         {
             if (identity != null)
@@ -502,7 +574,7 @@ namespace Mirror
         }
 
         // send this message to the player only
-        public static void SendToClientOfPlayer<T>(NetworkIdentity identity, T msg) where T: IMessageBase
+        public static void SendToClientOfPlayer<T>(NetworkIdentity identity, T msg) where T: MessageBase
         {
             if (identity != null)
             {
@@ -534,44 +606,20 @@ namespace Mirror
             {
                 identity.assetId = assetId;
             }
-            return AddPlayerForConnection(conn, player);
-        }
-
-        static void SpawnObserversForConnection(NetworkConnection conn)
-        {
-            if (LogFilter.Debug) Debug.Log("Spawning " + NetworkIdentity.spawned.Count + " objects for conn " + conn.connectionId);
-
-            // let connection know that we are about to start spawning...
-            conn.Send(new ObjectSpawnStartedMessage());
-
-            // add connection to each nearby NetworkIdentity's observers, which
-            // internally sends a spawn message for each one to the connection.
-            foreach (NetworkIdentity identity in NetworkIdentity.spawned.Values)
-            {
-                if (identity.gameObject.activeSelf) //TODO this is different // try with far away ones in ummorpg!
-                {
-                    if (LogFilter.Debug) Debug.Log("Sending spawn message for current server objects name='" + identity.name + "' netId=" + identity.netId);
-
-                    bool visible = identity.OnCheckObserver(conn);
-                    if (visible)
-                    {
-                        identity.AddObserver(conn);
-                    }
-                }
-            }
-
-            // let connection know that we finished spawning, so it can call
-            // OnStartClient on each one (only after all were spawned, which
-            // is how Unity's Start() function works too)
-            conn.Send(new ObjectSpawnFinishedMessage());
+            return InternalAddPlayerForConnection(conn, player);
         }
 
         public static bool AddPlayerForConnection(NetworkConnection conn, GameObject player)
         {
-            NetworkIdentity identity = player.GetComponent<NetworkIdentity>();
+            return InternalAddPlayerForConnection(conn, player);
+        }
+
+        internal static bool InternalAddPlayerForConnection(NetworkConnection conn, GameObject playerGameObject)
+        {
+            NetworkIdentity identity = playerGameObject.GetComponent<NetworkIdentity>();
             if (identity == null)
             {
-                Debug.Log("AddPlayer: playerGameObject has no NetworkIdentity. Please add a NetworkIdentity to " + player);
+                Debug.Log("AddPlayer: playerGameObject has no NetworkIdentity. Please add a NetworkIdentity to " + playerGameObject);
                 return false;
             }
             identity.Reset();
@@ -583,29 +631,21 @@ namespace Mirror
                 return false;
             }
 
-            conn.playerController = identity;
+            conn.SetPlayerController(identity);
 
             // Set the connection on the NetworkIdentity on the server, NetworkIdentity.SetLocalPlayer is not called on the server (it is on clients)
             identity.connectionToClient = conn;
 
-            // set ready if not set yet
             SetClientReady(conn);
-
-            // add connection to observers AFTER the playerController was set.
-            // by definition, there is nothing to observe if there is no player
-            // controller.
-            //
-            // IMPORTANT: do this in AddPlayerForConnection & ReplacePlayerForConnection!
-            SpawnObserversForConnection(conn);
 
             if (SetupLocalPlayerForConnection(conn, identity))
             {
                 return true;
             }
 
-            if (LogFilter.Debug) Debug.Log("Adding new playerGameObject object netId: " + identity.netId + " asset ID " + identity.assetId);
+            if (LogFilter.Debug) Debug.Log("Adding new playerGameObject object netId: " + playerGameObject.GetComponent<NetworkIdentity>().netId + " asset ID " + playerGameObject.GetComponent<NetworkIdentity>().assetId);
 
-            FinishPlayerForConnection(conn, identity, player);
+            FinishPlayerForConnection(conn, identity, playerGameObject);
             if (identity.localPlayerAuthority)
             {
                 identity.SetClientOwner(conn);
@@ -617,7 +657,7 @@ namespace Mirror
         {
             if (LogFilter.Debug) Debug.Log("NetworkServer SetupLocalPlayerForConnection netID:" + identity.netId);
 
-            if (conn is ULocalConnectionToClient)
+            if (conn is ULocalConnectionToClient localConnection)
             {
                 if (LogFilter.Debug) Debug.Log("NetworkServer AddPlayer handling ULocalConnectionToClient");
 
@@ -632,7 +672,7 @@ namespace Mirror
                 SendSpawnMessage(identity, null);
 
                 // Set up local player instance on the client instance and update local object map
-                NetworkClient.AddLocalPlayer(identity);
+                localConnection.localClient.AddLocalPlayer(identity);
                 identity.SetClientOwner(conn);
 
                 // Trigger OnAuthority
@@ -661,12 +701,12 @@ namespace Mirror
             conn.Send(owner);
         }
 
-        internal static bool InternalReplacePlayerForConnection(NetworkConnection conn, GameObject player)
+        internal static bool InternalReplacePlayerForConnection(NetworkConnection conn, GameObject playerGameObject)
         {
-            NetworkIdentity identity = player.GetComponent<NetworkIdentity>();
-            if (identity == null)
+            NetworkIdentity playerNetworkIdentity = playerGameObject.GetComponent<NetworkIdentity>();
+            if (playerNetworkIdentity == null)
             {
-                Debug.LogError("ReplacePlayer: playerGameObject has no NetworkIdentity. Please add a NetworkIdentity to " + player);
+                Debug.LogError("ReplacePlayer: playerGameObject has no NetworkIdentity. Please add a NetworkIdentity to " + playerGameObject);
                 return false;
             }
 
@@ -680,33 +720,26 @@ namespace Mirror
                 conn.playerController.clientAuthorityOwner = null;
             }
 
-            conn.playerController = identity;
+            conn.SetPlayerController(playerNetworkIdentity);
 
             // Set the connection on the NetworkIdentity on the server, NetworkIdentity.SetLocalPlayer is not called on the server (it is on clients)
-            identity.connectionToClient = conn;
+            playerNetworkIdentity.connectionToClient = conn;
 
             //NOTE: DONT set connection ready.
 
-            // add connection to observers AFTER the playerController was set.
-            // by definition, there is nothing to observe if there is no player
-            // controller.
-            //
-            // IMPORTANT: do this in AddPlayerForConnection & ReplacePlayerForConnection!
-            SpawnObserversForConnection(conn);
-
             if (LogFilter.Debug) Debug.Log("NetworkServer ReplacePlayer setup local");
 
-            if (SetupLocalPlayerForConnection(conn, identity))
+            if (SetupLocalPlayerForConnection(conn, playerNetworkIdentity))
             {
                 return true;
             }
 
-            if (LogFilter.Debug) Debug.Log("Replacing playerGameObject object netId: " + player.GetComponent<NetworkIdentity>().netId + " asset ID " + player.GetComponent<NetworkIdentity>().assetId);
+            if (LogFilter.Debug) Debug.Log("Replacing playerGameObject object netId: " + playerGameObject.GetComponent<NetworkIdentity>().netId + " asset ID " + playerGameObject.GetComponent<NetworkIdentity>().assetId);
 
-            FinishPlayerForConnection(conn, identity, player);
-            if (identity.localPlayerAuthority)
+            FinishPlayerForConnection(conn, playerNetworkIdentity, playerGameObject);
+            if (playerNetworkIdentity.localPlayerAuthority)
             {
-                identity.SetClientOwner(conn);
+                playerNetworkIdentity.SetClientOwner(conn);
             }
             return true;
         }
@@ -726,8 +759,75 @@ namespace Mirror
         {
             if (LogFilter.Debug) Debug.Log("SetClientReadyInternal for conn:" + conn.connectionId);
 
-            // set ready
+            if (conn.isReady)
+            {
+                if (LogFilter.Debug) Debug.Log("SetClientReady conn " + conn.connectionId + " already ready");
+                return;
+            }
+
+            if (conn.playerController == null)
+            {
+                // this is now allowed
+                if (LogFilter.Debug) Debug.LogWarning("Ready with no player object");
+            }
+
             conn.isReady = true;
+
+            if (conn is ULocalConnectionToClient localConnection)
+            {
+                if (LogFilter.Debug) Debug.Log("NetworkServer Ready handling ULocalConnectionToClient");
+
+                // Setup spawned objects for local player
+                // Only handle the local objects for the first player (no need to redo it when doing more local players)
+                // and don't handle player objects here, they were done above
+                foreach (NetworkIdentity identity in NetworkIdentity.spawned.Values)
+                {
+                    // Need to call OnStartClient directly here, as it's already been added to the local object dictionary
+                    // in the above SetLocalPlayer call
+                    if (identity.gameObject != null)
+                    {
+                        bool visible = identity.OnCheckObserver(conn);
+                        if (visible)
+                        {
+                            identity.AddObserver(conn);
+                        }
+                        if (!identity.isClient)
+                        {
+                            if (LogFilter.Debug) Debug.Log("LocalClient.SetSpawnObject calling OnStartClient");
+                            identity.OnStartClient();
+                        }
+                    }
+                }
+                return;
+            }
+
+            // Spawn/update all current server objects
+            if (LogFilter.Debug) Debug.Log("Spawning " + NetworkIdentity.spawned.Count + " objects for conn " + conn.connectionId);
+
+            conn.Send(new ObjectSpawnStartedMessage());
+
+            foreach (NetworkIdentity identity in NetworkIdentity.spawned.Values)
+            {
+                if (identity == null)
+                {
+                    Debug.LogWarning("Invalid object found in server local object list (null NetworkIdentity).");
+                    continue;
+                }
+                if (!identity.gameObject.activeSelf)
+                {
+                    continue;
+                }
+
+                if (LogFilter.Debug) Debug.Log("Sending spawn message for current server objects name='" + identity.name + "' netId=" + identity.netId);
+
+                bool visible = identity.OnCheckObserver(conn);
+                if (visible)
+                {
+                    identity.AddObserver(conn);
+                }
+            }
+
+            conn.Send(new ObjectSpawnFinishedMessage());
         }
 
         internal static void ShowForConnection(NetworkIdentity identity, NetworkConnection conn)
@@ -748,13 +848,19 @@ namespace Mirror
         // call this to make all the clients not ready, such as when changing levels.
         public static void SetAllClientsNotReady()
         {
-            foreach (NetworkConnection conn in connections.Values)
+            foreach (KeyValuePair<int, NetworkConnection> kvp in connections)
             {
+                NetworkConnection conn = kvp.Value;
                 SetClientNotReady(conn);
             }
         }
 
         public static void SetClientNotReady(NetworkConnection conn)
+        {
+            InternalSetClientNotReady(conn);
+        }
+
+        internal static void InternalSetClientNotReady(NetworkConnection conn)
         {
             if (conn.isReady)
             {
@@ -779,7 +885,7 @@ namespace Mirror
             if (conn.playerController != null)
             {
                 Destroy(conn.playerController.gameObject);
-                conn.playerController = null;
+                conn.RemovePlayerController();
             }
             else
             {
@@ -814,7 +920,7 @@ namespace Mirror
 
         internal static void SpawnObject(GameObject obj)
         {
-            if (!active)
+            if (!NetworkServer.active)
             {
                 Debug.LogError("SpawnObject for " + obj + ", NetworkServer is not active. Cannot spawn objects without an active server.");
                 return;
@@ -852,7 +958,6 @@ namespace Mirror
                     assetId = identity.assetId,
                     position = identity.transform.position,
                     rotation = identity.transform.rotation,
-                    scale = identity.transform.localScale,
 
                     // serialize all components with initialState = true
                     payload = identity.OnSerializeAllSafely(true)
@@ -878,7 +983,6 @@ namespace Mirror
                     sceneId = identity.sceneId,
                     position = identity.transform.position,
                     rotation = identity.transform.rotation,
-                    scale = identity.transform.localScale,
 
                     // include synch data
                     payload = identity.OnSerializeAllSafely(true)
@@ -899,21 +1003,29 @@ namespace Mirror
 
         public static void DestroyPlayerForConnection(NetworkConnection conn)
         {
+            // note: conn.playerController/clientOwnedObjects might be null if
+            // the player is still in a lobby and hasn't joined the world yet,
+            // so we need null checks for both of them.
             // => destroy what we can destroy.
-            HashSet<uint> tmp = new HashSet<uint>(conn.clientOwnedObjects);
-            foreach (uint netId in tmp)
+
+            if (conn.clientOwnedObjects != null)
             {
-                if (NetworkIdentity.spawned.TryGetValue(netId, out NetworkIdentity identity))
+                HashSet<uint> tmp = new HashSet<uint>(conn.clientOwnedObjects);
+                foreach (uint netId in tmp)
                 {
-                    Destroy(identity.gameObject);
+                    if (NetworkIdentity.spawned.TryGetValue(netId, out NetworkIdentity identity))
+                    {
+                        Destroy(identity.gameObject);
+                    }
                 }
             }
 
             if (conn.playerController != null)
             {
                 DestroyObject(conn.playerController, true);
-                conn.playerController = null;
             }
+
+            conn.RemovePlayerController();
         }
 
         public static void Spawn(GameObject obj)
@@ -1069,7 +1181,7 @@ namespace Mirror
             }
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use NetworkIdentity.spawned[netId] instead.")]
+        [Obsolete("Use NetworkIdentity.spawned[netId] instead.")]
         public static GameObject FindLocalObject(uint netId)
         {
             if (NetworkIdentity.spawned.TryGetValue(netId, out NetworkIdentity identity))

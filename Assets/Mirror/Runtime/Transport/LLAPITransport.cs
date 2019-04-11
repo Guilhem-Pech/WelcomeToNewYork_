@@ -1,13 +1,12 @@
 // wraps UNET's LLAPI for use as HLAPI TransportLayer
 using System;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Types;
 
 namespace Mirror
 {
-    [EditorBrowsable(EditorBrowsableState.Never), Obsolete("LLAPI is obsolete and will be removed from future versions of Unity")]
+    [Obsolete("LLAPI is obsolete and will be removed from future versions of Unity")]
     public class LLAPITransport : Transport
     {
         public ushort port = 7777;

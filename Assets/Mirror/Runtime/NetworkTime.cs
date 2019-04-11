@@ -13,7 +13,7 @@ namespace Mirror
         // average out the last few results from Ping
         public static int PingWindowSize = 10;
 
-        static double lastPingTime;
+        internal static double lastPingTime;
 
 
         // Date and time when the application started
@@ -28,8 +28,8 @@ namespace Mirror
         static ExponentialMovingAverage _offset = new ExponentialMovingAverage(10);
 
         // the true offset guaranteed to be in this range
-        static double offsetMin = double.MinValue;
-        static double offsetMax = double.MaxValue;
+        private static double offsetMin = double.MinValue;
+        private static double offsetMax = double.MaxValue;
 
         // returns the clock time _in this system_
         static double LocalTime()
@@ -45,12 +45,17 @@ namespace Mirror
             offsetMax = double.MaxValue;
         }
 
-        internal static void UpdateClient()
+        internal static NetworkPingMessage GetPing()
+        {
+            return new NetworkPingMessage(LocalTime());
+        }
+
+        internal static void UpdateClient(NetworkClient networkClient)
         {
             if (Time.time - lastPingTime >= PingFrequency)
             {
-                NetworkPingMessage pingMessage = new NetworkPingMessage(LocalTime());
-                NetworkClient.Send(pingMessage);
+                NetworkPingMessage pingMessage = GetPing();
+                networkClient.Send(pingMessage);
                 lastPingTime = Time.time;
             }
         }

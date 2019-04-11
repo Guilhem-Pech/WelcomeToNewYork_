@@ -24,10 +24,10 @@ public class LobbyJoin : MonoBehaviour
         }
 
         manager.networkAddress = ipTextBox.text;
-        manager.StartClient();
-        connection = NetworkClient.singleton;
+        connection = manager.StartClient();
+               
     }
-    
+
     private void Start()
     {
         manager = GameObject.FindObjectOfType<NetworkManager>();
@@ -36,8 +36,8 @@ public class LobbyJoin : MonoBehaviour
 
     public void Update()
     {
-        bool noConnection = (manager.client == null || NetworkClient.isConnected == false ||
-                                 NetworkClient.connection.connectionId == -1);
+        bool noConnection = (manager.client == null || manager.client.connection == null ||
+                                 manager.client.connection.connectionId == -1);
 
         if (!manager.IsClientConnected() && !NetworkServer.active)
         {

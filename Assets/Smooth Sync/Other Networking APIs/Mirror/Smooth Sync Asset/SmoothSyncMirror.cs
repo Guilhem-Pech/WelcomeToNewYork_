@@ -834,7 +834,14 @@ namespace Smooth
             else
             {
                 // If owner is not the host then send the state to the host so they can send it to everyone else.
-                NetworkClient.Send<NetworkStateMirror>(sendingTempState);
+                if (NetworkManager.singleton)
+                {
+                    NetworkManager.singleton.client.connection.Send(MsgType.SmoothSyncFromOwnerToServer, sendingTempState);//, networkChannel);
+                }
+                else
+                {
+                    NetworkClient.allClients[0].connection.Send(MsgType.SmoothSyncFromOwnerToServer, sendingTempState);//, networkChannel);
+                }
             }
         }
         /// <summary> If smoothing authority changes and just gained authority, set velocity to keep smooth. </summary>
@@ -1026,7 +1033,7 @@ namespace Smooth
                             newPosition.z = targetTempState.position.z;
                         }
                         // Set Velocity or Position of the object.
-                        if (setVelocityInsteadOfPositionOnNonOwners && !shouldTeleport)
+                        if (setVelocityInsteadOfPositionOnNonOwners)
                         {
                             if (hasRigidbody) rb.velocity = targetTempState.velocity;
                             if (hasRigidbody2D) rb2D.velocity = targetTempState.velocity;
@@ -1535,7 +1542,7 @@ namespace Smooth
                 RpcNonServerOwnedTeleportFromServer(newPosition, newRotation.eulerAngles, newScale);
             }
         }
-        [ClientRpc]
+        //[ClientRpc(channel = 0)]
         public void RpcNonServerOwnedTeleportFromServer(Vector3 newPosition, Vector3 newRotation, Vector3 newScale)
         {
             if (hasAuthority)
@@ -1549,7 +1556,7 @@ namespace Smooth
         /// <summary>
         /// Echoes a teleport State from the host to all clients.
         /// </summary>
-        [Command]
+        //[Command(channel = 0)]
         public void CmdTeleport(Vector3 position, Vector3 rotation, Vector3 scale, float tempOwnerTime)
         {
             RpcTeleport(position, rotation, scale, tempOwnerTime);
@@ -1567,7 +1574,7 @@ namespace Smooth
         /// <summary>
         /// Receive teleport State on clients and add to State array.
         /// </summary>
-        [ClientRpc]
+        //[ClientRpc(channel = 0)]
         public void RpcTeleport(Vector3 position, Vector3 rotation, Vector3 scale, float tempOwnerTime)
         {
             // Owner doesn't need teleport info, so return. Happens on Server when it calls RPC, no bandwidth is used. 
@@ -1661,8 +1668,27 @@ namespace Smooth
         {
             if (GetComponent<NetworkIdentity>().localPlayerAuthority)
             {
-                NetworkServer.RegisterHandler<NetworkStateMirror>(HandleSync);
-                NetworkClient.RegisterHandler<NetworkStateMirror>(HandleSync);
+                if (!NetworkServer.handlers.ContainsKey(MsgType.SmoothSyncFromOwnerToServer))
+                {
+                    NetworkServer.RegisterHandler(MsgType.SmoothSyncFromOwnerToServer, HandleSyncFromOwnerToServer);
+                }
+                if (NetworkClient.allClients.Count != 0)
+                {
+                    if (NetworkManager.singleton)
+                    {
+                        if (!NetworkManager.singleton.client.handlers.ContainsKey(MsgType.SmoothSyncFromServerToNonOwners))
+                        {
+                            NetworkManager.singleton.client.RegisterHandler(MsgType.SmoothSyncFromServerToNonOwners, HandleSyncFromServerToNonOwners);
+                        }
+                    }
+                    else
+                    {
+                        if (!NetworkClient.allClients[0].handlers.ContainsKey(MsgType.SmoothSyncFromServerToNonOwners))
+                        {
+                            NetworkClient.allClients[0].RegisterHandler(MsgType.SmoothSyncFromServerToNonOwners, HandleSyncFromServerToNonOwners);
+                        }
+                    }
+                }
             }
         }
 
@@ -1676,7 +1702,24 @@ namespace Smooth
         {
             if (!NetworkServer.active)
             {
-                NetworkClient.RegisterHandler<NetworkStateMirror>(HandleSync);
+                if (NetworkManager.singleton)
+                {
+                    if (NetworkManager.singleton.client != null &&
+                        !NetworkManager.singleton.client.handlers.ContainsKey(MsgType.SmoothSyncFromServerToNonOwners))
+                    {
+                        NetworkManager.singleton.client.RegisterHandler(MsgType.SmoothSyncFromServerToNonOwners, HandleSyncFromServerToNonOwners);
+                    }
+                }
+                else
+                {
+                    if (NetworkClient.allClients != null &&
+                        NetworkClient.allClients.Count > 0 &&
+                        NetworkClient.allClients[0] != null &&
+                        !NetworkClient.allClients[0].handlers.ContainsKey(MsgType.SmoothSyncFromServerToNonOwners))
+                    {
+                        NetworkClient.allClients[0].RegisterHandler(MsgType.SmoothSyncFromServerToNonOwners, HandleSyncFromServerToNonOwners);
+                    }
+                }
             }
         }
 
@@ -2039,52 +2082,87 @@ namespace Smooth
         /// </remarks>
         /// <param name="state">The owner's State at the time the message was sent</param>
         [Server]
-        void SendStateToNonOwners(NetworkStateMirror state)
+        void SendStateToNonOwners(MessageBase state)
         {
-            foreach (var kv in netID.observers)
+            // Skip sending the Command to ourselves and immediately send to all non-owners.
+            //for (int i = 0; i < NetworkServer.connections.Count; i++)
+            foreach (int key in NetworkServer.connections.Keys)
             {
-                NetworkConnection conn = kv.Value;
+                NetworkConnection conn = NetworkServer.connections[key];
 
                 // Skip sending to clientAuthorityOwner since owners don't need their own State back.
-                // Also skip sending to localClient since the State was already recorded.
-                if (conn != null && conn != netID.clientAuthorityOwner && conn.GetType() == typeof(NetworkConnection) && conn.isReady)
+                // Also skip sending to localClient (hostId == -1) since the State was already recorded.
+                if (conn != null && conn != netID.clientAuthorityOwner && conn.hostId != -1 && conn.isReady)
                 {
-                    // Send the message. This calls HandleSync on the receiving clients.
-                    conn.Send<NetworkStateMirror>(state);
+                    if (isObservedByConnection(conn) == false) continue;
+                    // Send the message, this calls HandleSyncFromServerToNonOwners on the receiving clients.
+                    conn.Send(MsgType.SmoothSyncFromServerToNonOwners, state);//, networkChannel);
                 }
             }
         }
 
-        static void HandleSync(NetworkConnection conn, NetworkStateMirror networkState)
+
+        /// <summary>The server checks if it should send based on Network Proximity Checker.</summary>
+        /// <remarks>
+        /// Checks who it should send update information to. Will send to everyone unless something like the
+        /// Network Proximity Checker is limiting it.
+        /// </remarks>
+        bool isObservedByConnection(NetworkConnection conn)
         {
-            if (NetworkServer.active)
+            foreach (int key in netID.observers.Keys)
             {
-                if (networkState.smoothSync == null ||
-                    networkState.smoothSync.netID.clientAuthorityOwner != conn) return;
-
-                // Ignore all messages that do not match the server determined authority.
-                if (networkState.smoothSync.netID.clientAuthorityOwner != conn) return;
-
-                // Always accept the first State so we have something to compare to. (if latestValidatedState == null)
-                // Check each other State to make sure it passes the validation method. By default all States are accepted.
-                // To tie in your own validation method, see the SmoothSyncMirrorExample scene and SmoothSyncMirrorExamplePlayerController.cs. 
-                if (networkState.smoothSync.latestValidatedState == null ||
-                    networkState.smoothSync.validateStateMethod(networkState.state, networkState.smoothSync.latestValidatedState))
+                if (netID.observers[key] == conn)
                 {
-                    networkState.smoothSync.latestValidatedState = networkState.state;
-                    networkState.smoothSync.latestValidatedState.receivedOnServerTimestamp = Time.realtimeSinceStartup;
-                    networkState.smoothSync.SendStateToNonOwners(networkState);
-                    networkState.smoothSync.addState(networkState.state);
-                    networkState.smoothSync.checkIfOwnerHasChanged();
+                    return true;
                 }
             }
-            else
+            return false;
+        }
+
+        /// <summary>Receive incoming State on non-owners.</summary>
+        /// <remarks>
+        /// This static method receives incoming State messages for all SmoothSyncMirror objects and uses
+        /// the netID included in the message to find the target game object.
+        /// Calls NonOwnerReceiveState() on the target SmoothSyncMirror object.
+        /// </remarks>
+        static void HandleSyncFromServerToNonOwners(NetworkMessage msg)
+        {
+            NetworkStateMirror networkState = msg.ReadMessage<NetworkStateMirror>();
+
+            if (networkState != null && networkState.smoothSync != null && !networkState.smoothSync.hasAuthority)
             {
-                if (networkState != null && networkState.smoothSync != null && !networkState.smoothSync.hasAuthority)
-                {
-                    networkState.smoothSync.addState(networkState.state);
-                    networkState.smoothSync.checkIfOwnerHasChanged();
-                }
+                networkState.smoothSync.addState(networkState.state);
+                networkState.smoothSync.checkIfOwnerHasChanged();
+            }
+        }
+
+        /// <summary>Receive owner's State on the host and send it back out to all non-owners.</summary>
+        /// <remarks>
+        /// This static method receives incoming State messages for all SmoothSyncMirror objects and uses
+        /// the netID included in the message to find the target game object.
+        /// Calls addState() and SendStateToNonOwners() on the target SmoothSyncMirror object.
+        /// </remarks>
+        static void HandleSyncFromOwnerToServer(NetworkMessage msg)
+        {
+            NetworkStateMirror networkState = msg.ReadMessage<NetworkStateMirror>();
+
+            if (networkState.smoothSync == null ||
+                networkState.smoothSync.netID.clientAuthorityOwner != msg.conn) return;
+
+            // Ignore all messages that do not match the server determined authority.
+            if (networkState.smoothSync.netID.clientAuthorityOwner != msg.conn) return;
+
+            // Always accept the first State so we have something to compare to. (if latestValidatedState == null)
+            // Check each other State to make sure it passes the validation method. By default all States are accepted.
+            // To tie in your own validation method, see the SmoothSyncMirrorExample scene and SmoothSyncMirrorExamplePlayerController.cs. 
+            if (networkState.smoothSync.latestValidatedState == null ||
+                networkState.smoothSync.validateStateMethod(networkState.state, networkState.smoothSync.latestValidatedState))
+            {
+                networkState.smoothSync.latestValidatedState = networkState.state;
+                networkState.smoothSync.latestValidatedState.receivedOnServerTimestamp = Time.realtimeSinceStartup;
+                networkState.smoothSync.SendStateToNonOwners(networkState);
+                networkState.smoothSync.addState(networkState.state);
+                networkState.smoothSync.checkIfOwnerHasChanged();
             }
         }
 

@@ -21,7 +21,7 @@ namespace Mirror.Weaver
         }
     }
 
-    public static class Program
+    public class Program
     {
         public static bool Process(string unityEngine, string netDLL, string outputDirectory, string[] assemblies, string[] extraAssemblyPaths, Action<string> printWarning, Action<string> printError)
         {
@@ -31,8 +31,7 @@ namespace Mirror.Weaver
             CheckAssemblies(assemblies);
             Log.WarningMethod = printWarning;
             Log.ErrorMethod = printError;
-            IAssemblyResolver assemblyResolver = new DefaultAssemblyResolver();
-            return Weaver.WeaveAssemblies(assemblies, extraAssemblyPaths, assemblyResolver, outputDirectory, unityEngine, netDLL);
+            return Weaver.WeaveAssemblies(assemblies, extraAssemblyPaths, null, outputDirectory, unityEngine, netDLL);
         }
 
         private static void CheckDLLPath(string path)
@@ -43,7 +42,7 @@ namespace Mirror.Weaver
 
         private static void CheckAssemblies(IEnumerable<string> assemblyPaths)
         {
-            foreach (string assemblyPath in assemblyPaths)
+            foreach (var assemblyPath in assemblyPaths)
                 CheckAssemblyPath(assemblyPath);
         }
 

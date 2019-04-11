@@ -7,13 +7,13 @@ namespace Mirror.Weaver
 {
     public static class SyncVarProcessor
     {
-        const int SyncVarLimit = 64; // ulong = 64 bytes
+        const int k_SyncVarLimit = 64; // ulong = 64 bytes
 
         // returns false for error, not for no-hook-exists
         public static bool CheckForHookFunction(TypeDefinition td, FieldDefinition syncVar, out MethodDefinition foundMethod)
         {
             foundMethod = null;
-            foreach (CustomAttribute ca in syncVar.CustomAttributes)
+            foreach (var ca in syncVar.CustomAttributes)
             {
                 if (ca.AttributeType.FullName == Weaver.SyncVarType.FullName)
                 {
@@ -23,7 +23,7 @@ namespace Mirror.Weaver
                         {
                             string hookFunctionName = customField.Argument.Value as string;
 
-                            foreach (MethodDefinition m in td.Methods)
+                            foreach (var m in td.Methods)
                             {
                                 if (m.Name == hookFunctionName)
                                 {
@@ -110,7 +110,21 @@ namespace Mirror.Weaver
 
             ILProcessor setWorker = set.Body.GetILProcessor();
 
-            CheckForHookFunction(td, fd, out MethodDefinition hookFunctionMethod);
+            // this
+            setWorker.Append(setWorker.Create(OpCodes.Ldarg_0));
+
+            // new value to set
+            setWorker.Append(setWorker.Create(OpCodes.Ldarg_1));
+
+            // reference to field to set
+            setWorker.Append(setWorker.Create(OpCodes.Ldarg_0));
+            setWorker.Append(setWorker.Create(OpCodes.Ldflda, fd));
+
+            // dirty bit
+            setWorker.Append(setWorker.Create(OpCodes.Ldc_I8, dirtyBit)); // 8 byte integer aka long
+
+            MethodDefinition hookFunctionMethod;
+            CheckForHookFunction(td, fd, out hookFunctionMethod);
 
             if (hookFunctionMethod != null)
             {
@@ -139,20 +153,6 @@ namespace Mirror.Weaver
 
                 setWorker.Append(label);
             }
-
-            // this
-            setWorker.Append(setWorker.Create(OpCodes.Ldarg_0));
-
-            // new value to set
-            setWorker.Append(setWorker.Create(OpCodes.Ldarg_1));
-
-            // reference to field to set
-            setWorker.Append(setWorker.Create(OpCodes.Ldarg_0));
-            setWorker.Append(setWorker.Create(OpCodes.Ldflda, fd));
-
-            // dirty bit
-            setWorker.Append(setWorker.Create(OpCodes.Ldc_I8, dirtyBit)); // 8 byte integer aka long
-
 
             if (fd.FieldType.FullName == Weaver.gameObjectType.FullName)
             {
@@ -205,8 +205,8 @@ namespace Mirror.Weaver
                 syncVarNetIds[fd] = netIdField;
             }
 
-            MethodDefinition get = ProcessSyncVarGet(fd, originalName, netIdField);
-            MethodDefinition set = ProcessSyncVarSet(td, fd, originalName, dirtyBit, netIdField);
+            var get = ProcessSyncVarGet(fd, originalName, netIdField);
+            var set = ProcessSyncVarSet(td, fd, originalName, dirtyBit, netIdField);
 
             //NOTE: is property even needed? Could just use a setter function?
             //create the property
@@ -245,11 +245,11 @@ namespace Mirror.Weaver
             // find syncvars
             foreach (FieldDefinition fd in td.Fields)
             {
-                foreach (CustomAttribute ca in fd.CustomAttributes)
+                foreach (var ca in fd.CustomAttributes)
                 {
                     if (ca.AttributeType.FullName == Weaver.SyncVarType.FullName)
                     {
-                        TypeDefinition resolvedField = fd.FieldType.Resolve();
+                        var resolvedField = fd.FieldType.Resolve();
 
                         if (resolvedField.IsDerivedFrom(Weaver.NetworkBehaviourType))
                         {
@@ -281,7 +281,7 @@ namespace Mirror.Weaver
                             return;
                         }
 
-                        string fieldModuleName = resolvedField.Module.Name;
+                        var fieldModuleName = resolvedField.Module.Name;
                         if (fieldModuleName != Weaver.CurrentAssembly.MainModule.Name &&
                             fieldModuleName != Weaver.UnityAssembly.MainModule.Name &&
                             fieldModuleName != Weaver.NetAssembly.MainModule.Name &&
@@ -300,7 +300,7 @@ namespace Mirror.Weaver
                             return;
                         }
 
-                        if (SyncObjectInitializer.ImplementsSyncObject(fd.FieldType))
+                        if (SyncObjectProcessor.ImplementsSyncObject(fd.FieldType))
                         {
                             Log.Warning(string.Format("Script class [{0}] has [SyncVar] attribute on SyncList field {1}, SyncLists should not be marked with SyncVar.", td.FullName, fd.Name));
                             break;
@@ -312,9 +312,9 @@ namespace Mirror.Weaver
                         dirtyBitCounter += 1;
                         numSyncVars += 1;
 
-                        if (dirtyBitCounter == SyncVarLimit)
+                        if (dirtyBitCounter == k_SyncVarLimit)
                         {
-                            Weaver.Error("Script class [" + td.FullName + "] has too many SyncVars (" + SyncVarLimit + "). (This could include base classes)");
+                            Weaver.Error("Script class [" + td.FullName + "] has too many SyncVars (" + k_SyncVarLimit + "). (This could include base classes)");
                             return;
                         }
                         break;

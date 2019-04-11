@@ -26,10 +26,13 @@ namespace Mirror
             if (!showGUI)
                 return;
 
+            bool noConnection = (manager.client == null || manager.client.connection == null ||
+                                 manager.client.connection.connectionId == -1);
+
             GUILayout.BeginArea(new Rect(10 + offsetX, 40 + offsetY, 215, 9999));
-            if (!NetworkClient.isConnected && !NetworkServer.active)
+            if (!manager.IsClientConnected() && !NetworkServer.active)
             {
-                if (!NetworkClient.active)
+                if (noConnection)
                 {
                     // LAN Host
                     if (Application.platform != RuntimePlatform.WebGLPlayer)
@@ -77,18 +80,18 @@ namespace Mirror
                 {
                     GUILayout.Label("Server: active. Transport: " + Transport.activeTransport);
                 }
-                if (NetworkClient.isConnected)
+                if (manager.IsClientConnected())
                 {
                     GUILayout.Label("Client: address=" + manager.networkAddress);
                 }
             }
 
             // client ready
-            if (NetworkClient.isConnected && !ClientScene.ready)
+            if (manager.IsClientConnected() && !ClientScene.ready)
             {
                 if (GUILayout.Button("Client Ready"))
                 {
-                    ClientScene.Ready(NetworkClient.connection);
+                    ClientScene.Ready(manager.client.connection);
 
                     if (ClientScene.localPlayer == null)
                     {
@@ -98,7 +101,7 @@ namespace Mirror
             }
 
             // stop
-            if (NetworkServer.active || NetworkClient.isConnected)
+            if (NetworkServer.active || manager.IsClientConnected())
             {
                 if (GUILayout.Button("Stop"))
                 {

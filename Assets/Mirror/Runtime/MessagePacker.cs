@@ -1,6 +1,4 @@
 using System;
-using System.ComponentModel;
-using UnityEngine;
 
 namespace Mirror
 {
@@ -21,7 +19,7 @@ namespace Mirror
         // avoid large amounts of allocations.
         static NetworkWriter packWriter = new NetworkWriter();
 
-        public static int GetId<T>() where T : IMessageBase
+        public static int GetId<T>() where T : MessageBase
         {
             // paul: 16 bits is enough to avoid collisions
             //  - keeps the message size small because it gets varinted
@@ -31,7 +29,7 @@ namespace Mirror
 
         // pack message before sending
         // -> pass writer instead of byte[] so we can reuse it
-        [EditorBrowsable(EditorBrowsableState.Never), Obsolete("Use Pack<T> instead")]
+        [Obsolete("Use Pack<T> instead")]
         public static byte[] PackMessage(int msgType, MessageBase msg)
         {
             // reset cached writer length and position
@@ -48,7 +46,7 @@ namespace Mirror
         }
 
         // pack message before sending
-        public static byte[] Pack<T>(T message) where T : IMessageBase
+        public static byte[] Pack<T>(T message) where T : MessageBase
         {
             // reset cached writer length and position
             packWriter.SetLength(0);
@@ -65,7 +63,7 @@ namespace Mirror
         }
 
         // unpack a message we received
-        public static T Unpack<T>(byte[] data) where T : IMessageBase, new()
+        public static T Unpack<T>(byte[] data) where T : MessageBase, new()
         {
             NetworkReader reader = new NetworkReader(data);
 
@@ -87,46 +85,8 @@ namespace Mirror
         public static bool UnpackMessage(NetworkReader messageReader, out int msgType)
         {
             // read message type (varint)
-            try
-            {
-                msgType = (int)messageReader.ReadUInt16();
-                return true;
-            }
-            catch (System.IO.EndOfStreamException)
-            {
-                msgType = 0;
-                return false;
-            }
+            msgType = (int)messageReader.ReadUInt16();
+            return true;
         }
-
-        internal static NetworkMessageDelegate MessageHandler<T>(Action<NetworkConnection, T> handler) where T : IMessageBase, new() => networkMessage =>
-        {
-            // protect against DOS attacks if attackers try to send invalid
-            // data packets to crash the server/client. there are a thousand
-            // ways to cause an exception in data handling:
-            // - invalid headers
-            // - invalid message ids
-            // - invalid data causing exceptions
-            // - negative ReadBytesAndSize prefixes
-            // - invalid utf8 strings
-            // - etc.
-            //
-            // let's catch them all and then disconnect that connection to avoid
-            // further attacks.
-            T message = default;
-            try
-            {
-                message = networkMessage.ReadMessage<T>();
-            }
-            catch (Exception exception)
-            {
-                Debug.LogError("Closed connection: " + networkMessage.conn.connectionId + ". This can happen if the other side accidentally (or an attacker intentionally) sent invalid data. Reason: " + exception);
-                networkMessage.conn.Disconnect();
-            }
-            if (message != default)
-            {
-                handler(networkMessage.conn, message);
-            }
-        };
     }
 }

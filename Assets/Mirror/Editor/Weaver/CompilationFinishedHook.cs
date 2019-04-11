@@ -6,17 +6,14 @@ using System.Reflection;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
-using DotNetAssembly = System.Reflection.Assembly;
-using UnityAssembly = UnityEditor.Compilation.Assembly;
+using Assembly = System.Reflection.Assembly;
 
 namespace Mirror.Weaver
 {
-    public static class CompilationFinishedHook
+    public class CompilationFinishedHook
     {
         const string MirrorRuntimeAssemblyName = "Mirror";
         const string MirrorWeaverAssemblyName = "Mirror.Weaver";
-
-        private static UnityAssembly[] _cachedAssemblies;
 
         public static Action<string> OnWeaverMessage; // delegate for subscription to Weaver debug messages
         public static Action<string> OnWeaverWarning; // delegate for subscription to Weaver warning messages
@@ -50,15 +47,14 @@ namespace Mirror.Weaver
         [InitializeOnLoadMethod]
         static void OnInitializeOnLoad()
         {
-            // pipeline assemblies are valid until the next call to OnInitializeOnLoad
-            _cachedAssemblies = CompilationPipeline.GetAssemblies();
-
             CompilationPipeline.assemblyCompilationFinished += OnCompilationFinished;
         }
 
         static string FindMirrorRuntime()
         {
-            foreach (UnityAssembly assembly in _cachedAssemblies)
+            UnityEditor.Compilation.Assembly[] assemblies = CompilationPipeline.GetAssemblies();
+
+            foreach (UnityEditor.Compilation.Assembly assembly in assemblies)
             {
                 if (assembly.name == MirrorRuntimeAssemblyName)
                 {
@@ -74,16 +70,16 @@ namespace Mirror.Weaver
             // Since this assembly is already loaded in the domain this is a
             // no-op and returns the already loaded assembly
             return new HashSet<string>(
-                dependencies.Select(dependency => Path.GetDirectoryName(DotNetAssembly.Load(dependency).Location))
+                dependencies.Select(dependency => Path.GetDirectoryName(Assembly.Load(dependency).Location))
             );
         }
 
         // get all non-dynamic assembly directories
-        static HashSet<string> GetNonDynamicAssemblyDirectories(DotNetAssembly[] assemblies)
+        static HashSet<string> GetNonDynamicAssemblyDirectories(Assembly[] assemblies)
         {
             HashSet<string> paths = new HashSet<string>();
 
-            foreach (DotNetAssembly assembly in assemblies)
+            foreach (Assembly assembly in assemblies)
             {
                 if (!assembly.IsDynamic)
                 {
@@ -92,7 +88,7 @@ namespace Mirror.Weaver
                     string assemblyName = assembly.GetName().Name;
                     if (File.Exists(assemblyName))
                     {
-                        paths.Add(Path.GetDirectoryName(DotNetAssembly.Load(assemblyName).Location));
+                        paths.Add(Path.GetDirectoryName(Assembly.Load(assemblyName).Location));
                     }
                 }
             }
@@ -152,8 +148,8 @@ namespace Mirror.Weaver
             }
 
             // find all assemblies and the currently compiling assembly
-            DotNetAssembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            DotNetAssembly targetAssembly = assemblies.FirstOrDefault(asm => asm.GetName().Name == Path.GetFileNameWithoutExtension(assemblyPath));
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            Assembly targetAssembly = assemblies.FirstOrDefault(asm => asm.GetName().Name == Path.GetFileNameWithoutExtension(assemblyPath));
 
             // prepare variables
             HashSet<string> dependencyPaths = new HashSet<string>();
@@ -183,17 +179,6 @@ namespace Mirror.Weaver
                 // dependency lurking there (there might be generated assemblies so ignore file not found exceptions).
                 // (can happen in runtime test framework on editor platform and when doing full library reimport)
                 dependencyPaths = GetNonDynamicAssemblyDirectories(assemblies);
-            }
-
-            // add compiled refs from CompilationPipeline
-            foreach (UnityAssembly unityAsm in _cachedAssemblies)
-            {
-                if (unityAsm.outputPath != assemblyPath) continue;
-
-                foreach (string unityAsmRef in unityAsm.compiledAssemblyReferences)
-                {
-                    dependencyPaths.Add(Path.GetDirectoryName(unityAsmRef));
-                }
             }
 
             // construct full path to Project/Library/ScriptAssemblies

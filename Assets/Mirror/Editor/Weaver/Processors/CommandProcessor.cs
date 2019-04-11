@@ -6,7 +6,7 @@ namespace Mirror.Weaver
 {
     public static class CommandProcessor
     {
-        const string CmdPrefix = "InvokeCmd";
+        const string k_CmdPrefix = "InvokeCmd";
 
         /*
             // generates code like:
@@ -38,6 +38,7 @@ namespace Mirror.Weaver
             }
 
             ILProcessor cmdWorker = cmd.Body.GetILProcessor();
+            Instruction label = cmdWorker.Create(OpCodes.Nop);
 
             NetworkBehaviourProcessor.WriteSetupLocals(cmdWorker);
 
@@ -50,7 +51,7 @@ namespace Mirror.Weaver
             // local client check
             Instruction localClientLabel = cmdWorker.Create(OpCodes.Nop);
             cmdWorker.Append(cmdWorker.Create(OpCodes.Ldarg_0));
-            cmdWorker.Append(cmdWorker.Create(OpCodes.Call, Weaver.getBehaviourIsServer));
+            cmdWorker.Append(cmdWorker.Create(OpCodes.Call, Weaver.UBehaviourIsServer));
             cmdWorker.Append(cmdWorker.Create(OpCodes.Brfalse, localClientLabel));
 
             // call the cmd function directly.
@@ -67,14 +68,14 @@ namespace Mirror.Weaver
             NetworkBehaviourProcessor.WriteCreateWriter(cmdWorker);
 
             // write all the arguments that the user passed to the Cmd call
-            if (!NetworkBehaviourProcessor.WriteArguments(cmdWorker, md, false))
+            if (!NetworkBehaviourProcessor.WriteArguments(cmdWorker, md, "Command", false))
                 return null;
 
             string cmdName = md.Name;
-            int index = cmdName.IndexOf(CmdPrefix);
+            int index = cmdName.IndexOf(k_CmdPrefix);
             if (index > -1)
             {
-                cmdName = cmdName.Substring(CmdPrefix.Length);
+                cmdName = cmdName.Substring(k_CmdPrefix.Length);
             }
 
             // invoke internal send and return
@@ -104,7 +105,7 @@ namespace Mirror.Weaver
         */
         public static MethodDefinition ProcessCommandInvoke(TypeDefinition td, MethodDefinition md)
         {
-            MethodDefinition cmd = new MethodDefinition(CmdPrefix + md.Name,
+            MethodDefinition cmd = new MethodDefinition(k_CmdPrefix + md.Name,
                 MethodAttributes.Family | MethodAttributes.Static | MethodAttributes.HideBySig,
                 Weaver.voidType);
 
@@ -131,7 +132,7 @@ namespace Mirror.Weaver
 
         public static bool ProcessMethodsValidateCommand(TypeDefinition td, MethodDefinition md, CustomAttribute ca)
         {
-            if (!md.Name.StartsWith("Cmd"))
+            if (md.Name.Length > 2 && md.Name.Substring(0, 3) != "Cmd")
             {
                 Weaver.Error("Command function [" + td.FullName + ":" + md.Name + "] doesnt have 'Cmd' prefix");
                 return false;

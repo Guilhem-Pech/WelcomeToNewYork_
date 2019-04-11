@@ -1,5 +1,5 @@
 using NUnit.Framework;
-namespace Mirror.Tests
+namespace Mirror
 {
     [TestFixture]
     public class MessagePackerTest
