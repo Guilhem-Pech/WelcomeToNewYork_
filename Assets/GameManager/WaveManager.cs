@@ -10,7 +10,8 @@ public class WaveManager : NetworkBehaviour
     public int maxAliveEnnemies = 50;
     [SyncVar] public int numVague = 0;
     [SyncVar] public int numEnnemisVague;
-    [SyncVar] public List<GameObject> ennemiVivant;
+    public List<GameObject> ennemiVivant;
+    [SyncVar] public int nbEnnemisVivant;
     [SyncVar] public int ennemiRestant;
     private SpawnerManager spawnMan;
     private HordesManager HordeMan;
@@ -39,6 +40,7 @@ public class WaveManager : NetworkBehaviour
             ennemiRestant -= 1;
             ennemiVivant.Add(ennemi);
         }
+        nbEnnemisVivant = ennemiVivant.Count;
     }
 
     [Server]
