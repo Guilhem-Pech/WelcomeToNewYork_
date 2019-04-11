@@ -55,6 +55,7 @@ public class ATHSettings : MonoBehaviour {
         Text nbRestants = GameObject.Find("EnnemisRestants").GetComponent<Text>();
         nbRestants.text = ts.ToString();
 
-
+        GameObject.Find("EnnemisMax").GetComponent<Text>().text = waveManager.numEnnemisVague.ToString();
+        GameObject.Find("NbVague").GetComponent<Text>().text = waveManager.numVague.ToString();
     }
 }

@@ -8,8 +8,8 @@ public class WaveManager : NetworkBehaviour
 {
     public int multEnnemiesPerWave = 3;
     public int maxAliveEnnemies = 50;
-    [ReadOnly] public int numVague = 0;
-    [ReadOnly] public int numEnnemisVague;
+    [SyncVar] public int numVague = 0;
+    [SyncVar] public int numEnnemisVague;
     [SyncVar] public List<GameObject> ennemiVivant;
     [SyncVar] public int ennemiRestant;
     private SpawnerManager spawnMan;
