@@ -6,14 +6,13 @@ using UnityEngine.UI;
 
 public class ATHSettings : MonoBehaviour {
 
-
+    WaveManager waveManager;
     GameObject personnageGameObject;
     BaseChar personnage;
 
     // Start is called before the first frame update
     void Start()
     {
-       
     }
 
     // Update is called once per frame
@@ -43,7 +42,14 @@ public class ATHSettings : MonoBehaviour {
 
     void EnnemyATH() {
 
-        int ts = FindObjectOfType<WaveManager>().ennemiRestant;
+        if (waveManager == null)
+        {
+            waveManager = FindObjectOfType<WaveManager>();
+            return;
+        }
+            
+
+        int ts = waveManager.ennemiRestant + waveManager.ennemiVivant.Count;
        
 
         Text nbRestants = GameObject.Find("EnnemisRestants").GetComponent<Text>();
