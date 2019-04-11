@@ -34,7 +34,7 @@ public class PlayerManager : NetworkBehaviour
             GameOver();
     }
 
-    [ClientRpc]
+   [ClientRpc]
    public void RpcDeath(GameObject entity)
     {
         foreach (MeleeAttack aMeleeAttack in entity.GetComponentsInChildren<MeleeAttack>())

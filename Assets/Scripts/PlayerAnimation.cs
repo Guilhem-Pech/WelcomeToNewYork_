@@ -151,12 +151,16 @@ public class PlayerAnimation : NetworkBehaviour
     {
         bodyAnimator.Play(stateName);
         bodyClothesAnimator.Play(stateName);
+        bodyAnimator.CrossFadeInFixedTime(stateName, 0f);
+        bodyClothesAnimator.CrossFadeInFixedTime(stateName, 0f);
     }
 
     void UpAnimatorPlay(string stateName)
     {
         headAnimator.Play(stateName);
         headClothesAnimator.Play(stateName);
+        headAnimator.CrossFadeInFixedTime(stateName, 0f);
+        headClothesAnimator.CrossFadeInFixedTime(stateName, 0f);
     }
 
     void AllAnimatorPlay(string stateName)
@@ -263,6 +267,8 @@ public class PlayerAnimation : NetworkBehaviour
         }
         GOSpecialSprite.SetActive(showSpecialSpriteBool);
         GOSprite.SetActive(!showSpecialSpriteBool);
+        DownAnimatorPlay("Idle");
+        UpAnimatorPlay("Idle");
         //GOSpecialSprite.GetComponentInChildren<Animator>().PlayInFixedTime("Default", -1, 0f);
         GOSpecialSprite.GetComponentInChildren<Animator>().Play("Default");
         foreach (SpriteRenderer i in this.GetComponentsInChildren<SpriteRenderer>())
