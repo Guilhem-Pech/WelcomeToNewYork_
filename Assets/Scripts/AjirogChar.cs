@@ -8,7 +8,7 @@ public class AjirogChar : DistChar
 
     public bool AttSpeReady = true;
     public bool RechargeSpe = false;
-    public float Cooldown = 0.001f;
+    public float Cooldown = 5f;
     public int shotgunAmmo = 5;
     public GameObject AttSpe;
 
@@ -71,7 +71,7 @@ public class AjirogChar : DistChar
             {
                 RechargeSpe = false;
                 AttSpeReady = true;
-                Cooldown = 0.001f;
+                Cooldown = 5f;
             }
         }
 
