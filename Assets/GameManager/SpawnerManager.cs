@@ -28,7 +28,7 @@ public class SpawnerManager : NetworkBehaviour
     public GameObject SpawnEnnemiOnSpawner(GameObject spawner)
     {
         GameObject spawnedEnnemy = new GameObject();
-        try
+        /*try
         {
             spawnedEnnemy = spawner.GetComponent<SpawnerController>().spawn();
         }
@@ -36,7 +36,7 @@ public class SpawnerManager : NetworkBehaviour
         {
             CheckSpawner();
             spawnedEnnemy = spawner.GetComponent<SpawnerController>().spawn();
-        }
+        }*/
         return spawnedEnnemy;
     }
     [Server]
@@ -44,15 +44,15 @@ public class SpawnerManager : NetworkBehaviour
     {
         int rand = Random.Range(1, spawners.Count + 1);
         //print("random : " + rand);
-        GameObject spawnedEnnemy;
-        try
+        GameObject spawnedEnnemy = new GameObject();
+        /*try
         {
             spawnedEnnemy = spawners[rand - 1].spawn();
         }catch (System.ArgumentOutOfRangeException)
         {
             CheckSpawner();
             spawnedEnnemy = spawners[rand - 1].spawn();
-        }
+        }*/
         
         return spawnedEnnemy;
     }

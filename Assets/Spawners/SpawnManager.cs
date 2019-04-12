@@ -57,13 +57,9 @@ public class SpawnManager : NetworkBehaviour
         foreach (KeyValuePair<int, GameObject> neighbour in currentSpawners)
         {
             if (neighbour.Value == null)
-            {
                 toDeleteNeighboursList.Add(neighbour.Key);
-            }
             else
-            {
                 currentSpawnersList.Add(neighbour.Value);
-            }
         }
 
         foreach (int key in toDeleteNeighboursList)
@@ -108,7 +104,34 @@ public class SpawnManager : NetworkBehaviour
     [Server]
     public List<GameObject> GetTopSpawners(int n)
     {
+        if (n > evaluatedSpawnersList.Count)
+            n = evaluatedSpawnersList.Count;
         return evaluatedSpawnersList.GetRange(0,n);
     }
-    
+
+    /* Répartition du spawn d'un liste d'ennemis */
+    [Server]
+    public void SpawnEnnemiRandom(List<GameObject> prefabsList, int nbSpawners)
+    {
+        List<GameObject> spawners = GetTopSpawners(nbSpawners);
+        int it = 0;
+
+        int nbToCut;
+        while (prefabsList.Count != 0)
+        {
+            if (prefabsList.Count >= spawners[it].GetComponent<SpawnerController>().spawnCapacity)
+                nbToCut = spawners[it].GetComponent<SpawnerController>().spawnCapacity;
+            else
+                nbToCut = prefabsList.Count;
+
+            spawners[it].GetComponent<SpawnerController>().AddToSpawnList(prefabsList.GetRange(0, nbToCut-1));
+            prefabsList.RemoveRange(0, nbToCut - 1);
+
+            if (it == (spawners.Count - 1))
+                it = 0;
+            else
+                it++;
+        }
+    }
+
 }

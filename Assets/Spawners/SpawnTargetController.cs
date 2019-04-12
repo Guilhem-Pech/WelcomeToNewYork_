@@ -16,7 +16,18 @@ public class SpawnTargetController : NetworkBehaviour
     {
         m_parentEntity = gameObject.transform.parent.gameObject;
         spawnersCollider = gameObject.GetComponent<SphereCollider>();
-        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<SpawnManager>();
+        print(GameObject.FindGameObjectWithTag("GameController"));
+        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().waveMan.spawnMan;
+    }
+
+    private void Update()
+    {
+        if(manager == null)
+        {
+            manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().waveMan.spawnMan;
+            print("bite");
+        }
+            
     }
 
     /* Triggers */

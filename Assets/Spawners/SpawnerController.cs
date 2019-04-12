@@ -4,32 +4,82 @@ using UnityEngine;
 using Mirror;
 public class SpawnerController : NetworkBehaviour
 {
+
     public float spawnRadius = 1;
-    public GameObject prefabCaC;
-    public GameObject prefabDistance;
+    public int spawnCapacity = 5;
+    public float spawnDelay = 2f;
+
+    private bool isSpawning;
+    private float lastSpawnTime;
+
+    private List<GameObject> spawnList;
+
+    private void Start()
+    {
+        spawnList = new List<GameObject>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (!isServer)
             Destroy(this);
+
+        if (isSpawning)
+        {
+            lastSpawnTime += Time.deltaTime;
+
+            if(lastSpawnTime >= spawnDelay)
+            {
+                Spawn();
+                lastSpawnTime = 0f;
+
+                if (spawnList.Count == 0)
+                    DeactivateSpawn();
+            }
+        }
     }
 
-    public GameObject spawn()
+    private void Spawn()
     {
-        Vector3 position = new Vector3(
-        transform.position.x + Random.Range(-spawnRadius, spawnRadius),
-        0,
-        transform.position.z + Random.Range(-spawnRadius, spawnRadius)
-        );
+        Vector3 position;
 
-        int ennemiRandNumb = (Random.Range(0, 2));
-        GameObject prefab = prefabDistance  /*(ennemiRandNumb == 0 ? prefabCaC : prefabDistance)*/;
-        GameObject entity = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
-        NetworkServer.Spawn(entity);
-        //entity.transform.parent = transform;
-        entity.transform.position = position;
-        
-        return entity;
+        int toSpawn = (spawnList.Count < spawnCapacity)? spawnList.Count : spawnCapacity;
+        for (int i = 0; i < toSpawn; i++)
+        {
+            position = new Vector3(
+                transform.position.x + Random.Range(-spawnRadius, spawnRadius),
+                0,
+                transform.position.z + Random.Range(-spawnRadius, spawnRadius)
+            );
+
+            NetworkServer.Spawn(spawnList[i]);
+            spawnList[i].transform.position = position;
+        }
+
+        spawnList.RemoveRange(0, toSpawn - 1);
+    }
+
+    public void AddToSpawnList(List<GameObject> ennemyTypesList)
+    {
+        spawnList.AddRange(ennemyTypesList);
+        ActivateSpawn();
+    }
+
+    private void ActivateSpawn()
+    {
+        if (isSpawning)
+            return;
+
+        isSpawning = true;
+        lastSpawnTime = spawnDelay;
+    }
+
+    private void DeactivateSpawn()
+    {
+        if (!isSpawning)
+            return;
+
+        isSpawning = false;
     }
 }

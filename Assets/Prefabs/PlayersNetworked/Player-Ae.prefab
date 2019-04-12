@@ -52,6 +52,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9186962741301816459, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Name
+      value: Player-Ae
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186962741301816459, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Name
+      value: Player-Ae
+      objectReference: {fileID: 0}
     - target: {fileID: 1150504060646366922, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: bodySpriteRenderer
@@ -122,15 +132,20 @@ PrefabInstance:
       propertyPath: GOSpecialSprite
       value: 
       objectReference: {fileID: 8983728980931479279}
-    - target: {fileID: 9186962741301816459, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+    - target: {fileID: 7861856408488141555, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
-      propertyPath: m_Name
-      value: Player-Ae
+      propertyPath: m_AssetId
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 9186962741301816459, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+    - target: {fileID: 7861856408488141555, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
-      propertyPath: m_Name
-      value: Player-Ae
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7861856408488141555, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8701189933833513575, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
@@ -164,31 +179,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7861856408488141555, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7861856408488141555, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_SceneId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7861856408488141555, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 9186962740140420308, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9186962742028429042, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3154528051708176776, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_Material
@@ -198,6 +188,16 @@ PrefabInstance:
     - target: {fileID: 3154528051708176776, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186962740140420308, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186962742028429042, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6135123874172071213, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
@@ -325,6 +325,16 @@ PrefabInstance:
       propertyPath: dustParticleSystem
       value: 
       objectReference: {fileID: 2595192204394311565}
+    - target: {fileID: 6916460336652573514, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916460336652573514, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60ae6c17b1bcb734581d343ef4b03cf9, type: 3}
 --- !u!1 &2595192204433423284 stripped
