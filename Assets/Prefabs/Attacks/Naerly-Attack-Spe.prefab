@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 9009512511216596679}
   - component: {fileID: 2451242530065665451}
-  - component: {fileID: 9039898200141240304}
   - component: {fileID: 4015298193561430995}
+  - component: {fileID: 5758807673913371904}
   m_Layer: 8
-  m_Name: Jojo-AttaqueSpe
+  m_Name: Naerly-Attack-Spe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,28 +51,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &9039898200141240304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619184190625883108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4616f383e9ece3c4098ed6e85bdd41f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncInterval: 0.1
-  damage: 50
-  staminaCost: 0
-  duration: 0
-  knockBackForce: 5
-  knockBackDuration: 3
-  spread: 2.5
-  range: 6.25
-  hitBoxGO: {fileID: 7597772938927774000}
-  spriteRenderer: {fileID: 0}
 --- !u!114 &4015298193561430995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,8 +65,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
-  m_AssetId: ad40362c12f839f4e861a315c4116d38
+  m_AssetId: 48af9e8b32ba5414dbb51989d873ce5f
   m_SceneId: 0
+--- !u!114 &5758807673913371904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619184190625883108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e10680d486e9a644a4a78ed0c69035e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0.1
+  damage: 50
+  staminaCost: 0
+  duration: 0
+  knockBackForce: 0
+  knockBackDuration: 2
+  spread: 2.5
+  range: 6.25
+  hitBoxGO: {fileID: 7597772938927774000}
+  spriteRenderer: {fileID: 0}
 --- !u!1 &5254035887163463543
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +158,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300022, guid: 4fa6b6a399a686349a105122cccb674c, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 62aa033eeb2f02a48abb7acc1bd778c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -179,7 +179,7 @@ Animator:
   m_GameObject: {fileID: 5254035887163463543}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 09c16ed0f1955a94ca22f1e733a7017a, type: 2}
+  m_Controller: {fileID: 9100000, guid: b9716c5192c74a341b94ddd260ae86c3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

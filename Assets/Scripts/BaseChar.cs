@@ -13,11 +13,6 @@ public abstract class BaseChar : BaseEntity
 
     public bool canMoveWhileAttacking = true;
 
-    public AudioClip attack;
-    public AudioClip special;
-    
-    public SoundDispenser soundDispenser;
-
     public PlayerAnimation playerAnimation;
 
     protected GameObject UI;

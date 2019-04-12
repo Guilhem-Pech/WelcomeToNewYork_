@@ -9,6 +9,10 @@ public abstract class MeleeChar : BaseChar
     public bool isAttacking = false ;
     public float period = 1.0f;
 
+    public AudioClip attack;
+    public AudioClip special;
+    public SoundDispenser soundDispenser;
+
     public GameObject[] Attacks; // tableau répértoriant les attaques du joueur
     public int nextAttackID = 0; //numéro de l'attaque qui va être utiliser pour la prochaine attaque du joueur
 

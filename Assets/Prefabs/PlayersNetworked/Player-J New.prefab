@@ -19,12 +19,12 @@ MonoBehaviour:
   maxStamina: 50
   currentStamina: 0
   canMoveWhileAttacking: 1
-  attack: {fileID: 8300000, guid: 567c9d0cea739c441a719f0a4b2b0129, type: 3}
-  special: {fileID: 8300000, guid: dd3debf1b8bad0c4ba95e88ae7ee9253, type: 3}
-  soundDispenser: {fileID: 9204055156904840069}
   playerAnimation: {fileID: 3859403155374247802}
   isAttacking: 0
   period: 1
+  attack: {fileID: 8300000, guid: 567c9d0cea739c441a719f0a4b2b0129, type: 3}
+  special: {fileID: 8300000, guid: dd3debf1b8bad0c4ba95e88ae7ee9253, type: 3}
+  soundDispenser: {fileID: 9204055156904840069}
   Attacks:
   - {fileID: 1619184190625883108, guid: 80b7074aa3895ff4da4ecd44b8bde54d, type: 3}
   - {fileID: 1812041652108394998, guid: 7469ac5d23dc1764dad3bc1de3d11f25, type: 3}

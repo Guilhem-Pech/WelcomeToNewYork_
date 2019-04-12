@@ -12,6 +12,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundDispenser
       objectReference: {fileID: 0}
+    - target: {fileID: 4700712804311818902, guid: e624a6baca00d2a439a7cc592388b91c,
+        type: 3}
+      propertyPath: sources.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700712804311818902, guid: e624a6baca00d2a439a7cc592388b91c,
+        type: 3}
+      propertyPath: sources.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7158895923910212863, guid: e624a6baca00d2a439a7cc592388b91c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -67,16 +77,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4700712804311818902, guid: e624a6baca00d2a439a7cc592388b91c,
-        type: 3}
-      propertyPath: sources.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4700712804311818902, guid: e624a6baca00d2a439a7cc592388b91c,
-        type: 3}
-      propertyPath: sources.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7235045299263373540, guid: e624a6baca00d2a439a7cc592388b91c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e624a6baca00d2a439a7cc592388b91c, type: 3}
@@ -103,6 +103,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Aji_shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5133126219095373237, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
@@ -189,15 +199,10 @@ PrefabInstance:
       propertyPath: sd
       value: 
       objectReference: {fileID: 7660472589227215795}
-    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+    - target: {fileID: 8132931055822810995, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
-      propertyPath: m_SceneId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3273092604898574500, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
