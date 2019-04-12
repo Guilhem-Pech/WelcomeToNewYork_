@@ -14,6 +14,7 @@ public class PauseMenu : NetworkBehaviour
 
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if(GameIsPaused)
