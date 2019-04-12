@@ -13,13 +13,17 @@ public abstract class BaseChar : BaseEntity
 
     public bool canMoveWhileAttacking = true;
 
+    public AudioClip attack;
+    public AudioClip special;
+    
+    public SoundDispenser soundDispenser;
+
     public PlayerAnimation playerAnimation;
 
     protected GameObject UI;
 
 
     public abstract void Awake();
-
 
     [ServerCallback]
     public virtual void Start()
@@ -78,6 +82,12 @@ public abstract class BaseChar : BaseEntity
         {
             UI.GetComponentInChildren<Life>().AddLife(heal);
         }
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        this.tag = "Player";
     }
 
     [TargetRpc]

@@ -29,6 +29,8 @@ public class JojoChar : MeleeChar
     {
         if (AttSpeReady && !isAttacking)
         {
+            soundDispenser.Play(special);
+
             foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
                 Destroy(aMeleeAttack.gameObject);
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
