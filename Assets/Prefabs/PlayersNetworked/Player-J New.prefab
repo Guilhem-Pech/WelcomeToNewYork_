@@ -20,6 +20,7 @@ MonoBehaviour:
   currentStamina: 0
   canMoveWhileAttacking: 1
   playerAnimation: {fileID: 3859403155374247802}
+  healthBar: {fileID: 0}
   isAttacking: 0
   period: 1
   Attacks:

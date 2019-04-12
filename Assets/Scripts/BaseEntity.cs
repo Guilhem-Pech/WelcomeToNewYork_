@@ -8,12 +8,26 @@ public abstract class BaseEntity : NetworkBehaviour {
     [SyncVar] //Need to be synchronised bot not to all clients like it does right now (= Can be optimized)
     public int maxHealth = 100;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(OnChangeHealth))]
     public int currentHealth ;
+
+
+    public HealthBar healthBar;
 
     public bool isHit = false;
 
     protected float tps = 1;
+
+    public void OnChangeHealth(int value)
+    {
+        currentHealth = value;
+        if (isLocalPlayer && healthBar != null)
+        {
+            healthBar.SetCurLife(value, maxHealth);
+        }
+    }
+
+    
 
     [Server]
     public virtual void TakeDamage(int dmg)

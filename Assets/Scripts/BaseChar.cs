@@ -17,18 +17,25 @@ public abstract class BaseChar : BaseEntity
 
     protected GameObject UI;
 
-
     public abstract void Awake();
 
-    [ServerCallback]
+
+
+   
     public virtual void Start()
     {
-        currentStamina = maxStamina;
-        currentHealth = maxHealth;
-        if (GameObject.FindGameObjectWithTag("UI") != null)
+        if (isServer)
         {
-            UI = GameObject.FindGameObjectWithTag("UI");
+            currentStamina = maxStamina;
+            currentHealth = maxHealth;
         }
+        if (isLocalPlayer)
+        {
+            if (healthBar == null)
+                healthBar = FindObjectOfType<HealthBar>();
+        }
+        
+       
     }
 
     [Server]
@@ -64,19 +71,11 @@ public abstract class BaseChar : BaseEntity
     public override void TakeDamage(int dmg)
     {
         base.TakeDamage(dmg);
-        if (UI != null)
-        {
-            UI.GetComponentInChildren<Life>().DisplayLife(dmg, this.GetMaxHealth());
-        }
     }
 
     public override void AddHealth(int heal)
     {
         base.AddHealth(heal);
-        if (UI != null)
-        {
-            UI.GetComponentInChildren<Life>().AddLife(heal);
-        }
     }
 
     public override void OnStartLocalPlayer()
@@ -98,4 +97,5 @@ public abstract class BaseChar : BaseEntity
         base.Death(); 
         TargetAffichMort(connectionToClient);
     }
+
 }
