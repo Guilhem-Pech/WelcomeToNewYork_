@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : NetworkBehaviour
 {
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    private NetworkManager manager;
 
 
     void Update()
@@ -46,6 +48,12 @@ public class PauseMenu : MonoBehaviour
     public void MenuGame()
     {
         Time.timeScale = 1;
+        manager = GameObject.FindObjectOfType<NetworkManager>();
+        if (isServer)
+            manager.StopHost();
+        if (isClient)
+            manager.StopClient();
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
