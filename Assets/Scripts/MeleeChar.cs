@@ -6,10 +6,16 @@ using Mirror;
 public abstract class MeleeChar : BaseChar
 {
     private float nextActionTime = 0.0f;
+    [SyncVar]
     public bool isAttacking = false ;
     public float period = 1.0f;
 
+    public AudioClip attack;
+    public AudioClip special;
+    public SoundDispenser soundDispenser;
+
     public GameObject[] Attacks; // tableau répértoriant les attaques du joueur
+    //[SyncVar]
     public int nextAttackID = 0; //numéro de l'attaque qui va être utiliser pour la prochaine attaque du joueur
 
     protected override void Attack(Vector3 point)
@@ -25,12 +31,9 @@ public abstract class MeleeChar : BaseChar
                 Destroy(aMeleeAttack.gameObject);
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             isAttacking = true;
-            foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
-            {
-                Destroy(aMeleeAttack.gameObject);
-            }
-            this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
-          //  print("Clic du joueur " +point);
+            nextAttackID = (nextAttackID + 1) % 3;
+            print("NextAttackID: " + nextAttackID);
+
             UseStamina(currentAttack.GetComponent<MeleeAttack>().staminaCost);
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
 
@@ -38,14 +41,12 @@ public abstract class MeleeChar : BaseChar
 
 
             GameObject theAttack = Instantiate(currentAttack, this.gameObject.transform);
-            //theAttack.transform.SetParent(this.transform);
             theAttack.GetComponent<MeleeAttack>().Initialisation(playerPos, angle);
-            NetworkServer.SpawnWithClientAuthority(theAttack,this.gameObject);
-            
-            if (nextAttackID < Attacks.Length - 1)
-                nextAttackID += 1;
-            else
-                nextAttackID = 0;
+            NetworkServer.SpawnWithClientAuthority(theAttack, this.gameObject);
+        }
+        else
+        {
+            isAttacking = false;
         }
 
     }
@@ -84,6 +85,7 @@ public abstract class MeleeChar : BaseChar
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
+                isAttacking = true;
                 CmdAttaque(hit.point);
             }
 

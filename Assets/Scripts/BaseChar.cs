@@ -13,11 +13,6 @@ public abstract class BaseChar : BaseEntity
 
     public bool canMoveWhileAttacking = true;
 
-    public AudioClip attack;
-    public AudioClip special;
-    
-    public SoundDispenser soundDispenser;
-
     public PlayerAnimation playerAnimation;
 
     protected GameObject UI;
@@ -53,6 +48,7 @@ public abstract class BaseChar : BaseEntity
 
     [Server]
     protected abstract void AttackSpeciale(Vector3 playerPosition_, float angle);
+
     [Server]
     protected abstract void Attack(Vector3 point);
  

@@ -100,7 +100,6 @@ MonoBehaviour:
   spread: 1.5
   range: 3
   hitBoxGO: {fileID: 0}
-  sound: {fileID: 0}
   spriteRenderer: {fileID: 0}
 --- !u!114 &6397475176204137658
 MonoBehaviour:

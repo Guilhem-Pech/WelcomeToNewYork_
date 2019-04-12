@@ -28,7 +28,7 @@ public class MeleeAttack : NetworkBehaviour
     protected float animationSpeed = 1f;
 
    
-    private MeleeChar player;
+    protected MeleeChar player;
 
     public void Initialisation(Vector3 playerPosition_, float angle)
     {        
@@ -103,18 +103,18 @@ public class MeleeAttack : NetworkBehaviour
         {
             //spriteRenderer.color = Color.black;
             player.nextAttackID = 0;
-            FinishAttack();
+            RpcFinishAttack(player.gameObject);
         }
     }
 
 
     void UpdateClient()
     {        
-       if (AnimatorIsInState("Finished"))
+       /*if (AnimatorIsInState("Finished"))
         {
             
             FinishAttack();
-        }
+        }*/
     }
 
     protected void OnTriggerEnter(Collider other)
@@ -138,10 +138,19 @@ public class MeleeAttack : NetworkBehaviour
         return animationAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
     }
 
-    protected void FinishAttack()
-    {               
+    [ClientRpc]
+    protected void RpcFinishAttack(GameObject entity)
+    {
+        entity.GetComponent<MeleeChar>().playerAnimation.DisplayHands(true); //on reaffiche les mains
+        entity.GetComponent<PlayerController>().enabled = true;
+        Destroy(this.gameObject);
+    }
+
+    /*[Server]
+    /*protected void FinishAttack()
+    {
         player.playerAnimation.DisplayHands(true); //on reaffiche les mains
         player.GetComponent<PlayerController>().enabled = true;
         Destroy(this.gameObject);
-    }
+    }*/
 }
