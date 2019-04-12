@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e852b799e1ed3a545922d776056f127c
+guid: 76d48318d55bfd249a886aea7ba07c88
 TextureImporter:
   fileIDToRecycleName:
     21300000: RangedEnnemy_Walk1
@@ -18,6 +18,16 @@ TextureImporter:
     21300026: RangedEnnemy_Attack8
     21300028: RangedEnnemy_Stun
     21300030: RangedEnnemy_Dead
+    21300032: RangedEnnemy_IdleAttack1
+    21300034: RangedEnnemy_IdleAttack2
+    21300036: RangedEnnemy_IdleAttack3
+    21300038: RangedEnnemy_IdleAttack4
+    21300040: RangedEnnemy_Teleport1
+    21300042: RangedEnnemy_Teleport2
+    21300044: RangedEnnemy_Teleport3
+    21300046: RangedEnnemy_Teleport4
+    21300048: RangedEnnemy_Teleport5
+    21300050: RangedEnnemy_Teleport6
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -114,7 +124,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c32fe12c939ebb41806fe90a9b5edf2
+      spriteID: 4f6542712e1b89d47992054a5c8cca44
       vertices: []
       indices: 
       edges: []
@@ -134,7 +144,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1c073e6c21b2414794a26ae3ba43799
+      spriteID: 6ed9129d542132146a3eecaf10c07d97
       vertices: []
       indices: 
       edges: []
@@ -154,7 +164,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d218283b4d6ac6e4e83f7fbaf57df404
+      spriteID: 21a399a27bbca0143ad09a5b43c0bc2c
       vertices: []
       indices: 
       edges: []
@@ -174,7 +184,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f88cc8545668e840a392b5335e96750
+      spriteID: 09bad2c8521688d458c09134c83cc4e2
       vertices: []
       indices: 
       edges: []
@@ -194,7 +204,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97f26f08281c73d44aaf78820fec37b4
+      spriteID: a41c00dbbcdeac248a7659f838b0eb98
       vertices: []
       indices: 
       edges: []
@@ -214,7 +224,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d18ee88a5231f4140b52e3db2fbd5b24
+      spriteID: 5ed125fe0d8832146bd605a64172bf19
       vertices: []
       indices: 
       edges: []
@@ -234,7 +244,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5864085b5503f0e4a83702def65cc07c
+      spriteID: 640ffca992493154286b3fd05640a351
       vertices: []
       indices: 
       edges: []
@@ -254,7 +264,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 843ff9d6c44985248a978c488977157e
+      spriteID: b89697b0e43764347a5f2373f6a7a218
       vertices: []
       indices: 
       edges: []
@@ -274,7 +284,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7bee6caf558a76d41baea989f637b1f3
+      spriteID: c7d13e1a9c59be74f8d72ff8d787f707
       vertices: []
       indices: 
       edges: []
@@ -294,7 +304,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bddd981b864ce8145be622b542d48158
+      spriteID: 51228dfb868478f4288bfdaaf0471e45
       vertices: []
       indices: 
       edges: []
@@ -314,7 +324,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc4547d79385ea342ac5acd26b4e1787
+      spriteID: 8c4062a968567524196ebc0ed90996b0
       vertices: []
       indices: 
       edges: []
@@ -334,7 +344,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 013e388bf61adbb45a3c4db2b0beb706
+      spriteID: e90c7b2aa8923be41ae11704851e87e1
       vertices: []
       indices: 
       edges: []
@@ -354,7 +364,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25be927d45166804586ca1c7a0524171
+      spriteID: fe48de773f322da41bcb2000a31ddd50
       vertices: []
       indices: 
       edges: []
@@ -374,7 +384,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c8987d0f7a104249bb64832edc7ad68
+      spriteID: 8e831ba477b82684788d0acf089b0132
       vertices: []
       indices: 
       edges: []
@@ -394,7 +404,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e312fcb1b3818647ab99586e8cc174a
+      spriteID: b581f9e3dba2bc94b9ae36d39a8b7334
       vertices: []
       indices: 
       edges: []
@@ -414,7 +424,207 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6387be9e50d36b24fb9a896df4ba7991
+      spriteID: d292f50d71d27f142978f72f6133d6d6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RangedEnnemy_IdleAttack1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36aeccfd198dd7944a1199363712db32
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RangedEnnemy_IdleAttack2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4fdd5f42bcf3c54b92c93591597f1cc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RangedEnnemy_IdleAttack3
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47b123fe38c4fac4188714eebbc17e6f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RangedEnnemy_IdleAttack4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 95
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43ed1d9d834b32f41b8dd47d905ea9b2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RangedEnnemy_Teleport1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e507c0e5b59378b41bdf2c868395e14c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RangedEnnemy_Teleport2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b92ee593476c324d945bc77f1c123dc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RangedEnnemy_Teleport3
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf1e9c9059e5ed944a617d5d1307fca2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RangedEnnemy_Teleport4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa6b88093b8e3c4429e5c096e0b6b0aa
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RangedEnnemy_Teleport5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 63
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e074779d9c7a394494046083d4bc583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RangedEnnemy_Teleport6
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed550e21a11a72d4d868b0355afa35da
       vertices: []
       indices: 
       edges: []
@@ -422,7 +632,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 90eb59697b761fd4fb33e87c8de99840
+    spriteID: 86380f553c2c6844fb88a0ea4c1b1cbd
     vertices: []
     indices: 
     edges: []

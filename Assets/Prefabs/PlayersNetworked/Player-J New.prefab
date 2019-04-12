@@ -43,6 +43,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player-J New
       objectReference: {fileID: 0}
+    - target: {fileID: 9186962741301816459, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1150504060646366922, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: bodySpriteRenderer
