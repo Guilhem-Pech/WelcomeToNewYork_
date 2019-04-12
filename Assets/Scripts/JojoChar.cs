@@ -17,6 +17,7 @@ public class JojoChar : MeleeChar
         period = 0.001f;
         maxHealth = 250;
         maxStamina = 75;
+        nextAttackID = 0;
     }
 
     [ServerCallback]

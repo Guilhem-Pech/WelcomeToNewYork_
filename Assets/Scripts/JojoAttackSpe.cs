@@ -20,6 +20,8 @@ public class JojoAttackSpe : MeleeAttack
     {
         if (AnimatorIsInState("Startup"))
         {
+            this.GetComponentInParent<PlayerController>().enabled = false;
+            this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.DisplayHands(false); //on cache les mains
             this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = true;
             this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.ShowSpecialSprite(true, this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.handClothesSpriteRenderer.flipY);
         }
@@ -39,7 +41,7 @@ public class JojoAttackSpe : MeleeAttack
             //reafficher le personnage aussi
 
             this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = false;
-            FinishAttack();
+            RpcFinishAttack(player.gameObject);
         }
     }
 
@@ -53,15 +55,15 @@ public class JojoAttackSpe : MeleeAttack
             this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.DisplayHands(false); //on cache les mains
                                                                                                    //cacher le personnage aussi
             this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.ShowSpecialSprite(true, this.gameObject.GetComponentInParent<MeleeChar>().playerAnimation.handClothesSpriteRenderer.flipY);
-            this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = true;
+            //this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = true;
         }
         else if (AnimatorIsInState("Finished"))
         {
             //spriteRenderer.color = Color.black;
             //reafficher le personnage aussi
 
-            this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = false;
-            FinishAttack();
+           // this.gameObject.GetComponentInParent<MeleeChar>().isAttacking = false;
+            //FinishAttack();
         }
     }
 
