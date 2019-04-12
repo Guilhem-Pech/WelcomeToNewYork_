@@ -28,6 +28,12 @@ public class Life : MonoBehaviour
 
     public void Update()
     {
+        if(Player == null)
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+            return;
+        }
+
         fullbarValueStamina = Player.GetComponentInChildren<BaseChar>().getMaxStamina();
         staminaCurrent = Player.GetComponentInChildren<BaseChar>().getStamina();
  
@@ -97,7 +103,7 @@ public class Life : MonoBehaviour
     private void Start()
     {
         
-        Player = GameObject.FindGameObjectWithTag("Player");
+        
         
         
         // fullbarValueStamina = 100;

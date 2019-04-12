@@ -20,7 +20,6 @@ public abstract class BaseChar : BaseEntity
 
     public abstract void Awake();
 
-
     [ServerCallback]
     public virtual void Start()
     {
@@ -49,6 +48,7 @@ public abstract class BaseChar : BaseEntity
 
     [Server]
     protected abstract void AttackSpeciale(Vector3 playerPosition_, float angle);
+
     [Server]
     protected abstract void Attack(Vector3 point);
  
@@ -78,6 +78,12 @@ public abstract class BaseChar : BaseEntity
         {
             UI.GetComponentInChildren<Life>().AddLife(heal);
         }
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        this.tag = "Player";
     }
 
     [TargetRpc]
