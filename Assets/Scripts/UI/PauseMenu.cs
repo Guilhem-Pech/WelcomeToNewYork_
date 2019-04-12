@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Mirror;
 
-public class PauseMenu : NetworkBehaviour
+public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
-    private NetworkManager manager;
 
 
     void Update()
@@ -48,14 +46,6 @@ public class PauseMenu : NetworkBehaviour
     public void MenuGame()
     {
         Time.timeScale = 1;
-
-        manager = GameObject.FindObjectOfType<NetworkManager>();
-        if (isServer)
-        {
-            Debug.Log(manager);
-            manager.StopHost();
-            Debug.Log("SERVEUR STOP");
-        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
