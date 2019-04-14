@@ -8,7 +8,7 @@ public abstract class BaseChar : BaseEntity
     [SyncVar]
     public int maxStamina = 50;
 
-    [SyncVar]
+    [SyncVar (hook = nameof(OnChangeStamina))]
     public int currentStamina;
 
     public bool canMoveWhileAttacking = true;
@@ -17,15 +17,58 @@ public abstract class BaseChar : BaseEntity
 
     protected GameObject UI;
 
+    public StaminaLevel staminaLevel;
+    public SpecialLevel specialLevel;
+
+    [SerializeField]
+    protected float tpsRecharge;
+
+    [SyncVar (hook = nameof(OnChangeCooldown))]
+    public float cooldown;
+
+
+    public bool attSpeReady = true;
+    public bool rechargeSpe = false;
+    public GameObject attSpe;
+
     public abstract void Awake();
 
+    public void OnChangeCooldown(float cur)
+    {
+        if(!attSpeReady)
+            GetSpecialLevel().SetLevel(cur,tpsRecharge);
+        else
+            GetSpecialLevel().SetLevel(0, tpsRecharge);
 
+        cooldown = cur;
+    }
 
+    public void OnChangeStamina(int cur)
+    {
+        if(isLocalPlayer)
+            GetStaminaLevelUI().SetLevel(cur,maxStamina);
+
+        currentStamina = cur;
+    }
+
+    private SpecialLevel GetSpecialLevel()
+    {
+        if (specialLevel == null)
+            specialLevel = FindObjectOfType<SpecialLevel>();
+        return specialLevel;
+    }
+    private StaminaLevel GetStaminaLevelUI()
+    {
+        if(staminaLevel == null)
+            staminaLevel = FindObjectOfType<StaminaLevel>();
+        return staminaLevel;
+    }
    
     public virtual void Start()
     {
         if (isServer)
         {
+            cooldown = tpsRecharge;
             currentStamina = maxStamina;
             currentHealth = maxHealth;
         }
@@ -33,6 +76,8 @@ public abstract class BaseChar : BaseEntity
         {
             if (healthBar == null)
                 healthBar = FindObjectOfType<HealthBar>();
+            if (staminaLevel == null)
+                staminaLevel = FindObjectOfType<StaminaLevel>();
         }
         
        
