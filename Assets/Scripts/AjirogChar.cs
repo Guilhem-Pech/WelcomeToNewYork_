@@ -5,12 +5,9 @@ using Mirror;
 
 public class AjirogChar : DistChar
 {
-
-    public bool AttSpeReady = true;
-    public bool RechargeSpe = false;
-    public float Cooldown = 0.001f;
+    
     public int shotgunAmmo = 5;
-    public GameObject AttSpe;
+    
 
     [ServerCallback]
     public override void Awake()
@@ -28,7 +25,7 @@ public class AjirogChar : DistChar
 
     protected override void AttackSpeciale(Vector3 playerPosition_, float angle)
     {
-        if (AttSpeReady)
+        if (attSpeReady)
         {
             this.lastShot = Time.time;
             GameObject currentShot = Projectile[1]; // On récupère le prefab du projectile
@@ -55,8 +52,8 @@ public class AjirogChar : DistChar
             
 
            
-            AttSpeReady = false;
-            RechargeSpe = true;
+            attSpeReady = false;
+            rechargeSpe = true;
         }
     }
 
@@ -64,14 +61,14 @@ public class AjirogChar : DistChar
     {
         base.Update();
 
-        if (RechargeSpe)
+        if (rechargeSpe)
         {
-            Cooldown -= Time.deltaTime;
-            if (Cooldown <= 0)
+            cooldown -= Time.deltaTime;
+            if (cooldown <= 0)
             {
-                RechargeSpe = false;
-                AttSpeReady = true;
-                Cooldown = 0.001f;
+                rechargeSpe = false;
+                attSpeReady = true;
+                cooldown = tpsRecharge;
             }
         }
 

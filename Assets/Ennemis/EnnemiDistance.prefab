@@ -258,6 +258,11 @@ PrefabInstance:
       propertyPath: m_AssetId
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4813859173184208039, guid: 407efa53fed63d442ade6e7d1d100ce0,
+        type: 3}
+      propertyPath: sheetName
+      value: RangedMonster-Sheet-Fluo
+      objectReference: {fileID: 0}
     - target: {fileID: 1134382753822794941, guid: 407efa53fed63d442ade6e7d1d100ce0,
         type: 3}
       propertyPath: m_Enabled

@@ -11,10 +11,11 @@ public class WaveManager : NetworkBehaviour
 
     public int multEnnemiesPerWave = 3;
     public int maxAliveEnnemies = 50;
-    [ReadOnly] public int numVague = 0;
-    [ReadOnly] public int numEnnemisVague;
-    [ReadOnly] public List<GameObject> ennemiVivant;
-    public int ennemiRestant;
+    [SyncVar] public int numVague = 0;
+    [SyncVar] public int numEnnemisVague;
+    public List<GameObject> ennemiVivant;
+    [SyncVar] public int nbEnnemisVivant;
+    [SyncVar] public int ennemiRestant;
     public SpawnManager spawnMan;
     private HordesManager HordeMan;
 
@@ -42,7 +43,7 @@ public class WaveManager : NetworkBehaviour
         {
             //print("Fin de la vague numéro : " + numVague );
             FinVague();
-            this.GetComponentInParent<GameManager>().FinVague();        
+            this.GetComponentInParent<GameManager>().FinVague();
         }
 
         if (isInWave)
@@ -57,9 +58,10 @@ public class WaveManager : NetworkBehaviour
                 lastWaveTime = 0;
             }
         }
+        nbEnnemisVivant = ennemiVivant.Count;
     }
 
-    
+
 
     [Server]
     public void DebutVague()
@@ -105,4 +107,3 @@ public class WaveManager : NetworkBehaviour
         return spawnList;
     }
 }
-

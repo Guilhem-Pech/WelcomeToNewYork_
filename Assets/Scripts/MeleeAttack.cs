@@ -17,8 +17,6 @@ public class MeleeAttack : NetworkBehaviour
     public GameObject hitBoxGO; // gameobject auquel le box collider est rattaché
     protected GameObject animationGO; // gameobject auquel l'animation est rattachée
 
-    public AudioClip sound;
-
     protected Vector3 playerPosition;
     protected Vector3 vecteurDirection; // vecteur normalisé de la direction dans laquel part l'attaque
     //protected Vector3 vecteurDirection3D;
@@ -30,7 +28,7 @@ public class MeleeAttack : NetworkBehaviour
     protected float animationSpeed = 1f;
 
    
-    private MeleeChar player;
+    protected MeleeChar player;
 
     public void Initialisation(Vector3 playerPosition_, float angle)
     {        
@@ -61,10 +59,6 @@ public class MeleeAttack : NetworkBehaviour
     {
         this.transform.SetParent(p.transform);
         player = p.GetComponent<MeleeChar>();
-        AudioSource SoundSource = gameObject.AddComponent<AudioSource>();
-        SoundSource.clip = sound;
-        SoundSource.Play();
-
         this.gameObject.SetActive(true);
     }
 
@@ -109,18 +103,18 @@ public class MeleeAttack : NetworkBehaviour
         {
             //spriteRenderer.color = Color.black;
             player.nextAttackID = 0;
-            FinishAttack();
+            RpcFinishAttack(player.gameObject);
         }
     }
 
 
     void UpdateClient()
     {        
-       if (AnimatorIsInState("Finished"))
+       /*if (AnimatorIsInState("Finished"))
         {
             
             FinishAttack();
-        }
+        }*/
     }
 
     protected void OnTriggerEnter(Collider other)
@@ -144,10 +138,19 @@ public class MeleeAttack : NetworkBehaviour
         return animationAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
     }
 
-    protected void FinishAttack()
-    {               
+    [ClientRpc]
+    protected void RpcFinishAttack(GameObject entity)
+    {
+        entity.GetComponent<MeleeChar>().playerAnimation.DisplayHands(true); //on reaffiche les mains
+        entity.GetComponent<PlayerController>().enabled = true;
+        Destroy(this.gameObject);
+    }
+
+    /*[Server]
+    /*protected void FinishAttack()
+    {
         player.playerAnimation.DisplayHands(true); //on reaffiche les mains
         player.GetComponent<PlayerController>().enabled = true;
         Destroy(this.gameObject);
-    }
+    }*/
 }

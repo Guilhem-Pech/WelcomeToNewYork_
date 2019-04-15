@@ -34,9 +34,20 @@ public class PlayerManager : NetworkBehaviour
             GameOver();
     }
 
-    [ClientRpc]
+   [ClientRpc]
    public void RpcDeath(GameObject entity)
     {
+        foreach (MeleeAttack aMeleeAttack in entity.GetComponentsInChildren<MeleeAttack>())
+            Destroy(aMeleeAttack.gameObject);
+
+
+        entity.GetComponent<PlayerAnimation>().DisplayHands(true);
+        entity.GetComponent<PlayerAnimation>().ShowSpecialSprite(false, false);
+        if(entity.GetComponent<MeleeChar>())
+        {
+            entity.GetComponent<MeleeChar>().isAttacking = false;
+        }
+
         foreach (SpriteRenderer i in entity.GetComponentsInChildren<SpriteRenderer>())
         {
             i.color = Color.gray;

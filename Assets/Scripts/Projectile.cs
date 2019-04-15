@@ -14,7 +14,7 @@ public class Projectile : NetworkBehaviour
 
     public AudioClip launchingSound;
     public AudioClip touchSound;
-    AudioSource SoundSource;
+    public SoundDispenser sd;
     public ParticleSystem ImpactParticle;
 
 
@@ -57,9 +57,7 @@ public class Projectile : NetworkBehaviour
         exisTime = Time.time;
         this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x, 0f, direction.y) * vitesse);
 
-        SoundSource = gameObject.AddComponent<AudioSource>();
-        SoundSource.clip = launchingSound;
-        SoundSource.Play();
+        sd.Play(launchingSound);
     }
 
 
@@ -101,8 +99,7 @@ public class Projectile : NetworkBehaviour
             this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             this.gameObject.GetComponent<Collider>().enabled = false;
             this.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
-            SoundSource.clip = touchSound;
-            SoundSource.Play();
+            sd.Play(touchSound);
             ImpactParticle.Play();
         }
         yield return new WaitForSeconds(duration);
