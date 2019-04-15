@@ -18,7 +18,9 @@ public class NaerlyAttackSpe : NetworkBehaviour
     public GameObject hitBoxGO; // gameobject auquel le box collider est rattaché
     protected GameObject animationGO; // gameobject auquel l'animation est rattachée
 
+    [SyncVar]
     protected Vector3 playerPosition;
+    [SyncVar]
     protected Vector3 vecteurDirection; // vecteur normalisé de la direction dans laquel part l'attaque
 
     protected Animator animationAnimator;
@@ -43,6 +45,7 @@ public class NaerlyAttackSpe : NetworkBehaviour
         hitBoxGO.SetActive(false);
         this.gameObject.SetActive(true);
 
+        
     }
 
     [ClientRpc]
@@ -63,8 +66,8 @@ public class NaerlyAttackSpe : NetworkBehaviour
 
         animationAnimator = this.gameObject.GetComponentInChildren<Animator>();
         animationAnimator.SetFloat("AnimationSpeedMultiplier", animationSpeed);
-
         player.playerAnimation.DisplayHands(false); //on cache les mains
+        
     }
 
     protected void Update()
@@ -90,13 +93,13 @@ public class NaerlyAttackSpe : NetworkBehaviour
             NavMeshHit hit;
             if (NavMesh.Raycast(new Vector3(playerPosition.x, 0.5f, playerPosition.z), new Vector3((vecteurDirection.x * range + playerPosition.x), 0.5f, (vecteurDirection.z * range + playerPosition.z)), out hit, NavMesh.AllAreas))
             {
+                print(hit.GetType().Name);
                 player.transform.position = hit.position;
             }
             else
             {
                 player.transform.position = new Vector3((vecteurDirection.x * range + playerPosition.x), 0, (vecteurDirection.z * range + playerPosition.z));
             }
-
             hitBoxGO.SetActive(false);
         }
         else if (AnimatorIsInState("Finished"))
@@ -117,7 +120,19 @@ public class NaerlyAttackSpe : NetworkBehaviour
                                                                                                    //cacher le personnage aussi
             this.gameObject.GetComponentInParent<NaerlyChar>().playerAnimation.ShowSpecialSprite(true, this.gameObject.GetComponentInParent<NaerlyChar>().playerAnimation.handClothesSpriteRenderer.flipY);
         }
-        
+        else if (AnimatorIsInState("Ending"))
+        {
+            print("wesh le client");
+            NavMeshHit hit;
+            if (NavMesh.Raycast(new Vector3(playerPosition.x, 0.5f, playerPosition.z), new Vector3((vecteurDirection.x * range + playerPosition.x), 0.5f, (vecteurDirection.z * range + playerPosition.z)), out hit, NavMesh.AllAreas))
+            {
+                player.transform.position = hit.position;
+            }
+            else
+            {
+                player.transform.position = new Vector3((vecteurDirection.x * range + playerPosition.x), 0, (vecteurDirection.z * range + playerPosition.z));
+            }
+        } 
         else if (AnimatorIsInState("Finished"))
         {
             //reafficher le personnage aussi
@@ -156,7 +171,8 @@ public class NaerlyAttackSpe : NetworkBehaviour
     }
 
     protected void FinishAttack()
-    {      
+    {
+    
         player.playerAnimation.DisplayHands(true); //on reaffiche les mains
         player.GetComponent<PlayerController>().enabled = true;
         Destroy(this.gameObject);
