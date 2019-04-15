@@ -26,7 +26,7 @@ public abstract class BaseChar : BaseEntity
     [SyncVar (hook = nameof(OnChangeCooldown))]
     public float cooldown;
 
-
+    [SyncVar]
     public bool attSpeReady = true;
     public bool rechargeSpe = false;
     public GameObject attSpe;
@@ -68,8 +68,10 @@ public abstract class BaseChar : BaseEntity
    
     public virtual void Start()
     {
+
         if (isServer)
         {
+            this.tag = "Player";
             cooldown = tpsRecharge;
             currentStamina = maxStamina;
             currentHealth = maxHealth;
@@ -107,11 +109,11 @@ public abstract class BaseChar : BaseEntity
     protected abstract void Attack(Vector3 point);
  
 
-    public int getMaxStamina()
+    public int GetMaxStamina()
     {
         return maxStamina;
     }
-    public int getStamina()
+    public int GetStamina()
     {
         return currentStamina;
     }
@@ -129,7 +131,6 @@ public abstract class BaseChar : BaseEntity
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        this.tag = "Player";
     }
 
     [TargetRpc]

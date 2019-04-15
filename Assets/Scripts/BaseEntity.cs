@@ -20,14 +20,24 @@ public abstract class BaseEntity : NetworkBehaviour {
 
     public void OnChangeHealth(int value)
     {
+
         currentHealth = value;
-        if (isLocalPlayer && healthBar != null)
+        print(isLocalPlayer+ " "+ healthBar);
+        if (isLocalPlayer && GetHealthBar() != null)
         {
+
             healthBar.SetCurLife(value, maxHealth);
         }
     }
 
-    
+    private HealthBar GetHealthBar()
+    {
+        if(healthBar == null)
+            healthBar = FindObjectOfType<HealthBar>();
+        return healthBar;
+    }
+
+
 
     [Server]
     public virtual void TakeDamage(int dmg)
