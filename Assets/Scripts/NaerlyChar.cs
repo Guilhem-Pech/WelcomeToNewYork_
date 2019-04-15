@@ -14,6 +14,7 @@ public class NaerlyChar : DistChar
     [ServerCallback]
     public override void Awake()
     {
+        cooldown = 0.001f;
         period = 0.001f;
         maxHealth = 100;
         maxStamina = 75;
@@ -28,7 +29,7 @@ public class NaerlyChar : DistChar
     protected override void AttackSpeciale(Vector3 playerPosition_, float angle)
     {
 
-        if (AttSpeReady)
+        if (attSpeReady)
         {
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
@@ -38,8 +39,8 @@ public class NaerlyChar : DistChar
             theAttackSpe.GetComponent<NaerlyAttackSpe>().Initialisation(playerPos, angleSpe);
             NetworkServer.Spawn(theAttackSpe);
 
-            AttSpeReady = false;
-            RechargeSpe = true;
+            attSpeReady = false;
+            rechargeSpe = true;
         }
 
     }
@@ -48,10 +49,10 @@ public class NaerlyChar : DistChar
     {
         base.Update();
 
-        if (RechargeSpe)
+        if (rechargeSpe)
         {
-            Cooldown -= Time.deltaTime;
-            if (Cooldown <= 0)
+            cooldown -= Time.deltaTime;
+            if (cooldown <= 0)
             {
                 RechargeSpe = false;
                 AttSpeReady = true;
