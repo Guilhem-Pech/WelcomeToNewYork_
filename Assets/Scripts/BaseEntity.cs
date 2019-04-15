@@ -46,6 +46,7 @@ public abstract class BaseEntity : NetworkBehaviour {
         currentHealth = currentHealth - dmg;
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             Death();
         }
             
