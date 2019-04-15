@@ -110,7 +110,7 @@ public class SpawnManager : NetworkBehaviour
     [Server]
     public List<GameObject> GetTopSpawners(int n)
     {
-        Debug.Log("Nb spawners évalués : " + evaluatedSpawnersList.Count);
+        //Debug.Log("Nb spawners évalués : " + evaluatedSpawnersList.Count);
         if (n > evaluatedSpawnersList.Count)
             n = evaluatedSpawnersList.Count;
         return evaluatedSpawnersList.GetRange(0,n);
@@ -125,8 +125,8 @@ public class SpawnManager : NetworkBehaviour
 
         int nbToCut;
 
-        Debug.Log("Répartition de la liste de Spawn");
-        Debug.Log("     Ennemis restants à répartir : " + prefabsList.Count);
+        //Debug.Log("Répartition de la liste de Spawn");
+        //Debug.Log("     Ennemis restants à répartir : " + prefabsList.Count);
         while (prefabsList.Count > 0)
         {
             if (prefabsList.Count >= spawners[it].GetComponent<SpawnerController>().spawnCapacity)
@@ -134,17 +134,17 @@ public class SpawnManager : NetworkBehaviour
             else
                 nbToCut = prefabsList.Count;
 
-            Debug.Log("     Spawner <" + spawners[it] .name+ "> : " + nbToCut + " ennemis ajoutés.");
+            //Debug.Log("     Spawner <" + spawners[it] .name+ "> : " + nbToCut + " ennemis ajoutés.");
             spawners[it].GetComponent<SpawnerController>().AddToSpawnList(prefabsList.GetRange(0, nbToCut));
             prefabsList.RemoveRange(0, nbToCut);
-            Debug.Log("     Ennemis restants à répartir : " + prefabsList.Count);
+            //Debug.Log("     Ennemis restants à répartir : " + prefabsList.Count);
 
             if (it == (spawners.Count - 1))
                 it = 0;
             else
                 it++;
         }
-        Debug.Log("Fin de la répartition de la liste de Spawn");
+        //Debug.Log("Fin de la répartition de la liste de Spawn");
     }
 
 }
