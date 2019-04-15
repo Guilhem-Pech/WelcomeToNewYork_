@@ -16,6 +16,7 @@ public class SpawnerController : NetworkBehaviour
 
     private void Start()
     {
+        Debug.Log("Spawner init");
         spawnList = new List<GameObject>();
     }
 
@@ -53,8 +54,9 @@ public class SpawnerController : NetworkBehaviour
                 transform.position.z + Random.Range(-spawnRadius, spawnRadius)
             );
 
-            NetworkServer.Spawn(spawnList[i]);
+            spawnList[i].SetActive(true);
             spawnList[i].transform.position = position;
+            NetworkServer.Spawn(spawnList[i]);
         }
 
         spawnList.RemoveRange(0, toSpawn - 1);

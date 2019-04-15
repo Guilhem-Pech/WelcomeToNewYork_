@@ -109,14 +109,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
-  prefabCaC: {fileID: 0}
-  prefabDistance: {fileID: 0}
+  prefabCaC: {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0,
+    type: 3}
+  prefabDistance: {fileID: 5592136169436092911, guid: 8819b8f6a91c04340a88e33aaae33a23,
+    type: 3}
   multEnnemiesPerWave: 3
   maxAliveEnnemies: 50
   numVague: 0
   numEnnemisVague: 0
   ennemiVivant: []
   ennemiRestant: 0
+  spawnMan: {fileID: 0}
+  isInWave: 0
   underWaveDelay: 10
 --- !u!114 &1058786166153506065
 MonoBehaviour:

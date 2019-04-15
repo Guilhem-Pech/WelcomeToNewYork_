@@ -17,35 +17,40 @@ public class SpawnManager : NetworkBehaviour
         evaluatedSpawnersList = new List<GameObject>();
         currentSpawnersList = new List<GameObject>();
         currentSpawners = new Dictionary<int, GameObject>();
-    }
-
-    /* Getters */
-    public bool IsSpawnerSuscribed(GameObject entity)
-    {
-        return currentSpawners.ContainsKey(entity.GetInstanceID());
-    }
-
-    /* Pop. Managers */
-    [Server]
-    public void AddSpawner(GameObject spawnerToAdd)
-    {
-
-        OnCurrentSpawnersChange();
-    }
-
-    [Server]
-    public void RemoveSpawner(GameObject spawnerToRemove)
-    {
 
         OnCurrentSpawnersChange();
     }
 
     /* Var change methods */
     [Server]
-    private void OnCurrentSpawnersChange()
+    public void OnCurrentSpawnersChange()
     {
+        Debug.Log("Changement dans les spawners : ");
+        FetchSpawnersList();
+        Debug.Log("     Nb trouvés : " + currentSpawners.Count);
         UpdateAndCleanList();
+        Debug.Log("     Nb trouvés après nettoyage : " + currentSpawnersList.Count);
         EvaluateSpawners();
+        Debug.Log("     Nb évalués : " + evaluatedSpawnersList.Count);
+    }
+
+    [Server]
+    private void FetchSpawnersList()
+    {
+        currentSpawners = new Dictionary<int, GameObject>();
+        foreach (BaseChar player in GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().playerMan.players)
+        {
+            if (!player.enabled)
+                continue;
+            foreach (KeyValuePair<int, GameObject> it in player.gameObject.transform.GetComponentInChildren<SpawnTargetController>().GetCurrentSpawners())
+            {
+                if (currentSpawners.ContainsKey(it.Key))
+                    continue;
+
+                currentSpawners.Add(it.Key, it.Value);
+            }
+           
+        }
     }
 
     [Server]
@@ -83,11 +88,15 @@ public class SpawnManager : NetworkBehaviour
             {
                 if (!player.enabled)
                     continue;
-                scoreSum += player.gameObject.GetComponent<SpawnTargetController>().EvaluateSpawner(spawner);
+                SpawnTargetController trgtCtrl = player.gameObject.transform.GetComponentInChildren<SpawnTargetController>() as SpawnTargetController;
+                Debug.Log(trgtCtrl);
+                Debug.Log(trgtCtrl.minSpawnDist);
+                scoreSum += 0 /*trgtCtrl.EvaluateSpawner(spawner)*/;
             }
             spawnersDictionnaryBuffer.Add(spawner, scoreSum);
         }
 
+        Debug.Log("oui");
         //On trie les spawners
         foreach (KeyValuePair<GameObject, float> item in spawnersDictionnaryBuffer.OrderByDescending(key => key.Value))
         {
@@ -104,6 +113,7 @@ public class SpawnManager : NetworkBehaviour
     [Server]
     public List<GameObject> GetTopSpawners(int n)
     {
+        Debug.Log("Nb spawners évalués : " + evaluatedSpawnersList.Count);
         if (n > evaluatedSpawnersList.Count)
             n = evaluatedSpawnersList.Count;
         return evaluatedSpawnersList.GetRange(0,n);
@@ -117,6 +127,11 @@ public class SpawnManager : NetworkBehaviour
         int it = 0;
 
         int nbToCut;
+
+        return;
+
+        //Debug.Log("Répartition de la liste de Spawn");
+        //Debug.Log("Ennemis restants à répartir : " + prefabsList.Count);
         while (prefabsList.Count != 0)
         {
             if (prefabsList.Count >= spawners[it].GetComponent<SpawnerController>().spawnCapacity)
@@ -124,14 +139,17 @@ public class SpawnManager : NetworkBehaviour
             else
                 nbToCut = prefabsList.Count;
 
+            //Debug.Log("Spawner <" + spawners[it] .name+ "> : " + nbToCut + " ennemis ajoutés.");
             spawners[it].GetComponent<SpawnerController>().AddToSpawnList(prefabsList.GetRange(0, nbToCut-1));
             prefabsList.RemoveRange(0, nbToCut - 1);
+           //Debug.Log("Ennemis restants à répartir : " + prefabsList.Count);
 
             if (it == (spawners.Count - 1))
                 it = 0;
             else
                 it++;
         }
+        //Debug.Log("Fin de la répartition de la liste de Spawn");
     }
 
 }

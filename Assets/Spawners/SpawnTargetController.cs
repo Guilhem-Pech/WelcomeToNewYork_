@@ -7,57 +7,51 @@ public class SpawnTargetController : NetworkBehaviour
 {
     public float minSpawnDist;
 
+    private Dictionary<int, GameObject> currentSpawners;
+
     private SphereCollider spawnersCollider;
-    private GameObject m_parentEntity;
     private SpawnManager manager;
 
     [ServerCallback]
-    void Start()
+    void Awake()
     {
-        m_parentEntity = gameObject.transform.parent.gameObject;
+        currentSpawners = new Dictionary<int, GameObject>();
         spawnersCollider = gameObject.GetComponent<SphereCollider>();
-        print(GameObject.FindGameObjectWithTag("GameController"));
-        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().waveMan.spawnMan;
+        CheckManager();
     }
 
+    [ServerCallback]
     private void Update()
     {
-        if(manager == null)
-        {
-            manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().waveMan.spawnMan;
-            print("bite");
-        }
-            
+        CheckManager();
     }
 
     /* Triggers */
     [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
-        GameObject collidedEntity;
-
-        if (other.gameObject.transform.parent != null
-            && (collidedEntity = other.gameObject.transform.parent.gameObject) != null
-            && collidedEntity.tag == "Spawner"
-            && collidedEntity.GetInstanceID() != m_parentEntity.GetInstanceID()
-            && !manager.IsSpawnerSuscribed(collidedEntity))
+        GameObject collidedEntity = other.gameObject;
+        CheckManager();
+        Debug.Log("Collision spawner ! : " + (collidedEntity.tag == "Spawner") + ";" + (collidedEntity.GetInstanceID() != gameObject.GetInstanceID()) + ";" + (!IsSpawnerSuscribed(collidedEntity)) + ";");
+        if (collidedEntity.tag == "Spawner"
+            && collidedEntity.GetInstanceID() != gameObject.GetInstanceID()
+            && !IsSpawnerSuscribed(collidedEntity))
         {
-            manager.AddSpawner(collidedEntity);
+            AddSpawner(collidedEntity);
         }
     }
 
     [ServerCallback]
     private void OnTriggerExit(Collider other)
     {
-        GameObject collidedEntity;
+        GameObject collidedEntity = other.gameObject;
+        CheckManager();
 
-        if (other.gameObject.transform.parent != null
-            && (collidedEntity = other.gameObject.transform.parent.gameObject) != null
-            && collidedEntity.tag == "Spawner"
-            && collidedEntity.GetInstanceID() != m_parentEntity.GetInstanceID()
-            && manager.IsSpawnerSuscribed(collidedEntity))
+        if (collidedEntity.tag == "Spawner"
+            && collidedEntity.GetInstanceID() != gameObject.GetInstanceID()
+            && IsSpawnerSuscribed(collidedEntity))
         {
-            manager.RemoveSpawner(collidedEntity);
+            RemoveSpawner(collidedEntity);
         }
     }
 
@@ -65,25 +59,69 @@ public class SpawnTargetController : NetworkBehaviour
     [Server]
     public float EvaluateSpawner(GameObject Spawner)
     {
+        Debug.Log("wsh0");
         float result = 0;
-
+        CheckManager();
+        Debug.Log("wsh1");
         float distToSpawner = (Spawner.transform.position - gameObject.transform.position).magnitude;
         if (distToSpawner >= minSpawnDist) {
+            Debug.Log("wsh2");
             RaycastHit hitResult;
             if ((Physics.Raycast(gameObject.transform.position, (Spawner.transform.position - gameObject.transform.position), out hitResult, distToSpawner+1f,LayerMask.GetMask("default"),QueryTriggerInteraction.Ignore)))
             {
+                Debug.Log("wsh3");
                 result = 0f;
             }
             else
             {
-                result = (1/ distToSpawner);
+                Debug.Log("wsh3");
+                result = (1f/ distToSpawner);
             }
         }
         else
         {
+            Debug.Log("wsh2");
             result = -1f;
         }
-
+        Debug.Log("wsh4");
         return result;
+    }
+
+    /* Pop. Managers */
+    public Dictionary<int, GameObject> GetCurrentSpawners()
+    {
+        return currentSpawners;
+    }
+
+    [Server]
+    private void AddSpawner(GameObject spawnerToAdd)
+    {
+        currentSpawners.Add(spawnerToAdd.GetInstanceID(), spawnerToAdd);
+        OnPopChange();
+    }
+
+    [Server]
+    private void RemoveSpawner(GameObject spawnerToRemove)
+    {
+        currentSpawners.Remove(spawnerToRemove.GetInstanceID());
+        OnPopChange();
+    }
+
+    private bool IsSpawnerSuscribed(GameObject entity)
+    {
+        return currentSpawners.ContainsKey(entity.GetInstanceID());
+    }
+
+    private void OnPopChange()
+    {
+        if (manager != null)
+            manager.OnCurrentSpawnersChange();
+    }
+
+    /* Misc */
+    public void CheckManager()
+    {
+        if (manager == null && GameObject.FindGameObjectWithTag("GameController") != null)
+            manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().waveMan.spawnMan;
     }
 }
