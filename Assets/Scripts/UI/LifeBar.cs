@@ -11,6 +11,7 @@ public class LifeBar : MonoBehaviour
     private Image imageTransition;
     private Image imageFilled;
 
+    [SerializeField]
     private uint level = 100;
 
     public uint GetLevel()
@@ -20,23 +21,30 @@ public class LifeBar : MonoBehaviour
 
     public void SetLevel(uint level)
     {
-       
+        this.name = level.ToString();
         if (level < this.level)
         {
             SubLevel(this.level - level);
            
         }
         else{
-            
-            AddLevel(level - this.level);
+            SetExactLevel(level);
+            //AddLevel(level - this.level); May enhance a little the performances
         }
     }
 
+    public void SetExactLevel(uint lev)
+    {
+        this.level = lev;
+        imageFilled.fillAmount = Mathf.Clamp( (lev / 100), 0, 1);
+        imageTransition.fillAmount = Mathf.Clamp((lev / 100), 0, 1);
+
+    }
 
     public void AddLevel(uint level)
     {
         this.level += level;
-        imageFilled.fillAmount = Mathf.Clamp(imageFilled.fillAmount + (level / 100),0,1);
+        imageFilled.fillAmount = Mathf.Clamp(imageFilled.fillAmount + ((float)level / 100f),0,1);
         imageTransition.fillAmount = imageFilled.fillAmount;
     }
 
@@ -68,4 +76,5 @@ public class LifeBar : MonoBehaviour
         imageFilled = this.transform.Find("Filled").GetComponent<Image>();
         imageTransition = this.transform.Find("Transition").GetComponent<Image>();
     }
+
 }

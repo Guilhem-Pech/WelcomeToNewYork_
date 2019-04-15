@@ -10,7 +10,14 @@ public class HealthBar : MonoBehaviour
 
     public void SetCurLife(int life,int maxLife)
     {
-       
+        if (life == maxLife)
+        {
+            foreach (LifeBar b in bars)
+                b.SetLevel(100);
+            return;
+        }
+            
+
         uint health = (uint) (life * 1000 / maxLife);
         uint filledBar = health / 100;
         uint remain = health % 100;
