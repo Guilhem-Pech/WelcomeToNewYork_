@@ -29,9 +29,10 @@ public class NaerlyChar : DistChar
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
 
-            float angleSpe = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
+            float angleSpe = this.gameObject.GetComponent<PlayerAnimation>().GetHandAngle(); // on récupère l'angle de la main pour avoir l'angle de tir
             GameObject theAttackSpe = Instantiate(attSpe, this.gameObject.transform);
-            theAttackSpe.GetComponent<JojoAttackSpe>().Initialisation(playerPos, angleSpe);
+            theAttackSpe.GetComponent<NaerlyAttackSpe>().Initialisation(playerPos, angleSpe);
+            NetworkServer.Spawn(theAttackSpe);
 
             attSpeReady = false;
             rechargeSpe = true;
@@ -50,7 +51,7 @@ public class NaerlyChar : DistChar
             {
                 rechargeSpe = false;
                 attSpeReady = true;
-                cooldown = tpsRecharge;
+                cooldown = 1f;
             }
         }
 
