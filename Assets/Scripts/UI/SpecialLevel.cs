@@ -6,13 +6,16 @@ using UnityEngine.UI;
 public class SpecialLevel : MonoBehaviour
 {
     [SerializeField]
-    private Image level;
+    private SpecialFilledBar level;
+
     
+  
+
 
     public void SetLevel(float count, float timeCountdown)
     {
-        float f = Mathf.Clamp(1 - count / timeCountdown, 0, 1);
-        this.level.fillAmount = f;
+        level.SetLevel(count, timeCountdown);
     }
+    
     
 }
