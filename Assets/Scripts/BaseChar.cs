@@ -83,8 +83,11 @@ public abstract class BaseChar : BaseEntity
             if (staminaLevel == null)
                 staminaLevel = FindObjectOfType<StaminaLevel>();
         }
-        
-       
+
+        GameObject gm = GameObject.FindGameObjectWithTag("GameController");
+        gm.GetComponent<GameManager>().playerMan.players.Add(this);
+
+
     }
 
     [Server]
