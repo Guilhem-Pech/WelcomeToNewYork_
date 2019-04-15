@@ -32,7 +32,7 @@ public class SpawnTargetController : NetworkBehaviour
     {
         GameObject collidedEntity = other.gameObject;
         CheckManager();
-        Debug.Log("Collision spawner ! : " + (collidedEntity.tag == "Spawner") + ";" + (collidedEntity.GetInstanceID() != gameObject.GetInstanceID()) + ";" + (!IsSpawnerSuscribed(collidedEntity)) + ";");
+
         if (collidedEntity.tag == "Spawner"
             && collidedEntity.GetInstanceID() != gameObject.GetInstanceID()
             && !IsSpawnerSuscribed(collidedEntity))
@@ -56,34 +56,26 @@ public class SpawnTargetController : NetworkBehaviour
     }
 
     /* Evaluation d'un spawner */
-    [Server]
     public float EvaluateSpawner(GameObject Spawner)
     {
-        Debug.Log("wsh0");
         float result = 0;
         CheckManager();
-        Debug.Log("wsh1");
         float distToSpawner = (Spawner.transform.position - gameObject.transform.position).magnitude;
         if (distToSpawner >= minSpawnDist) {
-            Debug.Log("wsh2");
             RaycastHit hitResult;
             if ((Physics.Raycast(gameObject.transform.position, (Spawner.transform.position - gameObject.transform.position), out hitResult, distToSpawner+1f,LayerMask.GetMask("default"),QueryTriggerInteraction.Ignore)))
             {
-                Debug.Log("wsh3");
                 result = 0f;
             }
             else
             {
-                Debug.Log("wsh3");
                 result = (1f/ distToSpawner);
             }
         }
         else
         {
-            Debug.Log("wsh2");
             result = -1f;
         }
-        Debug.Log("wsh4");
         return result;
     }
 

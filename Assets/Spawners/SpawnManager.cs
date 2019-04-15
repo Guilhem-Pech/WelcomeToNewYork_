@@ -25,13 +25,13 @@ public class SpawnManager : NetworkBehaviour
     [Server]
     public void OnCurrentSpawnersChange()
     {
-        Debug.Log("Changement dans les spawners : ");
+        //Debug.Log("Changement dans les spawners : ");
         FetchSpawnersList();
-        Debug.Log("     Nb trouvés : " + currentSpawners.Count);
+        //Debug.Log("     Nb trouvés : " + currentSpawners.Count);
         UpdateAndCleanList();
-        Debug.Log("     Nb trouvés après nettoyage : " + currentSpawnersList.Count);
+        //Debug.Log("     Nb trouvés après nettoyage : " + currentSpawnersList.Count);
         EvaluateSpawners();
-        Debug.Log("     Nb évalués : " + evaluatedSpawnersList.Count);
+        //Debug.Log("     Nb évalués : " + evaluatedSpawnersList.Count);
     }
 
     [Server]
@@ -89,14 +89,11 @@ public class SpawnManager : NetworkBehaviour
                 if (!player.enabled)
                     continue;
                 SpawnTargetController trgtCtrl = player.gameObject.transform.GetComponentInChildren<SpawnTargetController>() as SpawnTargetController;
-                Debug.Log(trgtCtrl);
-                Debug.Log(trgtCtrl.minSpawnDist);
-                scoreSum += 0 /*trgtCtrl.EvaluateSpawner(spawner)*/;
+                scoreSum += trgtCtrl.EvaluateSpawner(spawner);
             }
             spawnersDictionnaryBuffer.Add(spawner, scoreSum);
         }
 
-        Debug.Log("oui");
         //On trie les spawners
         foreach (KeyValuePair<GameObject, float> item in spawnersDictionnaryBuffer.OrderByDescending(key => key.Value))
         {
@@ -128,28 +125,26 @@ public class SpawnManager : NetworkBehaviour
 
         int nbToCut;
 
-        return;
-
-        //Debug.Log("Répartition de la liste de Spawn");
-        //Debug.Log("Ennemis restants à répartir : " + prefabsList.Count);
-        while (prefabsList.Count != 0)
+        Debug.Log("Répartition de la liste de Spawn");
+        Debug.Log("     Ennemis restants à répartir : " + prefabsList.Count);
+        while (prefabsList.Count > 0)
         {
             if (prefabsList.Count >= spawners[it].GetComponent<SpawnerController>().spawnCapacity)
                 nbToCut = spawners[it].GetComponent<SpawnerController>().spawnCapacity;
             else
                 nbToCut = prefabsList.Count;
 
-            //Debug.Log("Spawner <" + spawners[it] .name+ "> : " + nbToCut + " ennemis ajoutés.");
-            spawners[it].GetComponent<SpawnerController>().AddToSpawnList(prefabsList.GetRange(0, nbToCut-1));
-            prefabsList.RemoveRange(0, nbToCut - 1);
-           //Debug.Log("Ennemis restants à répartir : " + prefabsList.Count);
+            Debug.Log("     Spawner <" + spawners[it] .name+ "> : " + nbToCut + " ennemis ajoutés.");
+            spawners[it].GetComponent<SpawnerController>().AddToSpawnList(prefabsList.GetRange(0, nbToCut));
+            prefabsList.RemoveRange(0, nbToCut);
+            Debug.Log("     Ennemis restants à répartir : " + prefabsList.Count);
 
             if (it == (spawners.Count - 1))
                 it = 0;
             else
                 it++;
         }
-        //Debug.Log("Fin de la répartition de la liste de Spawn");
+        Debug.Log("Fin de la répartition de la liste de Spawn");
     }
 
 }

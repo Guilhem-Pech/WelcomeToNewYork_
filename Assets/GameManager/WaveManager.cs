@@ -48,8 +48,9 @@ public class WaveManager : NetworkBehaviour
         if (isInWave)
         {
             lastWaveTime += Time.deltaTime;
-            if (lastWaveTime >= underWaveDelay
+            if ((lastWaveTime >= underWaveDelay
                 && ennemiVivant.Count < maxAliveEnnemies)
+                && ennemiRestant > 0)
             {
                 Debug.Log("Lancement d'un Spawn");
                 spawnMan.SpawnEnnemiRandom(CreateSpawnList(),3);
@@ -70,7 +71,7 @@ public class WaveManager : NetworkBehaviour
         isInWave = true;
         numEnnemisVague = (numVague + this.GetComponentInParent<PlayerManager>().players.Count) * multEnnemiesPerWave;
         ennemiRestant = numEnnemisVague;
-       // print("Nombre ennemis dans la vague : " + numEnnemisVague);
+        // print("Nombre ennemis dans la vague : " + numEnnemisVague);
     }
 
     [Server]
@@ -87,9 +88,8 @@ public class WaveManager : NetworkBehaviour
 
         GameObject entity;
         Vector3 bufferSpawnPos = new Vector3(-1000, -1000, -1000);
-        while(ennemiVivant.Count < maxAliveEnnemies)
+        while(ennemiVivant.Count < maxAliveEnnemies && ennemiRestant > 0)
         {
-            
             entity = Instantiate(((Random.Range(0, 2)) == 0 ? prefabCaC : prefabDistance)
                 , transform.position
                 , transform.rotation

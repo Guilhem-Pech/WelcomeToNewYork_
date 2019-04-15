@@ -9,14 +9,13 @@ public class SpawnerController : NetworkBehaviour
     public int spawnCapacity = 5;
     public float spawnDelay = 2f;
 
-    private bool isSpawning;
-    private float lastSpawnTime;
+    public bool isSpawning;
+    public float lastSpawnTime;
 
     private List<GameObject> spawnList;
 
     private void Start()
     {
-        Debug.Log("Spawner init");
         spawnList = new List<GameObject>();
     }
 
@@ -32,11 +31,12 @@ public class SpawnerController : NetworkBehaviour
 
             if(lastSpawnTime >= spawnDelay)
             {
-                Spawn();
-                lastSpawnTime = 0f;
-
                 if (spawnList.Count == 0)
                     DeactivateSpawn();
+
+                Debug.Log("Spawn d'un ennemi !");
+                Spawn();
+                lastSpawnTime = 0f;
             }
         }
     }
@@ -54,16 +54,20 @@ public class SpawnerController : NetworkBehaviour
                 transform.position.z + Random.Range(-spawnRadius, spawnRadius)
             );
 
-            spawnList[i].SetActive(true);
             spawnList[i].transform.position = position;
+            spawnList[i].SetActive(true);
             NetworkServer.Spawn(spawnList[i]);
         }
 
-        spawnList.RemoveRange(0, toSpawn - 1);
+        spawnList.RemoveRange(0, toSpawn);
+
+        if (spawnList.Count == 0)
+            DeactivateSpawn();
     }
 
     public void AddToSpawnList(List<GameObject> ennemyTypesList)
     {
+        Debug.Log("     Spawner <" + name + "> : Ajout de " + ennemyTypesList.Count + " ennemis à spawn");
         spawnList.AddRange(ennemyTypesList);
         ActivateSpawn();
     }
@@ -73,6 +77,7 @@ public class SpawnerController : NetworkBehaviour
         if (isSpawning)
             return;
 
+        Debug.Log("     Spawner <" + name + "> : Activation du spawn");
         isSpawning = true;
         lastSpawnTime = spawnDelay;
     }
@@ -82,6 +87,7 @@ public class SpawnerController : NetworkBehaviour
         if (!isSpawning)
             return;
 
+        Debug.Log("     Spawner <" + name + "> : Désactivation du spawn");
         isSpawning = false;
     }
 }

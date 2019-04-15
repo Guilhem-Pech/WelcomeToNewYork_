@@ -472,6 +472,11 @@ PrefabInstance:
       propertyPath: m_SceneId
       value: 312072218
       objectReference: {fileID: 0}
+    - target: {fileID: 5196784590858483712, guid: 49f12cdb09e7275438716bda1366733c,
+        type: 3}
+      propertyPath: maxAliveEnnemies
+      value: 51
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f12cdb09e7275438716bda1366733c, type: 3}
 --- !u!1 &163014041
