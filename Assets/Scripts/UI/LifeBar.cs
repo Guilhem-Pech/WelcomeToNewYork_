@@ -20,11 +20,14 @@ public class LifeBar : MonoBehaviour
 
     public void SetLevel(uint level)
     {
-        if(level < this.level)
+       
+        if (level < this.level)
         {
             SubLevel(this.level - level);
+           
         }
         else{
+            
             AddLevel(level - this.level);
         }
     }
@@ -32,12 +35,14 @@ public class LifeBar : MonoBehaviour
 
     public void AddLevel(uint level)
     {
+        this.level += level;
         imageFilled.fillAmount = Mathf.Clamp(imageFilled.fillAmount + (level / 100),0,1);
         imageTransition.fillAmount = imageFilled.fillAmount;
     }
 
     public void SubLevel(uint level)
     {
+        this.level -= level;
         float diff = (float)level / 100;
 
         imageFilled.fillAmount = Mathf.Clamp(imageFilled.fillAmount - diff, 0, 1);

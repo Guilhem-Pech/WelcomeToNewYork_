@@ -35,11 +35,13 @@ public abstract class BaseChar : BaseEntity
 
     public void OnChangeCooldown(float cur)
     {
-        if(!attSpeReady)
-            GetSpecialLevel().SetLevel(cur,tpsRecharge);
-        else
-            GetSpecialLevel().SetLevel(0, tpsRecharge);
-
+        if (isLocalPlayer)
+        {
+            if (!attSpeReady)
+                GetSpecialLevel().SetLevel(cur, tpsRecharge);
+            else
+                GetSpecialLevel().SetLevel(0, tpsRecharge);
+        }      
         cooldown = cur;
     }
 
