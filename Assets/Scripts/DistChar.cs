@@ -38,7 +38,7 @@ public class DistChar : BaseChar
                 Vector3 playerPosition = this.transform.position; // position du joueur
                 //playerPosition.y += 1.35f; // Add the height of the character
 
-                float angle = this.gameObject.GetComponent<PlayerAnimation>().GetHandAngle(); ; // on récupère l'angle de la main pour avoir l'angle de tir
+                float angle = this.gameObject.GetComponent<PlayerAnimation>().GetHandAngle(); // on récupère l'angle de la main pour avoir l'angle de tir
 
                 GameObject theShot = Instantiate(currentShot); // On instantie le projectile
                 NetworkServer.Spawn(theShot);
@@ -141,11 +141,11 @@ public class DistChar : BaseChar
         if (Input.GetButtonDown("Fire2"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+          
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 Vector3 PlayPos = this.GetComponent<BaseChar>().transform.position;
                 float angleMain = this.gameObject.GetComponent<PlayerAnimation>().GetHandAngle(); ; // on récupère l'angle de la main pour avoir l'angle de tir
-
                 CmdAttaqueSpeciale(PlayPos, angleMain);
             }
         }

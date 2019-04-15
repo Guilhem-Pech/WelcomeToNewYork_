@@ -10,6 +10,10 @@ public abstract class MeleeChar : BaseChar
     public bool isAttacking = false ;
     public float period = 1.0f;
 
+    public AudioClip attack;
+    public AudioClip special;
+    public SoundDispenser soundDispenser;
+
     public GameObject[] Attacks; // tableau répértoriant les attaques du joueur
     //[SyncVar]
     public int nextAttackID = 0; //numéro de l'attaque qui va être utiliser pour la prochaine attaque du joueur
@@ -20,6 +24,9 @@ public abstract class MeleeChar : BaseChar
         GameObject currentAttack = Attacks[nextAttackID]; // On récupère le prefab de l'attaque
         if (currentStamina >= currentAttack.GetComponent<MeleeAttack>().staminaCost)
         {
+
+            soundDispenser.Play(attack);
+
             foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
                 Destroy(aMeleeAttack.gameObject);
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;

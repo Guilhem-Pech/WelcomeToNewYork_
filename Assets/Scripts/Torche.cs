@@ -25,6 +25,6 @@ public class Torche : MonoBehaviour
         //On calcul l'écart entre l'orientation de la main et celle de la flashlight en prenant en compte le décalage
         float difference = handOrientation - transform.rotation.eulerAngles.y + 90;
 
-        transform.RotateAround(GameObject.FindGameObjectWithTag("Player").transform.position, Vector3.up, difference    ); //on applique la rotation en y
+        transform.RotateAround(this.transform.parent.transform.position, Vector3.up, difference    ); //on applique la rotation en y
     }
 }

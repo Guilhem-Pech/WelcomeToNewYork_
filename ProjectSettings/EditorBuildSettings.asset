@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ellis.unity
     guid: d07377712faf2cd4586e9ad5136859e0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SceneNetwork.unity
     guid: 08be72f47b2e65c48b03c5c658ef61e4
   m_configObjects: {}

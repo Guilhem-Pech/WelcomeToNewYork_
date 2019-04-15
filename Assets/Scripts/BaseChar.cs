@@ -8,7 +8,7 @@ public abstract class BaseChar : BaseEntity
     [SyncVar]
     public int maxStamina = 50;
 
-    [SyncVar]
+    [SyncVar (hook = nameof(OnChangeStamina))]
     public int currentStamina;
 
     public bool canMoveWhileAttacking = true;
@@ -17,18 +17,74 @@ public abstract class BaseChar : BaseEntity
 
     protected GameObject UI;
 
+    public StaminaLevel staminaLevel;
+    public SpecialLevel specialLevel;
+
+    [SerializeField]
+    protected float tpsRecharge;
+
+    [SyncVar (hook = nameof(OnChangeCooldown))]
+    public float cooldown;
+
+    [SyncVar]
+    public bool attSpeReady = true;
+    public bool rechargeSpe = false;
+    public GameObject attSpe;
 
     public abstract void Awake();
 
-    [ServerCallback]
+    public void OnChangeCooldown(float cur)
+    {
+        if (isLocalPlayer)
+        {
+            if (!attSpeReady)
+                GetSpecialLevel().SetLevel(cur, tpsRecharge);
+            else
+                GetSpecialLevel().SetLevel(0, tpsRecharge);
+        }      
+        cooldown = cur;
+    }
+
+    public void OnChangeStamina(int cur)
+    {
+        if(isLocalPlayer)
+            GetStaminaLevelUI().SetLevel(cur,maxStamina);
+
+        currentStamina = cur;
+    }
+
+    private SpecialLevel GetSpecialLevel()
+    {
+        if (specialLevel == null)
+            specialLevel = FindObjectOfType<SpecialLevel>();
+        return specialLevel;
+    }
+    private StaminaLevel GetStaminaLevelUI()
+    {
+        if(staminaLevel == null)
+            staminaLevel = FindObjectOfType<StaminaLevel>();
+        return staminaLevel;
+    }
+   
     public virtual void Start()
     {
-        currentStamina = maxStamina;
-        currentHealth = maxHealth;
-        if (GameObject.FindGameObjectWithTag("UI") != null)
+
+        if (isServer)
         {
-            UI = GameObject.FindGameObjectWithTag("UI");
+            this.tag = "Player";
+            cooldown = tpsRecharge;
+            currentStamina = maxStamina;
+            currentHealth = maxHealth;
         }
+        if (isLocalPlayer)
+        {
+            if (healthBar == null)
+                healthBar = FindObjectOfType<HealthBar>();
+            if (staminaLevel == null)
+                staminaLevel = FindObjectOfType<StaminaLevel>();
+        }
+        
+       
     }
 
     [Server]
@@ -53,11 +109,11 @@ public abstract class BaseChar : BaseEntity
     protected abstract void Attack(Vector3 point);
  
 
-    public int getMaxStamina()
+    public int GetMaxStamina()
     {
         return maxStamina;
     }
-    public int getStamina()
+    public int GetStamina()
     {
         return currentStamina;
     }
@@ -65,25 +121,16 @@ public abstract class BaseChar : BaseEntity
     public override void TakeDamage(int dmg)
     {
         base.TakeDamage(dmg);
-        if (UI != null)
-        {
-            UI.GetComponentInChildren<Life>().DisplayLife(dmg, this.GetMaxHealth());
-        }
     }
 
     public override void AddHealth(int heal)
     {
         base.AddHealth(heal);
-        if (UI != null)
-        {
-            UI.GetComponentInChildren<Life>().AddLife(heal);
-        }
     }
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        this.tag = "Player";
     }
 
     [TargetRpc]
@@ -99,4 +146,5 @@ public abstract class BaseChar : BaseEntity
         base.Death(); 
         TargetAffichMort(connectionToClient);
     }
+
 }

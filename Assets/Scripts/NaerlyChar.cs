@@ -6,14 +6,10 @@ using Mirror;
 public class NaerlyChar : DistChar
 {
 
-    public bool AttSpeReady = true;
-    public bool RechargeSpe = false;
-    public float Cooldown = 0.001f;
-    public GameObject AttSpe;
-
     [ServerCallback]
     public override void Awake()
     {
+        cooldown = 0.001f;
         period = 0.001f;
         maxHealth = 100;
         maxStamina = 75;
@@ -28,17 +24,18 @@ public class NaerlyChar : DistChar
     protected override void AttackSpeciale(Vector3 playerPosition_, float angle)
     {
 
-        if (AttSpeReady)
+        if (attSpeReady)
         {
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
 
-            float angleSpe = this.gameObject.GetComponent<PlayerAnimation>().handGameObject.transform.rotation.eulerAngles.z; // on récupère l'angle de la main pour avoir l'angle de tir
-            GameObject theAttackSpe = Instantiate(AttSpe, this.gameObject.transform);
-            theAttackSpe.GetComponent<JojoAttackSpe>().Initialisation(playerPos, angleSpe);
+            float angleSpe = this.gameObject.GetComponent<PlayerAnimation>().GetHandAngle(); // on récupère l'angle de la main pour avoir l'angle de tir
+            GameObject theAttackSpe = Instantiate(attSpe, this.gameObject.transform);
+            theAttackSpe.GetComponent<NaerlyAttackSpe>().Initialisation(playerPos, angleSpe);
+            NetworkServer.Spawn(theAttackSpe);
 
-            AttSpeReady = false;
-            RechargeSpe = true;
+            attSpeReady = false;
+            rechargeSpe = true;
         }
 
     }
@@ -47,14 +44,14 @@ public class NaerlyChar : DistChar
     {
         base.Update();
 
-        if (RechargeSpe)
+        if (rechargeSpe)
         {
-            Cooldown -= Time.deltaTime;
-            if (Cooldown <= 0)
+            cooldown -= Time.deltaTime;
+            if (cooldown <= 0)
             {
-                RechargeSpe = false;
-                AttSpeReady = true;
-                Cooldown = 0.001f;
+                rechargeSpe = false;
+                attSpeReady = true;
+                cooldown = 1f;
             }
         }
 
