@@ -21,7 +21,7 @@ public class SpecialFilledBar : MonoBehaviour
     {
         float f = Mathf.Clamp(1 - count / timeCountdown, 0, 1);
         this.level.fillAmount = f;
-        if (!effectActive && f == 1)
+        if (!effectActive && f >= 0.99)
             TurnOnColorEffect();
         else if (effectActive)
             TurnOffColorEffect();
