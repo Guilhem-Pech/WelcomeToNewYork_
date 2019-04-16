@@ -8,13 +8,20 @@ public class WaveManager : NetworkBehaviour
 {
     public int multEnnemiesPerWave = 3;
     public int maxAliveEnnemies = 50;
-    [SyncVar] public int numVague = 0;
+    [SyncVar (hook = nameof(OnChangeNumWave))] public int numVague = 0;
     [SyncVar] public int numEnnemisVague;
     public List<GameObject> ennemiVivant;
     [SyncVar] public int nbEnnemisVivant;
     [SyncVar] public int ennemiRestant;
     private SpawnerManager spawnMan;
     private HordesManager HordeMan;
+    public WaveText waveText;
+    
+
+    public void OnChangeNumWave(int wave)
+    {
+        waveText.SetWaveStartedText((uint)wave);
+    }
 
     // Start is called before the first frame update
     [ServerCallback]
@@ -23,6 +30,8 @@ public class WaveManager : NetworkBehaviour
         spawnMan = gameObject.GetComponent<SpawnerManager>() as SpawnerManager;
         HordeMan = gameObject.GetComponent<HordesManager>() as HordesManager;
         ennemiVivant = new List<GameObject>();
+        if(waveText == null)
+            waveText = GameObject.Find("WaveText").GetComponent<WaveText>();
     }
 
     // Update is called once per frame
