@@ -255,8 +255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad2ffa053b4c8e4d9a6e7c6b8328e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startedColor: {r: 255, g: 0, b: 68, a: 1}
-  clearedColor: {r: 99, g: 199, b: 77, a: 1}
+  startedColor: {r: 1, g: 0, b: 0.26666668, a: 1}
+  clearedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &3916789698310888769
 GameObject:
   m_ObjectHideFlags: 0
