@@ -11,16 +11,25 @@ public class WaveManager : NetworkBehaviour
     [SyncVar (hook = nameof(OnChangeNumWave))] public int numVague = 0;
     [SyncVar] public int numEnnemisVague;
     public List<GameObject> ennemiVivant;
-    [SyncVar] public int nbEnnemisVivant;
+    [SyncVar (hook =nameof(OnChangeEnnemiVivant))] public int nbEnnemisVivant;
     [SyncVar] public int ennemiRestant;
     private SpawnerManager spawnMan;
     private HordesManager HordeMan;
     public WaveText waveText;
-    
+    public MonstersRemaining monstersRemaining;
 
     public void OnChangeNumWave(int wave)
-    {
+    {        
         waveText.SetWaveStartedText((uint)wave);
+        numVague = wave;
+    }
+
+
+    public void OnChangeEnnemiVivant(int num)
+    {
+        
+        monstersRemaining.SetNumber((uint) (num + ennemiRestant));
+        nbEnnemisVivant = num;
     }
 
     // Start is called before the first frame update
@@ -32,6 +41,8 @@ public class WaveManager : NetworkBehaviour
         ennemiVivant = new List<GameObject>();
         if(waveText == null)
             waveText = GameObject.Find("WaveText").GetComponent<WaveText>();
+        if (monstersRemaining == null)
+            monstersRemaining = GameObject.Find("Monsters").GetComponent<MonstersRemaining>();
     }
 
     // Update is called once per frame
