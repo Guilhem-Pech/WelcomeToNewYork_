@@ -5,16 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    public static bool gameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public GameObject mainMenu;
+    public GameObject optionMenu;
+
 
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(GameIsPaused)
+            if(gameIsPaused)
             {
                 Resume();
             }else
@@ -28,13 +31,16 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
-        GameIsPaused = false;
+        gameIsPaused = false;
+        optionMenu.SetActive(false);
+
     }
 
     public void Pause()
     {
         pauseMenuUI.SetActive(true);
-        GameIsPaused = true;
+        gameIsPaused = true;
+        mainMenu.SetActive(true);
     }
 
     public void QuitGame()
