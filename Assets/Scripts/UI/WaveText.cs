@@ -9,6 +9,7 @@ public class WaveText : MonoBehaviour
     public Color startedColor = new Color(255, 0, 68);
     public Color clearedColor = new Color(99, 199, 77);
 
+    private bool animRunning = false;
 
     private void Start()
     {
@@ -19,11 +20,13 @@ public class WaveText : MonoBehaviour
     public void SetText(string str)
     {
         text.text = "";
-        StartCoroutine(AnimSetText(str));
+        if(!animRunning)
+            StartCoroutine(AnimSetText(str));
     }
 
     private IEnumerator AnimSetText(string str)
     {
+        animRunning = true;
         for(int i=0; i < str.Length; ++i)
         {
             text.text += str[i];
@@ -38,6 +41,7 @@ public class WaveText : MonoBehaviour
             yield return new WaitForSeconds(0.03f);
         }
         text.text = "";
+        animRunning = false;
     }
 
     public void SetWaveStartedText(uint number)
