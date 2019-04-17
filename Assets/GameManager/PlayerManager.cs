@@ -33,8 +33,8 @@ public class PlayerManager : NetworkBehaviour
             RpcDeath(entity.gameObject);
         }
         
-        Debug.Log(players.Count());
-        Debug.Log(joueurMort.Count());
+        Debug.Log("PLQYErS  ==========     " + players.Count());
+        Debug.Log("MORTS  ==========     " + joueurMort.Count());
 
 
 
@@ -86,6 +86,8 @@ public class PlayerManager : NetworkBehaviour
             Respawn(entite);
         }
         joueurMort.Clear();
+
+        Debug.Log("MANGE TES GRANDS MORTS         " + joueurMort.Count());
     }
 
     [Server]

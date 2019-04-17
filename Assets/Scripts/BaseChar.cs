@@ -116,7 +116,11 @@ public abstract class BaseChar : BaseEntity
             gm = FindObjectOfType<GameManager>(); ;
             yield return null;
         }
-        gm.playerMan.players.Add(this);
+
+        if (!gm.playerMan.players.Contains(this))
+        {
+            gm.playerMan.players.Add(this);
+        }
     }
 
     [Server]
