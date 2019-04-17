@@ -17,7 +17,7 @@ public class GameManager : NetworkBehaviour
     void Start()
     {
         playerMan = gameObject.GetComponent<PlayerManager>() ;
-        playerMan.players.AddRange(GameObject.FindObjectsOfType<BaseChar>());
+       // playerMan.players.AddRange(GameObject.FindObjectsOfType<BaseChar>());
 
         foreach (BaseChar entite in playerMan.players)
         {

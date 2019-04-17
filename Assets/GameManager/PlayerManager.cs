@@ -27,11 +27,24 @@ public class PlayerManager : NetworkBehaviour
     [Server]
     public void Death(GameObject entity)
     {
-        joueurMort.Add(entity.gameObject);
-        RpcDeath(entity.gameObject);
+        if (!joueurMort.Contains(entity.gameObject))
+        {
+            joueurMort.Add(entity.gameObject);
+            RpcDeath(entity.gameObject);
+        }
+        
+        Debug.Log(players.Count());
+        Debug.Log(joueurMort.Count());
+
+
 
         if (players.Count() == joueurMort.Count())
-            GameOver();
+        {
+            foreach (GameObject entite in joueurMort)
+            {
+                RpcGameOver(entite);
+            }
+        }
     }
 
    [ClientRpc]
@@ -54,7 +67,10 @@ public class PlayerManager : NetworkBehaviour
         }
         entity.GetComponent<PlayerController>().enabled = false;
         entity.GetComponent<PlayerAnimation>().enabled = false;
-        entity.GetComponent<BaseChar>().enabled = false;
+        entity.GetComponent<BaseEntity>().enabled = false;
+
+       /* GameObject uiInGame = GameObject.Find("UI");
+        uiInGame.GetComponent<DeathScreen>().AfficherLabelMort();*/
     }
 
     public void SpawnAll(Vector3 position)
@@ -102,15 +118,17 @@ public class PlayerManager : NetworkBehaviour
         entity.GetComponent<BaseChar>().enabled = true;
         entity.GetComponent<BaseChar>().Start();
 
-        GameObject UI = GameObject.Find("UIInGame");
+        GameObject UI = GameObject.Find("UI");
         UI.GetComponent<DeathScreen>().EnleverLabelMort();
     }
 
 
-    [Server]
-    public void GameOver()
+    [ClientRpc]
+    public void RpcGameOver(GameObject entity)
     {
         //Affiche un panel avec les stats de la game puis renvoie tout le monde au menu
         Debug.Log("Vous êtes nuls ptdr");
+        GameObject UI = GameObject.Find("UI");
+        UI.GetComponent<EndScreen>().AfficherGO();
     }
 }
