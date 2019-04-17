@@ -68,26 +68,6 @@ public abstract class BaseChar : BaseEntity
             GetSpecialLevel().TurnOffEffect();
     }
 
-    public void OnChangeCooldown(float cur)
-    {
-        if (isLocalPlayer)
-        {
-            if (!attSpeReady)
-                GetSpecialLevel().SetLevel(cur, tpsRecharge);
-            else
-                GetSpecialLevel().SetLevel(0, tpsRecharge);
-        }
-        cooldown = cur;
-    }
-
-    public void OnChangeStamina(int cur)
-    {
-        if(isLocalPlayer)
-            GetStaminaLevelUI().SetLevel(cur,maxStamina);
-
-        currentStamina = cur;
-    }
-
     private SpecialLevel GetSpecialLevel()
     {
         if (specialLevel == null)

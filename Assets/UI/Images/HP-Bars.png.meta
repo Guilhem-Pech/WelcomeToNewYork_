@@ -6,6 +6,7 @@ TextureImporter:
     21300002: HP-Bars_1
     21300004: HP-Bars_2
     21300006: HP-Bars_3
+    2186277476908879412: ImportLogs
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -126,7 +127,7 @@ TextureImporter:
       bones: []
       spriteID: 7dadced4a8e3b7a4aa2d155e37726a89
       vertices: []
-      indices:
+      indices: 
       edges: []
       weights: []
     - serializedVersion: 2
@@ -146,7 +147,7 @@ TextureImporter:
       bones: []
       spriteID: a98f28a32d7e9f140bf6b6caa2cd64bc
       vertices: []
-      indices:
+      indices: 
       edges: []
       weights: []
     - serializedVersion: 2
@@ -166,7 +167,7 @@ TextureImporter:
       bones: []
       spriteID: a94fdf0cc768015458934a20470655c9
       vertices: []
-      indices:
+      indices: 
       edges: []
       weights: []
     - serializedVersion: 2
@@ -186,7 +187,7 @@ TextureImporter:
       bones: []
       spriteID: f70a3c4de60e6aa47a64ec7e90057d15
       vertices: []
-      indices:
+      indices: 
       edges: []
       weights: []
     outline: []
@@ -194,12 +195,12 @@ TextureImporter:
     bones: []
     spriteID: 769f44be94e7dab458ebcfbd0ff63c4d
     vertices: []
-    indices:
+    indices: 
     edges: []
     weights: []
-  spritePackingTag:
+  spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
-  userData:
-  assetBundleName:
-  assetBundleVariant:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
