@@ -26,7 +26,7 @@ public abstract class BaseChar : BaseEntity
     [SyncVar (hook = nameof(OnChangeCooldown))]
     public float cooldown;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(OnAttSpeReady))]
     public bool attSpeReady = true;
     public bool rechargeSpe = false;
     public GameObject attSpe;
@@ -44,7 +44,7 @@ public abstract class BaseChar : BaseEntity
                 GetSpecialLevel().SetLevel(cur, tpsRecharge);
             else
                 GetSpecialLevel().SetLevel(0, tpsRecharge);
-        }      
+        }
         cooldown = cur;
     }
 
@@ -59,6 +59,21 @@ public abstract class BaseChar : BaseEntity
         currentStamina = cur;
     }
 
+    public void OnAttSpeReady(bool isIt)
+    {
+        attSpeReady = isIt;
+        if (!isLocalPlayer || GetSpecialLevel() == null)
+            return;
+
+        if (isIt)
+        {
+            GetSpecialLevel().SetLevel(0, tpsRecharge);
+            GetSpecialLevel().TurnOnEffect();
+        }
+        else
+            GetSpecialLevel().TurnOffEffect();
+    }
+
     private SpecialLevel GetSpecialLevel()
     {
         if (specialLevel == null)
@@ -71,7 +86,7 @@ public abstract class BaseChar : BaseEntity
             staminaLevel = FindObjectOfType<StaminaLevel>();
         return staminaLevel;
     }
-   
+
     public virtual void Start()
     {
 
@@ -124,7 +139,7 @@ public abstract class BaseChar : BaseEntity
 
     [Server]
     protected abstract void Attack(Vector3 point);
- 
+
 
     public int GetMaxStamina()
     {
@@ -147,6 +162,7 @@ public abstract class BaseChar : BaseEntity
 
     public override void OnStartLocalPlayer()
     {
+        OnAttSpeReady(true);
         base.OnStartLocalPlayer();
     }
 
@@ -161,7 +177,7 @@ public abstract class BaseChar : BaseEntity
     [Server]
     public override void Death()
     {
-        base.Death(); 
+        base.Death();
         TargetAffichMort(connectionToClient);
     }
 

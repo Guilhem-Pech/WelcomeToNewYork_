@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5721538680903392093}
   - component: {fileID: 6588552505725600414}
   - component: {fileID: 6899036821107951734}
-  - component: {fileID: 314023668657573115}
   - component: {fileID: 5196784590858483712}
+  - component: {fileID: 1058786166153506065}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -48,10 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneId: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
   m_AssetId: 49f12cdb09e7275438716bda1366733c
+  m_SceneId: 0
 --- !u!114 &5721538680903392093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,19 +96,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncInterval: 0.1
   currentCallNumber: 0
---- !u!114 &314023668657573115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8818380923990052448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fba4f9fb6782e1a4c9f27f0d6c7374ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncInterval: 0.1
 --- !u!114 &5196784590858483712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,9 +109,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
+  prefabCaC: {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0,
+    type: 3}
+  prefabDistance: {fileID: 5592136169436092911, guid: 8819b8f6a91c04340a88e33aaae33a23,
+    type: 3}
   multEnnemiesPerWave: 3
   maxAliveEnnemies: 50
   numVague: 0
   numEnnemisVague: 0
   ennemiVivant: []
   ennemiRestant: 0
+  spawnMan: {fileID: 0}
+  isInWave: 0
+  underWaveDelay: 10
+--- !u!114 &1058786166153506065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818380923990052448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f078d85ac10ad458088733f520f63d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0.1

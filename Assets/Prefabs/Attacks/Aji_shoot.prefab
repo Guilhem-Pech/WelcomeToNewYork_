@@ -12,6 +12,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Aji_shoot
       objectReference: {fileID: 0}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_AssetId
+      value:
+      objectReference: {fileID: 0}
     - target: {fileID: 5133126219095373237, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -70,7 +80,7 @@ PrefabInstance:
     - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: ImpactParticle
-      value: 
+      value:
       objectReference: {fileID: 4044737711283480158}
     - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
@@ -90,12 +100,12 @@ PrefabInstance:
     - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: launchingSound
-      value: 
+      value:
       objectReference: {fileID: 8300000, guid: dd3debf1b8bad0c4ba95e88ae7ee9253, type: 3}
     - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: sd
-      value: 
+      value:
       objectReference: {fileID: 0}
     - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
@@ -104,8 +114,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
-      propertyPath: m_AssetId
-      value: 
+      propertyPath: sd
+      value:
+      objectReference: {fileID: 7660472589227215795}
+    - target: {fileID: 8132931055822810995, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8132931055822810995, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
@@ -115,7 +130,7 @@ PrefabInstance:
     - target: {fileID: 3273092604898574500, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: m_Sprite
-      value: 
+      value:
       objectReference: {fileID: 21300000, guid: 95d27793bb2df0d4d9950768c5b1e4fa,
         type: 3}
     m_RemovedComponents: []

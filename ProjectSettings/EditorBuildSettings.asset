@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuTest.unity
     guid: 39d57246cbeb6154082f295f2c5f5052
   - enabled: 1
+    path: Assets/Scenes/Ellis_jojo.unity
+    guid: 3efc08cb90af0be4f9161ed6d8178c65
+  - enabled: 0
     path: Assets/Scenes/Ellis.unity
     guid: d07377712faf2cd4586e9ad5136859e0
   - enabled: 0
