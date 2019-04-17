@@ -52,6 +52,10 @@ public class PauseMenu : MonoBehaviour
     public void MenuGame()
     {
         Time.timeScale = 1;
+
+        print(FindObjectOfType<WTNYNetworkLobbyManager>().client);
+
+        FindObjectOfType<WTNYNetworkLobbyManager>().StopHost();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
