@@ -8,8 +8,6 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
-    public GameObject optionsMenu;
-    public GameObject mainMenu;
 
 
     void Update()
@@ -30,14 +28,12 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
-        optionsMenu.SetActive(false);
         GameIsPaused = false;
     }
 
     public void Pause()
     {
         pauseMenuUI.SetActive(true);
-        mainMenu.SetActive(true);
         GameIsPaused = true;
     }
 
