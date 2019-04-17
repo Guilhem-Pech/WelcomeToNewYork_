@@ -40,11 +40,11 @@ MonoBehaviour:
   cooldown: 0
   attSpeReady: 1
   rechargeSpe: 0
-  attSpe: {fileID: 952596066367790947, guid: a6399e2efb1fcc34d8e6493106a0c695, type: 3}
+  attSpe: {fileID: 8532725347727124117, guid: a6399e2efb1fcc34d8e6493106a0c695, type: 3}
   period: 1
   Projectile:
-  - {fileID: 8625587327721679858, guid: 544d949eec6e55e46954d5725087b936, type: 3}
-  - {fileID: 952596066367790947, guid: a6399e2efb1fcc34d8e6493106a0c695, type: 3}
+  - {fileID: 929470595274396164, guid: 544d949eec6e55e46954d5725087b936, type: 3}
+  - {fileID: 8532725347727124117, guid: a6399e2efb1fcc34d8e6493106a0c695, type: 3}
   fireRate: 1.5
   spreadMax: 0
   camera: {fileID: 2595192204034945065}
@@ -388,6 +388,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9186962740861974753, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -533,16 +543,6 @@ PrefabInstance:
       propertyPath: dustParticleSystem
       value: 
       objectReference: {fileID: 2595192204394311565}
-    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_SceneId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60ae6c17b1bcb734581d343ef4b03cf9, type: 3}
 --- !u!1 &2595192204433423284 stripped
