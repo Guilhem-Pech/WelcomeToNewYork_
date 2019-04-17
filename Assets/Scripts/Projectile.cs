@@ -8,7 +8,7 @@ public class Projectile : NetworkBehaviour
     public int damage;
     public float knockbackForce;
     public float knockbackDuration;
-    
+
     public string targetTag;
     public string allyTag;
 
@@ -40,7 +40,7 @@ public class Projectile : NetworkBehaviour
         this.transform.Rotate(new Vector3(0, 0, angle), Space.Self);
         exisTime = Time.time;
         this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x,0f,direction.y) * vitesse);
-        
+
         RpcInitialiseClient(this.gameObject.transform.position, this.transform.eulerAngles,direction);
     }
 
@@ -51,7 +51,7 @@ public class Projectile : NetworkBehaviour
         this.gameObject.GetComponent<CapsuleCollider>().radius = radius;
         this.gameObject.GetComponent<CapsuleCollider>().height = height;
 
-        this.gameObject.transform.position = Position;        
+        this.gameObject.transform.position = Position;
         this.transform.eulerAngles = angle;
 
         exisTime = Time.time;
@@ -89,7 +89,7 @@ public class Projectile : NetworkBehaviour
                 }
             }
         }
-        
+
     }
 
     public IEnumerator DestructionProcedure(float duration)
