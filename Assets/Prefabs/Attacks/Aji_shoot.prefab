@@ -75,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 4700712804311818902, guid: e624a6baca00d2a439a7cc592388b91c,
         type: 3}
       propertyPath: sources.Array.data[2]
-      value: 
+      value:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7235045299263373540, guid: e624a6baca00d2a439a7cc592388b91c, type: 3}
@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bf20f8af570a694d91ba011bccc0db4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1001 &8625587327721679429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,6 +103,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Aji_shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_AssetId
+      value:
       objectReference: {fileID: 0}
     - target: {fileID: 5133126219095373237, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
@@ -162,7 +172,7 @@ PrefabInstance:
     - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: ImpactParticle
-      value: 
+      value:
       objectReference: {fileID: 4044737711283480158}
     - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
@@ -182,12 +192,12 @@ PrefabInstance:
     - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: launchingSound
-      value: 
+      value:
       objectReference: {fileID: 8300000, guid: dd3debf1b8bad0c4ba95e88ae7ee9253, type: 3}
     - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: sd
-      value: 
+      value:
       objectReference: {fileID: 1566701931122222056}
     - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
@@ -196,8 +206,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
-      propertyPath: m_AssetId
-      value: 
+      propertyPath: sd
+      value:
+      objectReference: {fileID: 7660472589227215795}
+    - target: {fileID: 8132931055822810995, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8132931055822810995, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
@@ -207,7 +222,7 @@ PrefabInstance:
     - target: {fileID: 3273092604898574500, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: m_Sprite
-      value: 
+      value:
       objectReference: {fileID: 21300000, guid: 95d27793bb2df0d4d9950768c5b1e4fa,
         type: 3}
     m_RemovedComponents: []

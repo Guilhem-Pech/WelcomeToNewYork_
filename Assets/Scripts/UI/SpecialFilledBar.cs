@@ -16,7 +16,7 @@ public class SpecialFilledBar : MonoBehaviour
     }
 
 
-   
+
 
     public void SetLevel(float count, float timeCountdown)
     {
