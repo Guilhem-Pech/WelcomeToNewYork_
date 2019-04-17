@@ -10,7 +10,7 @@ public class WaveManager : NetworkBehaviour
     public GameObject prefabDistance;
 
     public int multEnnemiesPerWave = 3;
-    public int maxAliveEnnemies = 50;
+    public int maxAliveEnnemies = 20;
     [SyncVar] public int numVague = 0;
     [SyncVar] public int numEnnemisVague;
     public List<GameObject> ennemiVivant;

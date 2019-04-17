@@ -80,6 +80,7 @@ public class SpawnManager : NetworkBehaviour
         evaluatedSpawnersList = new List<GameObject>();
 
         Dictionary<GameObject, float> spawnersDictionnaryBuffer = new Dictionary<GameObject, float>();
+        //Debug.Log("Affichage de l'évaluation :");
         //On évalue tout les spawners
         foreach (GameObject spawner in currentSpawnersList)
         {
@@ -93,12 +94,16 @@ public class SpawnManager : NetworkBehaviour
             }
             spawnersDictionnaryBuffer.Add(spawner, scoreSum);
         }
+        //Debug.Log("Fin Affichage résultat");
 
+        //Debug.Log("Affichage du résultat de l'évaluation :");
         //On trie les spawners
         foreach (KeyValuePair<GameObject, float> item in spawnersDictionnaryBuffer.OrderByDescending(key => key.Value))
         {
+            //Debug.Log("     Spawner <" + item.Key.name + "> :" + item.Value);
             evaluatedSpawnersList.Add(item.Key);
         }
+        //Debug.Log("Fin Affichage résultat");
     }
 
     [Server]

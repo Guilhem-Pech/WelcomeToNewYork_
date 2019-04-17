@@ -45,6 +45,7 @@ public class SpawnerController : NetworkBehaviour
     {
         Vector3 position;
 
+        gameObject.GetComponent<AnimationsReplicationBridge>().SetBoolParam("IsSpawning", true);
         int toSpawn = (spawnList.Count < spawnCapacity)? spawnList.Count : spawnCapacity;
         for (int i = 0; i < toSpawn; i++)
         {
@@ -79,7 +80,8 @@ public class SpawnerController : NetworkBehaviour
 
         //Debug.Log("     Spawner <" + name + "> : Activation du spawn");
         isSpawning = true;
-        lastSpawnTime = spawnDelay;
+        lastSpawnTime = 0;
+        gameObject.GetComponent<AnimationsReplicationBridge>().playAnimation("Opening");
     }
 
     private void DeactivateSpawn()
@@ -89,5 +91,6 @@ public class SpawnerController : NetworkBehaviour
 
         //Debug.Log("     Spawner <" + name + "> : Désactivation du spawn");
         isSpawning = false;
+        gameObject.GetComponent<AnimationsReplicationBridge>().SetBoolParam("IsClosing", true);
     }
 }
