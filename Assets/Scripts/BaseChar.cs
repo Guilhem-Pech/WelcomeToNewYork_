@@ -84,10 +84,18 @@ public abstract class BaseChar : BaseEntity
                 staminaLevel = FindObjectOfType<StaminaLevel>();
         }
 
-        GameObject gm = GameObject.FindGameObjectWithTag("GameController");
-        gm.GetComponent<GameManager>().playerMan.players.Add(this);
+        StartCoroutine(RegisterToGamemanager());
+    }
 
-
+    private IEnumerator RegisterToGamemanager()
+    {
+        GameManager gm = FindObjectOfType<GameManager>();
+        while (gm == null)
+        {
+            gm = FindObjectOfType<GameManager>(); ;
+            yield return null;
+        }
+        gm.playerMan.players.Add(this);
     }
 
     [Server]
