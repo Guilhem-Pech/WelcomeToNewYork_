@@ -26,12 +26,28 @@ public abstract class BaseChar : BaseEntity
     [SyncVar (hook = nameof(OnChangeCooldown))]
     public float cooldown;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(OnAttSpeReady))]
     public bool attSpeReady = true;
     public bool rechargeSpe = false;
     public GameObject attSpe;
 
     public abstract void Awake();
+
+
+    public void OnAttSpeReady(bool isIt)
+    {
+        attSpeReady = isIt;
+        if (!isLocalPlayer || GetSpecialLevel() == null)
+            return;
+
+        if (isIt)
+        {
+            GetSpecialLevel().SetLevel(0, tpsRecharge);
+            GetSpecialLevel().TurnOnEffect();
+        }        
+        else
+            GetSpecialLevel().TurnOffEffect();        
+    }
 
     public void OnChangeCooldown(float cur)
     {
@@ -141,6 +157,7 @@ public abstract class BaseChar : BaseEntity
 
     public override void OnStartLocalPlayer()
     {
+        OnAttSpeReady(true);
         base.OnStartLocalPlayer();
     }
 

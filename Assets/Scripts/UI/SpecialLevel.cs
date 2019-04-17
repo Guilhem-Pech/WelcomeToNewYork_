@@ -17,5 +17,14 @@ public class SpecialLevel : MonoBehaviour
         level.SetLevel(count, timeCountdown);
     }
     
-    
+    public void TurnOnEffect()
+    {
+        level.TurnOnColorEffect();
+    }
+    public void TurnOffEffect()
+    {      
+        level.TurnOffColorEffect();
+    }
+
+
 }
