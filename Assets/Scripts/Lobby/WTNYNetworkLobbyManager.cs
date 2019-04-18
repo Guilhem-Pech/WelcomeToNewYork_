@@ -11,4 +11,16 @@ public class WTNYNetworkLobbyManager : NetworkLobbyManager
         gamePlayer.GetComponent<GameplayPlayer>().realGameplay = lobbyPlayer.GetComponent<LobbyPlayer>().choosenChar.gameObject; 
         return true;
     }
+
+    public override void OnLobbyServerPlayersReady()
+    {
+        GameObject loadScreen;
+        if ((loadScreen = GameObject.Find("LoadingScreen")) != null)
+        {
+            loadScreen.GetComponent<LoadSceneManager>().LauchLoadingScreen();
+        }
+
+        base.OnLobbyServerPlayersReady();
+    }
+
 }
