@@ -16,6 +16,7 @@ public class GameManager : NetworkBehaviour
     [ServerCallback] //Reminder: ServerCallback means this function will only be called serverside ( you can create a start function with a [ClientCallback] )
     void Start()
     {
+        SoundManager.instance.PlayAmbiant();
         playerMan = gameObject.GetComponent<PlayerManager>() ;
        // playerMan.players.AddRange(GameObject.FindObjectsOfType<BaseChar>());
 

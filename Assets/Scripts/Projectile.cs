@@ -12,9 +12,8 @@ public class Projectile : NetworkBehaviour
     public string targetTag;
     public string allyTag;
 
-    public AudioClip launchingSound;
+    public List<AudioClip> launchingSound;
     public AudioClip touchSound;
-    public SoundDispenser sd;
     public ParticleSystem ImpactParticle;
 
 
@@ -56,8 +55,12 @@ public class Projectile : NetworkBehaviour
 
         exisTime = Time.time;
         this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x, 0f, direction.y) * vitesse);
-        if(sd != null && launchingSound != null)
-            sd.Play(launchingSound);
+
+        if (launchingSound.Count != 0)
+        {
+            int randomSound = Random.Range(0, launchingSound.Count);
+            SoundManager.instance.PlaySound(launchingSound[randomSound], this.gameObject);
+        }
     }
 
 
@@ -99,8 +102,7 @@ public class Projectile : NetworkBehaviour
             this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             this.gameObject.GetComponent<Collider>().enabled = false;
             this.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
-            if (sd != null && touchSound != null)
-                sd.Play(touchSound);
+            SoundManager.instance.PlaySound(touchSound, this.gameObject);
             ImpactParticle.Play();
         }
         yield return new WaitForSeconds(duration);

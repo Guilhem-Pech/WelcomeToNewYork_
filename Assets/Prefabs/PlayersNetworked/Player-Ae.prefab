@@ -49,6 +49,7 @@ MonoBehaviour:
   camera: {fileID: 2595192204034945065}
   shake: 0
   decreaseFactor: 10
+  specialSound: {fileID: 8300000, guid: 1730cbf4a6fdbb74c999ae79eb898d39, type: 3}
 --- !u!1001 &6592527130424694591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -246,16 +247,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_SceneId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 9186962741440243465, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_Enabled
@@ -287,6 +278,16 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 35bd1ab0dad6d6e4885aca0ae29045d8, type: 2}
+    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8290664043524974520, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: bodySpriteRenderer

@@ -28,7 +28,7 @@ public class JojoChar : MeleeChar
     {
         if (attSpeReady && !isAttacking)
         {
-            soundDispenser.Play(special);
+            SoundManager.instance.PlaySound(special, this.gameObject);
 
             foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
                 Destroy(aMeleeAttack.gameObject);

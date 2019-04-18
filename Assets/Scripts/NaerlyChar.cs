@@ -5,7 +5,7 @@ using Mirror;
 
 public class NaerlyChar : DistChar
 {
-
+    public AudioClip specialSound;
     [ServerCallback]
     public override void Awake()
     {
@@ -26,6 +26,8 @@ public class NaerlyChar : DistChar
 
         if (attSpeReady)
         {
+            SoundManager.instance.PlaySound(specialSound, this.gameObject);
+
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur
 

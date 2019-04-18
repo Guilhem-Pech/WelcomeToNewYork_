@@ -51,6 +51,7 @@ MonoBehaviour:
   shake: 0
   decreaseFactor: 30
   shotgunAmmo: 5
+  specialSound: {fileID: 8300000, guid: 1b44d54e34d8b204087b9974419d93cc, type: 3}
 --- !u!1001 &6592527130424694591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -388,16 +389,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_SceneId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 9186962740861974753, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -421,6 +412,16 @@ PrefabInstance:
     - target: {fileID: 3381103109990690754, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4590472238726746671, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_AssetId
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8290664043524974520, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
