@@ -109,9 +109,16 @@ public class WaveManager : NetworkBehaviour
     [Server]
     public void FinVague()
     {
-        waveText.SetWaveEndedText((uint)numVague);
+        RpcFinVague(numVague);
         isInWave = false;
     }
+
+    [ClientRpc]
+    public void RpcFinVague(int num)
+    {
+        waveText.SetWaveEndedText((uint)num);
+    }
+
 
     [Server]
     private List<GameObject> CreateSpawnList()
