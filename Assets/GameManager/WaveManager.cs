@@ -9,6 +9,12 @@ public class WaveManager : NetworkBehaviour
     public GameObject prefabCaC;
     public GameObject prefabDistance;
 
+    public float timeWaitFirstSpawnWave = 2f;
+    public float timeWaitBetweenSpawnWaves = 10f;
+
+    public bool isInWave;
+    private float lastWaveTime;
+
     public int multEnnemiesPerWave = 3;
 
     public int maxAliveEnnemies = 20;
@@ -36,10 +42,6 @@ public class WaveManager : NetworkBehaviour
         nbEnnemisVivant = num;
     }
 
-    public bool isInWave;
-    public float underWaveDelay = 10f;
-    private float lastWaveTime;
-
     // Start is called before the first frame update
     [ServerCallback]
     void Awake()
@@ -60,7 +62,7 @@ public class WaveManager : NetworkBehaviour
     [ServerCallback]
     void Update()
     {
-        if (ennemiRestant == 0 && ennemiVivant.Count == 0)
+        if (isInWave && ennemiRestant == 0 && ennemiVivant.Count == 0)
         {
             //print("Fin de la vague numéro : " + numVague );
             FinVague();
@@ -70,7 +72,7 @@ public class WaveManager : NetworkBehaviour
         if (isInWave)
         {
             lastWaveTime += Time.deltaTime;
-            if ((lastWaveTime >= underWaveDelay
+            if ((lastWaveTime >= timeWaitBetweenSpawnWaves
                 && ennemiVivant.Count < maxAliveEnnemies)
                 && ennemiRestant > 0)
             {
@@ -88,7 +90,7 @@ public class WaveManager : NetworkBehaviour
     public void DebutVague()
     {
         numVague += 1;
-        lastWaveTime = underWaveDelay/2;
+        lastWaveTime = timeWaitBetweenSpawnWaves - timeWaitFirstSpawnWave;
         // print("Numéro de la vague : " + numVague);
         //Debug.Log("Début de Vague!");
         isInWave = true;

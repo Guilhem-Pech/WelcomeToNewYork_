@@ -7,10 +7,11 @@ public class SpawnerController : NetworkBehaviour
 
     public float spawnRadius = 1;
     public int spawnCapacity = 5;
+
     public float spawnDelay = 2f;
 
     public bool isSpawning;
-    public float lastSpawnTime;
+    private float lastSpawnTime;
 
     private List<GameObject> spawnList;
 
