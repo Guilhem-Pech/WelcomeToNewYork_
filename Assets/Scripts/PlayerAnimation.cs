@@ -45,14 +45,14 @@ public class PlayerAnimation : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerController>();
     }
 
 
     [Command]
     void CmdChangePointHand(Vector3 point)
     {
-        PointHand = point;
+        this.PointHand = point;
     }
 
     // Update is called once per frame
@@ -96,23 +96,38 @@ public class PlayerAnimation : NetworkBehaviour
         }
 
         //if (!isLocalPlayer)
-          //  return;
+        //  return;
 
-
-        Vector2 mousePosition = Input.mousePosition;
-        Ray castPoint = Camera.main.ScreenPointToRay(mousePosition);
-
-        RaycastHit hit;
-        Vector3 HandPos = PointHand;
-        if (isLocalPlayer && Physics.Raycast(castPoint, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
+        if (isLocalPlayer)
         {
-            CmdChangePointHand(hit.point);
-            HandPos = hit.point;
+            Vector2 mousePosition = Input.mousePosition;
+            Ray castPoint = Camera.main.ScreenPointToRay(mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(castPoint, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
+            {
+                PointHand = hit.point;
+                CmdChangePointHand(PointHand);
+            }
         }
 
 
 
-        if (HandPos.x > this.gameObject.transform.position.x)
+            /*Vector2 mousePosition = Input.mousePosition;
+            Ray castPoint = Camera.main.ScreenPointToRay(mousePosition);
+
+            RaycastHit hit;
+            //Vector3 HandPos = PointHand;
+            if (isLocalPlayer && Physics.Raycast(castPoint, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
+            {
+                PointHand = hit.point;
+                CmdChangePointHand(PointHand);
+                //HandPos = hit.point;
+                //PointHand = hit.point;
+            }*/
+
+
+        if (PointHand.x > this.gameObject.transform.position.x)
         {
             headSpriteRenderer.flipX = false;
             handClothesSpriteRenderer.flipY = false;
@@ -125,13 +140,12 @@ public class PlayerAnimation : NetworkBehaviour
 
 
         Vector3 playerPosition = this.gameObject.transform.position;
-        Vector3 dir = HandPos - playerPosition;
+        Vector3 dir = PointHand - playerPosition;
         dir = dir.normalized;
 
         float angleRad = Mathf.Atan2(dir.z + dir.y, dir.x);
         float angle = angleRad * Mathf.Rad2Deg;
         handGameObject.transform.rotation = Quaternion.Euler(new Vector3(90, 0, angle));
-
 
         float scaleY = Mathf.Cos(angleRad * 2.0f) * 0.125f + 1.125f;
         float scaleX = Mathf.Cos((angleRad) * 2.0f + Mathf.PI) * 0.125f + 1.125f;
