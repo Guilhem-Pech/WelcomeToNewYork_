@@ -35,6 +35,9 @@ public abstract class BaseChar : BaseEntity
 
     public void OnChangeCooldown(float cur)
     {
+        if (GetSpecialLevel() == null)
+            return;
+
         if (isLocalPlayer)
         {
             if (!attSpeReady)
@@ -47,6 +50,9 @@ public abstract class BaseChar : BaseEntity
 
     public void OnChangeStamina(int cur)
     {
+        if (GetStaminaLevelUI() == null)
+            return;
+
         if(isLocalPlayer)
             GetStaminaLevelUI().SetLevel(cur,maxStamina);
 
@@ -110,7 +116,11 @@ public abstract class BaseChar : BaseEntity
             gm = FindObjectOfType<GameManager>(); ;
             yield return null;
         }
-        gm.playerMan.players.Add(this);
+
+        if (!gm.playerMan.players.Contains(this))
+        {
+            gm.playerMan.players.Add(this);
+        }
     }
 
     [Server]
@@ -163,7 +173,8 @@ public abstract class BaseChar : BaseEntity
     [TargetRpc]
     public void TargetAffichMort(NetworkConnection nC)
     {
-        GameObject UI = GameObject.Find("UIInGame");
+        Debug.Log("YALAAAAAAAAAAAAAAH");
+        GameObject UI = GameObject.Find("UI");
         UI.GetComponent<DeathScreen>().AfficherLabelMort();
     }
 

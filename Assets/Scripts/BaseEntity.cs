@@ -22,7 +22,7 @@ public abstract class BaseEntity : NetworkBehaviour {
     {
 
         currentHealth = value;
-        print(isLocalPlayer+ " "+ healthBar);
+      //  print(isLocalPlayer+ " "+ healthBar);
         if (isLocalPlayer && GetHealthBar() != null)
         {
 
