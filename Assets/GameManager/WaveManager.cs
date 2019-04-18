@@ -108,7 +108,7 @@ public class WaveManager : NetworkBehaviour
     [Server]
     public void FinVague()
     {
-        //Debug.Log("Fin de Vague!");
+        waveText.SetWaveEndedText((uint)numVague);
         isInWave = false;
     }
 

@@ -95,6 +95,9 @@ public class PlayerManager : NetworkBehaviour
     {
         foreach (BaseChar entite in players)
         {
+            print(entite.name);
+            print(entite.GetComponent<BaseChar>().GetMaxHealth() + " - " + entite.GetComponent<BaseChar>().currentHealth);
+
             entite.GetComponent<BaseChar>().AddHealth(entite.GetComponent<BaseChar>().GetMaxHealth() - entite.GetComponent<BaseChar>().currentHealth);
         }
     }
