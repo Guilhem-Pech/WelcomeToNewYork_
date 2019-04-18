@@ -16,7 +16,7 @@ public class WaveManager : NetworkBehaviour
     [SyncVar] public int numEnnemisVague;
     public List<GameObject> ennemiVivant;
     [SyncVar (hook =nameof(OnChangeEnnemiVivant))] public int nbEnnemisVivant;
-    [SyncVar] public int ennemiRestant;
+    [SyncVar(hook = nameof(OnChangeEnnemiRestant))] public int ennemiRestant;
     public SpawnManager spawnMan;
     private HordesManager HordeMan;
     public WaveText waveText;
