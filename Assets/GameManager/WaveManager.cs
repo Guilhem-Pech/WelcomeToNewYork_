@@ -102,6 +102,7 @@ public class WaveManager : NetworkBehaviour
         isInWave = true;
         numEnnemisVague = (numVague + this.GetComponentInParent<PlayerManager>().players.Count) * multEnnemiesPerWave;
         ennemiRestant = numEnnemisVague;
+        spawnMan.OnCurrentSpawnersChange();
         // print("Nombre ennemis dans la vague : " + numEnnemisVague);
     }
 
