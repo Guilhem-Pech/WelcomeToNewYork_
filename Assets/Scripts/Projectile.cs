@@ -29,7 +29,7 @@ public class Projectile : NetworkBehaviour
 
 
 
-    public void initialisation(float angle,Vector3 startPos)
+    public void Initialisation(float angle,Vector3 startPos)
     {
         direction = new Vector2(Mathf.Sin(Mathf.Deg2Rad * (-angle+90)), Mathf.Cos(Mathf.Deg2Rad * (-angle+90)));
         this.gameObject.GetComponent<CapsuleCollider>().radius = radius;
@@ -38,7 +38,7 @@ public class Projectile : NetworkBehaviour
         this.gameObject.transform.position= new Vector3 (startPos.x + (direction.x/1.1f),0.6f,startPos.z + (direction.y/1.1f));
         this.transform.Rotate(new Vector3(0, 0, angle), Space.Self);
         exisTime = Time.time;
-        this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x,0f,direction.y) * vitesse);
+        //this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x,0f,direction.y) * vitesse);
 
         RpcInitialiseClient(this.gameObject.transform.position, this.transform.eulerAngles,direction);
     }

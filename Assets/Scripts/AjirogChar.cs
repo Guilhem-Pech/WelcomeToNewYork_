@@ -46,7 +46,7 @@ public class AjirogChar : DistChar
                 GameObject theShot = Instantiate(currentShot); // On instantie le projectile
                 NetworkServer.Spawn(theShot);
                 float randAngle = Random.Range(angle - (currentSpread / 2), angle + (currentSpread / 2));
-                theShot.GetComponent<Projectile>().initialisation(randAngle, playerPosition); // On initialise les valeurs
+                theShot.GetComponent<Projectile>().Initialisation(randAngle, playerPosition); // On initialise les valeurs
                 RpcAttaqueSpecial();
                 angle += 40/shotgunAmmo;
             }
