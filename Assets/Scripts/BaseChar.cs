@@ -26,7 +26,7 @@ public abstract class BaseChar : BaseEntity
     [SyncVar (hook = nameof(OnChangeCooldown))]
     public float cooldown;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(OnAttSpeReady))]
     public bool attSpeReady = true;
     public bool rechargeSpe = false;
     public GameObject attSpe;
@@ -35,22 +35,43 @@ public abstract class BaseChar : BaseEntity
 
     public void OnChangeCooldown(float cur)
     {
+        if (GetSpecialLevel() == null)
+            return;
+
         if (isLocalPlayer)
         {
             if (!attSpeReady)
                 GetSpecialLevel().SetLevel(cur, tpsRecharge);
             else
                 GetSpecialLevel().SetLevel(0, tpsRecharge);
-        }      
+        }
         cooldown = cur;
     }
 
     public void OnChangeStamina(int cur)
     {
+        if (GetStaminaLevelUI() == null)
+            return;
+
         if(isLocalPlayer)
             GetStaminaLevelUI().SetLevel(cur,maxStamina);
 
         currentStamina = cur;
+    }
+
+    public void OnAttSpeReady(bool isIt)
+    {
+        attSpeReady = isIt;
+        if (!isLocalPlayer || GetSpecialLevel() == null)
+            return;
+
+        if (isIt)
+        {
+            GetSpecialLevel().SetLevel(0, tpsRecharge);
+            GetSpecialLevel().TurnOnEffect();
+        }
+        else
+            GetSpecialLevel().TurnOffEffect();
     }
 
     private SpecialLevel GetSpecialLevel()
@@ -65,7 +86,7 @@ public abstract class BaseChar : BaseEntity
             staminaLevel = FindObjectOfType<StaminaLevel>();
         return staminaLevel;
     }
-   
+
     public virtual void Start()
     {
 
@@ -84,10 +105,22 @@ public abstract class BaseChar : BaseEntity
                 staminaLevel = FindObjectOfType<StaminaLevel>();
         }
 
-        GameObject gm = GameObject.FindGameObjectWithTag("GameController");
-        gm.GetComponent<GameManager>().playerMan.players.Add(this);
+        StartCoroutine(RegisterToGamemanager());
+    }
 
+    private IEnumerator RegisterToGamemanager()
+    {
+        GameManager gm = FindObjectOfType<GameManager>();
+        while (gm == null)
+        {
+            gm = FindObjectOfType<GameManager>(); ;
+            yield return null;
+        }
 
+        if (!gm.playerMan.players.Contains(this))
+        {
+            gm.playerMan.players.Add(this);
+        }
     }
 
     [Server]
@@ -110,7 +143,7 @@ public abstract class BaseChar : BaseEntity
 
     [Server]
     protected abstract void Attack(Vector3 point);
- 
+
 
     public int GetMaxStamina()
     {
@@ -133,20 +166,22 @@ public abstract class BaseChar : BaseEntity
 
     public override void OnStartLocalPlayer()
     {
+        OnAttSpeReady(true);
         base.OnStartLocalPlayer();
     }
 
     [TargetRpc]
     public void TargetAffichMort(NetworkConnection nC)
     {
-        GameObject UI = GameObject.Find("UIInGame");
+        Debug.Log("YALAAAAAAAAAAAAAAH");
+        GameObject UI = GameObject.Find("UI");
         UI.GetComponent<DeathScreen>().AfficherLabelMort();
     }
 
     [Server]
     public override void Death()
     {
-        base.Death(); 
+        base.Death();
         TargetAffichMort(connectionToClient);
     }
 

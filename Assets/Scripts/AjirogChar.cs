@@ -7,7 +7,7 @@ public class AjirogChar : DistChar
 {
     
     public int shotgunAmmo = 5;
-    
+    public AudioClip specialSound;
 
     [ServerCallback]
     public override void Awake()
@@ -27,6 +27,7 @@ public class AjirogChar : DistChar
     {
         if (attSpeReady)
         {
+            SoundManager.instance.PlaySound(specialSound, this.gameObject);
             this.lastShot = Time.time;
             GameObject currentShot = Projectile[1]; // On récupère le prefab du projectile
             shake = 1;

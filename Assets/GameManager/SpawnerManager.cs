@@ -5,7 +5,7 @@ using Mirror;
 
 public class SpawnerManager : NetworkBehaviour
 {
-    private List<SpawnController> spawners = new List<SpawnController>();
+    private List<SpawnerController> spawners = new List<SpawnerController>();
     // Start is called before the first frame update
 
     [ServerCallback]
@@ -20,7 +20,7 @@ public class SpawnerManager : NetworkBehaviour
     void CheckSpawner()
     {
         spawners.Clear();
-        spawners.AddRange(GameObject.FindObjectsOfType<SpawnController>());
+        spawners.AddRange(GameObject.FindObjectsOfType<SpawnerController>());
         //print("Nombre de spawner : " + spawners.Count);
     }
 
@@ -28,15 +28,15 @@ public class SpawnerManager : NetworkBehaviour
     public GameObject SpawnEnnemiOnSpawner(GameObject spawner)
     {
         GameObject spawnedEnnemy = new GameObject();
-        try
+        /*try
         {
-            spawnedEnnemy = spawner.GetComponent<SpawnController>().spawn();
+            spawnedEnnemy = spawner.GetComponent<SpawnerController>().spawn();
         }
         catch (System.ArgumentOutOfRangeException e) // If Spawner not found: recheck
         {
             CheckSpawner();
-            spawnedEnnemy = spawner.GetComponent<SpawnController>().spawn();
-        }
+            spawnedEnnemy = spawner.GetComponent<SpawnerController>().spawn();
+        }*/
         return spawnedEnnemy;
     }
     [Server]
@@ -44,15 +44,15 @@ public class SpawnerManager : NetworkBehaviour
     {
         int rand = Random.Range(1, spawners.Count + 1);
         //print("random : " + rand);
-        GameObject spawnedEnnemy;
-        try
+        GameObject spawnedEnnemy = new GameObject();
+        /*try
         {
             spawnedEnnemy = spawners[rand - 1].spawn();
         }catch (System.ArgumentOutOfRangeException)
         {
             CheckSpawner();
             spawnedEnnemy = spawners[rand - 1].spawn();
-        }
+        }*/
         
         return spawnedEnnemy;
     }

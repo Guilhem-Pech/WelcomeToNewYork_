@@ -11,13 +11,17 @@ public class GameManager : NetworkBehaviour
     [ReadOnly]public WaveManager waveMan;
     [ReadOnly]public PlayerManager playerMan ;
 
+    public float timeWaitFirstWave = 10f;
+    public float timeWaitBetweenWaves = 10f;
+
     // Start is called before the first frame update
-    
+
     [ServerCallback] //Reminder: ServerCallback means this function will only be called serverside ( you can create a start function with a [ClientCallback] )
     void Start()
     {
+        SoundManager.instance.PlayAmbiant();
         playerMan = gameObject.GetComponent<PlayerManager>() ;
-        playerMan.players.AddRange(GameObject.FindObjectsOfType<BaseChar>());
+       // playerMan.players.AddRange(GameObject.FindObjectsOfType<BaseChar>());
 
         foreach (BaseChar entite in playerMan.players)
         {
@@ -28,17 +32,37 @@ public class GameManager : NetworkBehaviour
         waveMan = gameObject.GetComponent<WaveManager>();
         Vector3 position =new Vector3(0,1,0);
         playerMan.SpawnAll(position);
-        waveMan.DebutVague();
+        StartCoroutine(TimerStart(timeWaitFirstWave));
     }
-
-
- 
 
     [Server]
     public void FinVague()
     {
-        playerMan.RespawnAll();
-        playerMan.HealAll();
-        waveMan.DebutVague(); 
+        StartCoroutine(TimerStart(timeWaitBetweenWaves));
+
+        try{
+            playerMan.RespawnAll();
+        }
+        catch (System.InvalidOperationException e)
+        {}
+
+        try
+        {
+            playerMan.HealAll();
+        }
+        catch (System.InvalidOperationException e)
+        {}
+        
+
+
+    }
+
+    IEnumerator TimerStart(float time)
+    {
+        yield return new WaitForSeconds(time);
+        //playerMan.RespawnAll();
+        //playerMan.HealAll();
+        waveMan.DebutVague();
+        yield return null;
     }
 }

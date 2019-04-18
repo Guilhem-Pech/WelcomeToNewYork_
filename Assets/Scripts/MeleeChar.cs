@@ -10,9 +10,8 @@ public abstract class MeleeChar : BaseChar
     public bool isAttacking = false ;
     public float period = 1.0f;
 
-    public AudioClip attack;
+    public List<AudioClip> attack;
     public AudioClip special;
-    public SoundDispenser soundDispenser;
 
     public GameObject[] Attacks; // tableau répértoriant les attaques du joueur
     //[SyncVar]
@@ -24,8 +23,12 @@ public abstract class MeleeChar : BaseChar
         GameObject currentAttack = Attacks[nextAttackID]; // On récupère le prefab de l'attaque
         if (currentStamina >= currentAttack.GetComponent<MeleeAttack>().staminaCost)
         {
+            if (attack.Count != 0)
+            {
+                int randomSound = Random.Range(0, attack.Count);
+                SoundManager.instance.PlaySound(attack[randomSound], this.gameObject);
+            }
 
-            soundDispenser.Play(attack);
 
             foreach (MeleeAttack aMeleeAttack in this.gameObject.GetComponentsInChildren<MeleeAttack>())
                 Destroy(aMeleeAttack.gameObject);

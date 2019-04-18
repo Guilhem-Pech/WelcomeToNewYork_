@@ -25,6 +25,9 @@ public class YeuxFLuo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (spriteParent?.sprite?.name == null || thisSprite == null  || sheetSprite == null)
+            return; 
+
         switch (spriteParent.sprite.name)
         {
             case "SmallEnnemy_Walk1": thisSprite.sprite = sheetSprite[0]; break;

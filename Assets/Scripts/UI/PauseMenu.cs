@@ -1,20 +1,24 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : NetworkBehaviour
 {
-    public static bool GameIsPaused = false;
+    public static bool gameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public GameObject mainMenu;
+    public GameObject optionMenu;
+
 
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(GameIsPaused)
+            if(gameIsPaused)
             {
                 Resume();
             }else
@@ -28,13 +32,16 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
-        GameIsPaused = false;
+        gameIsPaused = false;
+        optionMenu.SetActive(false);
+
     }
 
     public void Pause()
     {
         pauseMenuUI.SetActive(true);
-        GameIsPaused = true;
+        gameIsPaused = true;
+        mainMenu.SetActive(true);
     }
 
     public void QuitGame()
@@ -46,6 +53,10 @@ public class PauseMenu : MonoBehaviour
     public void MenuGame()
     {
         Time.timeScale = 1;
+
+        print(FindObjectOfType<WTNYNetworkLobbyManager>().client);
+
+        FindObjectOfType<WTNYNetworkLobbyManager>().StopHost();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 

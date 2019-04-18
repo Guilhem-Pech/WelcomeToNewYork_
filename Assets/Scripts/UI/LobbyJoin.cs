@@ -36,6 +36,13 @@ public class LobbyJoin : MonoBehaviour
 
     public void Update()
     {
+        if (Input.GetKey(KeyCode.KeypadEnter) && transform.Find("InputIP").GetComponent<InputField>().isFocused)
+        {
+            JoinServer(lobbyMenu);
+            connecting.gameObject.SetActive(true);
+        }
+           
+
         bool noConnection = (manager.client == null || manager.client.connection == null ||
                                  manager.client.connection.connectionId == -1);
 

@@ -4025,7 +4025,7 @@ MonoBehaviour:
   onlineScene: 
   transport: {fileID: 1521917610}
   networkAddress: localhost
-  maxConnections: 4
+  maxConnections: 8
   playerPrefab: {fileID: 2484003023458925365, guid: f7a7dd191fe67d84188dc7dc92bc9390,
     type: 3}
   autoCreatePlayer: 1
@@ -4042,16 +4042,16 @@ MonoBehaviour:
   - {fileID: 2595192204433423284, guid: ba596b8c7cd6cd64abfb1a4f7dd3b1be, type: 3}
   - {fileID: 4973827835927543099, guid: 85862ac4350226d499e44362f1d101d3, type: 3}
   - {fileID: 2595192204433423284, guid: 38660279196ec8d42a172c421f75b54d, type: 3}
-  - {fileID: 929470595274396164, guid: 544d949eec6e55e46954d5725087b936, type: 3}
-  - {fileID: 8532725347727124117, guid: a6399e2efb1fcc34d8e6493106a0c695, type: 3}
   - {fileID: 8886192973171554369, guid: b1356d1ede25bdf468b02c8536aab85a, type: 3}
   - {fileID: 1619184190625883108, guid: 48af9e8b32ba5414dbb51989d873ce5f, type: 3}
+  - {fileID: 929470595274396164, guid: 544d949eec6e55e46954d5725087b936, type: 3}
+  - {fileID: 8532725347727124117, guid: a6399e2efb1fcc34d8e6493106a0c695, type: 3}
   showLobbyGUI: 0
   minPlayers: 1
   lobbyPlayerPrefab: {fileID: 777211228252411877, guid: 0077714ae18b4cc4db46e0217dab04f9,
     type: 3}
   LobbyScene: MenuTest
-  GameplayScene: Ellis
+  GameplayScene: Ellis_jojo
   allPlayersReady: 0
 --- !u!114 &1521917610
 MonoBehaviour:

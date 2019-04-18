@@ -69,6 +69,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4569592541516280936, guid: 544d949eec6e55e46954d5725087b936,
         type: 3}
+      propertyPath: launchingSound.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569592541516280936, guid: 544d949eec6e55e46954d5725087b936,
+        type: 3}
       propertyPath: knockbackForce
       value: 1200
       objectReference: {fileID: 0}
