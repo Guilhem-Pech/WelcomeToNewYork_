@@ -8,6 +8,8 @@ public class WaveText : MonoBehaviour
     private Text text;
     public Color startedColor = new Color(255, 0, 68);
     public Color clearedColor = new Color(99, 199, 77);
+    public AudioClip typingEffectSound;
+    public SoundManager sm;
 
     private bool animRunning = false;
 
@@ -26,10 +28,15 @@ public class WaveText : MonoBehaviour
 
     private IEnumerator AnimSetText(string str)
     {
+        if(!sm)
+            sm = FindObjectOfType<SoundManager>();
+
         animRunning = true;
         for(int i=0; i < str.Length; ++i)
         {
             text.text += str[i];
+            if(i%2 == 0)
+                sm.PlayEffect(typingEffectSound, 1);
             yield return new WaitForSeconds(0.08f);
         }
 
