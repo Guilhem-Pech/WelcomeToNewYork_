@@ -28,10 +28,16 @@ public class WaveManager : NetworkBehaviour
         numVague = wave;
     }
 
+    public void OnChangeEnnemiRestant(int num)
+    {
+        
+        monstersRemaining.SetNumber((uint)(num + nbEnnemisVivant));
+        ennemiRestant = num;
+    }
+
 
     public void OnChangeEnnemiVivant(int num)
     {
-
         monstersRemaining.SetNumber((uint) (num + ennemiRestant));
         nbEnnemisVivant = num;
     }
