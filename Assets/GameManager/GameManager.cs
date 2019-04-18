@@ -26,6 +26,7 @@ public class GameManager : NetworkBehaviour
 
 
         waveMan = gameObject.GetComponent<WaveManager>();
+        waveMan.multEnnemiesPerWave = 0;
         Vector3 position =new Vector3(0,1,0);
         playerMan.SpawnAll(position);
         waveMan.DebutVague();
