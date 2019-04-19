@@ -35,7 +35,6 @@ public abstract class MeleeChar : BaseChar
             this.GetComponent<PlayerController>().enabled = canMoveWhileAttacking;
             isAttacking = true;
             nextAttackID = (nextAttackID + 1) % 3;
-            print("NextAttackID: " + nextAttackID);
 
             UseStamina(currentAttack.GetComponent<MeleeAttack>().staminaCost);
             Vector3 playerPos = this.gameObject.transform.position; // position du joueur

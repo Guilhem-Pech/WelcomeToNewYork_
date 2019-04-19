@@ -21,14 +21,7 @@ public class GameManager : NetworkBehaviour
     {
         SoundManager.instance.PlayAmbiant();
         playerMan = gameObject.GetComponent<PlayerManager>() ;
-       // playerMan.players.AddRange(GameObject.FindObjectsOfType<BaseChar>());
-
-        foreach (BaseChar entite in playerMan.players)
-        {
-            print(entite);
-        }
-
-
+       
         waveMan = gameObject.GetComponent<WaveManager>();
         Vector3 position =new Vector3(0,1,0);
         playerMan.SpawnAll(position);

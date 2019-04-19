@@ -73,7 +73,6 @@ namespace Mirror
 
         public void ResetParameterOptions()
         {
-            Debug.Log("ResetParameterOptions");
             m_ParameterSendBits = 0;
         }
 

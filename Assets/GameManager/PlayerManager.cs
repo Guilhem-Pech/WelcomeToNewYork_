@@ -32,9 +32,6 @@ public class PlayerManager : NetworkBehaviour
             joueurMort.Add(entity.gameObject);
             RpcDeath(entity.gameObject);
         }
-        
-        Debug.Log("PLQYErS  ==========     " + players.Count());
-        Debug.Log("MORTS  ==========     " + joueurMort.Count());
 
 
 
@@ -86,8 +83,6 @@ public class PlayerManager : NetworkBehaviour
             Respawn(entite);
         }
         joueurMort.Clear();
-
-        Debug.Log("MANGE TES GRANDS MORTS         " + joueurMort.Count());
     }
 
     [Server]
@@ -95,9 +90,6 @@ public class PlayerManager : NetworkBehaviour
     {
         foreach (BaseChar entite in players)
         {
-            print(entite.name);
-            print(entite.GetComponent<BaseChar>().GetMaxHealth() + " - " + entite.GetComponent<BaseChar>().currentHealth);
-
             entite.GetComponent<BaseChar>().AddHealth(entite.GetComponent<BaseChar>().GetMaxHealth() - entite.GetComponent<BaseChar>().currentHealth);
         }
     }
@@ -132,7 +124,6 @@ public class PlayerManager : NetworkBehaviour
     public void RpcGameOver(GameObject entity)
     {
         //Affiche un panel avec les stats de la game puis renvoie tout le monde au menu
-        Debug.Log("Vous êtes nuls ptdr");
         GameObject UI = GameObject.Find("UI");
         UI.GetComponent<EndScreen>().AfficherGO();
     }

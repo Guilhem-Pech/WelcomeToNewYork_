@@ -15,13 +15,11 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = currentHealth - hit;
         if (currentHealth > maxHealth)
             currentHealth = maxHealth ;
-        print(currentHealth);
     }
 
     void Start()
     {
         currentHealth = maxHealth;
-        print(currentHealth);
     }
 
     // Update is called once per frame

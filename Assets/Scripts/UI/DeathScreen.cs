@@ -12,14 +12,12 @@ public class DeathScreen : NetworkBehaviour
 
     public void AfficherLabelMort()
     {
-        print("Tu es mort");
         
         deathScreen.SetActive(true);
     }
 
     public void EnleverLabelMort()
     {
-        print("la sorcière te rez");
         deathScreen.SetActive(false);
 
     }

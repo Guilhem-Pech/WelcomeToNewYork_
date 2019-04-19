@@ -93,7 +93,6 @@ public class NaerlyAttackSpe : NetworkBehaviour
             NavMeshHit hit;
             if (NavMesh.Raycast(new Vector3(playerPosition.x, 0.5f, playerPosition.z), new Vector3((vecteurDirection.x * range + playerPosition.x), 0.5f, (vecteurDirection.z * range + playerPosition.z)), out hit, NavMesh.AllAreas))
             {
-                print(hit.GetType().Name);
                 player.transform.position = hit.position;
             }
             else
@@ -122,7 +121,6 @@ public class NaerlyAttackSpe : NetworkBehaviour
         }
         else if (AnimatorIsInState("Ending"))
         {
-            print("wesh le client");
             NavMeshHit hit;
             if (NavMesh.Raycast(new Vector3(playerPosition.x, 0.5f, playerPosition.z), new Vector3((vecteurDirection.x * range + playerPosition.x), 0.5f, (vecteurDirection.z * range + playerPosition.z)), out hit, NavMesh.AllAreas))
             {

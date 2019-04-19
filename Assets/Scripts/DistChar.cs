@@ -92,7 +92,6 @@ public class DistChar : BaseChar
 
     protected override void AttackSpeciale(Vector3 playerPosition_, float angle)
     {
-        print("Bonjour je suis naerly le gentil !");
     }
 
 

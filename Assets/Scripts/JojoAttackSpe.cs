@@ -70,8 +70,7 @@ public class JojoAttackSpe : MeleeAttack
     [ServerCallback]
     private new void OnTriggerEnter(Collider other)
     {
-
-        print(vecteurDirection);
+        
         Vector3 dir;
         if (other.gameObject.tag == "ennemy")
         {

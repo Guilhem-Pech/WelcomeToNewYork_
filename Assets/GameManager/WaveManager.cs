@@ -55,8 +55,7 @@ public class WaveManager : NetworkBehaviour
         spawnMan = gameObject.GetComponent<SpawnManager>() as SpawnManager;
         HordeMan = gameObject.GetComponent<HordesManager>() as HordesManager;
         ennemiVivant = new List<GameObject>();
-
-        //Debug.Log("Init. Manager de Vague!");
+        
         isInWave = false;
         if(waveText == null)
             waveText = GameObject.Find("WaveText").GetComponent<WaveText>();
@@ -82,7 +81,6 @@ public class WaveManager : NetworkBehaviour
                 && ennemiVivant.Count < maxAliveEnnemies)
                 && ennemiRestant > 0)
             {
-                //Debug.Log("Lancement d'un Spawn");
                 spawnMan.SpawnEnnemiRandom(CreateSpawnList(),3);
                 lastWaveTime = 0;
             }
