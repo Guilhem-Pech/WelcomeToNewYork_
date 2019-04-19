@@ -22,7 +22,7 @@ public class LobbyHUD : MonoBehaviour
 
         var adressText = GameObject.Find("TextIP").GetComponent<Text>();
         adressText.text = GetLocalIPAddress();
-      //  Debug.Log(GetLocalIPAddress());
+      // // Debug.Log(GetLocalIPAddress());
     }
 
 

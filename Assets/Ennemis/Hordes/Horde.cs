@@ -287,7 +287,7 @@ public class Horde : ScriptableObject
         }
 
         members.Add(entity.GetInstanceID(),entity);
-       // Debug.Log(ID + ".size = " + members.Count);
+       //// Debug.Log(ID + ".size = " + members.Count);
         return true;
     }
 
@@ -299,7 +299,7 @@ public class Horde : ScriptableObject
         }
         
         members.Remove(entity.GetInstanceID());
-       // Debug.Log(ID + ".size = " + members.Count);
+       //// Debug.Log(ID + ".size = " + members.Count);
         return true;
     }
 
