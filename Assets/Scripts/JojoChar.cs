@@ -13,7 +13,7 @@ public class JojoChar : MeleeChar
     {
         cooldown = 4f;
         period = 0.001f;
-        maxHealth = 250;
+        maxHealth = 500;
         maxStamina = 75;
         nextAttackID = 0;
     }

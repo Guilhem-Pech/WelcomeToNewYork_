@@ -13,12 +13,15 @@ public class DistChar : BaseChar
 
     public float fireRate ;
     public float spreadMax;
+    [SerializeField]
     protected float currentSpread = 0;
     protected float lastShot ;
 
     public Camera camera;
     public float shake = 0;
     public float decreaseFactor = 30.0f;
+    private float countdownAttack;
+    private bool coRoutineCountdownRunning = false;
 
     protected override void Attack(Vector3 point)
     {
@@ -47,7 +50,25 @@ public class DistChar : BaseChar
                 RpcAttaque();
             }
         }
+        countdownAttack = Time.fixedTime + 1;
+        if(!coRoutineCountdownRunning)
+            StartCoroutine(ResetSpread());
 
+    }
+    
+
+    private IEnumerator ResetSpread()
+    {
+        //print("COSTARTED");
+        coRoutineCountdownRunning = true;
+        while (countdownAttack >= Time.fixedTime)
+        {            
+            //print(Time.fixedTime - countdownAttack);
+            yield return null;           
+        }
+            
+        currentSpread = 0;
+        coRoutineCountdownRunning = false;
     }
 
 
@@ -135,8 +156,6 @@ public class DistChar : BaseChar
                 CmdAttaque(hit.point); //Lance le code coté client
             }
         }
-        else
-            currentSpread = 0;
 
         if (Input.GetButtonDown("Fire2"))
         {

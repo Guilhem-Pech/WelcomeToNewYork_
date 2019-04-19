@@ -19,7 +19,7 @@ public class Projectile : NetworkBehaviour
 
     public float radius;
     public float height;
-    public float vitesse = 0.5f;
+    private float vitesse = 12f;
     public float range = 1f;
     public int stamCost = 1;
 

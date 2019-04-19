@@ -7,11 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8886192973171554369, guid: b720a98b8931d624b8af689e7cdfef01,
-        type: 3}
-      propertyPath: m_Name
-      value: Aji_shoot
-      objectReference: {fileID: 0}
     - target: {fileID: 5133126219095373237, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -67,11 +62,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8886192973171554369, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_Name
+      value: Aji_shoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: sd
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
+        type: 3}
+      propertyPath: launchingSound.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: ImpactParticle
       value: 
-      objectReference: {fileID: 4044737711283480158}
+      objectReference: {fileID: 8625587327721678907}
     - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: damage
@@ -106,31 +131,16 @@ PrefabInstance:
         type: 3}
       propertyPath: launchingSound.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: 00ce2870539b8fa4cb6a4b507910e5ab, type: 3}
+      objectReference: {fileID: 8300000, guid: f4d3899a680236f4d935741badadb557, type: 3}
     - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
       propertyPath: launchingSound.Array.data[2]
       value: 
       objectReference: {fileID: 8300000, guid: f4d3899a680236f4d935741badadb557, type: 3}
-    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
+    - target: {fileID: 5250715363777977901, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
-      propertyPath: m_SceneId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
-        type: 3}
-      propertyPath: m_SceneId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7770022620815251022, guid: b720a98b8931d624b8af689e7cdfef01,
-        type: 3}
-      propertyPath: sd
-      value: 
+      propertyPath: vitesse
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8132931055822810995, guid: b720a98b8931d624b8af689e7cdfef01,
         type: 3}
@@ -150,7 +160,7 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b720a98b8931d624b8af689e7cdfef01, type: 3}
---- !u!198 &4044737711283480158 stripped
+--- !u!198 &8625587327721678907 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5734760720971303963, guid: b720a98b8931d624b8af689e7cdfef01,
     type: 3}

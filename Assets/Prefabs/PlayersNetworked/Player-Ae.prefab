@@ -46,6 +46,7 @@ MonoBehaviour:
   - {fileID: 8886192973171554369, guid: b720a98b8931d624b8af689e7cdfef01, type: 3}
   fireRate: 10
   spreadMax: 50
+  currentSpread: 0
   camera: {fileID: 2595192204034945065}
   shake: 0
   decreaseFactor: 10

@@ -424,7 +424,7 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 4
   m_Acceleration: 60
   avoidancePriority: 30
   m_AngularSpeed: 0
@@ -491,6 +491,7 @@ MonoBehaviour:
   syncInterval: 0.1
   maxHealth: 100
   currentHealth: 0
+  healthBar: {fileID: 0}
   isHit: 0
   m_knockBackNormalDir: {x: 0, y: 0, z: 0}
   m_knockBackStrength: 0
