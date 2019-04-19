@@ -24,6 +24,11 @@ public class PlayerManager : NetworkBehaviour
         
     }
 
+    public static PlayerManager GetPlayerMan()
+    {
+        return FindObjectOfType<PlayerManager>();
+    }
+
     [Server]
     public void Death(GameObject entity)
     {
