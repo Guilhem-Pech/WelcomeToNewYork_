@@ -88,7 +88,7 @@ MonoBehaviour:
   spread: 2.5
   range: 6.25
   hitBoxGO: {fileID: 7597772938927774000}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 1606354739076463303}
 --- !u!1 &5254035887163463543
 GameObject:
   m_ObjectHideFlags: 0

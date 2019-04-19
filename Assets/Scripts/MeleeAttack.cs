@@ -28,12 +28,12 @@ public class MeleeAttack : NetworkBehaviour
     protected float animationSpeed = 1f;
 
    
-    protected MeleeChar player;
+    protected BaseChar player;
 
     public void Initialisation(Vector3 playerPosition_, float angle)
     {        
         
-        player = this.gameObject.GetComponentInParent<MeleeChar>();
+        player = this.gameObject.GetComponentInParent<BaseChar> ();
         
 
         
@@ -58,7 +58,7 @@ public class MeleeAttack : NetworkBehaviour
     public void RpcInitClient(GameObject p)
     {
         this.transform.SetParent(p.transform);
-        player = p.GetComponent<MeleeChar>();
+        player = p.GetComponent<BaseChar>();
         this.gameObject.SetActive(true);
     }
 
@@ -66,7 +66,7 @@ public class MeleeAttack : NetworkBehaviour
     {
         if (isServer)
         {
-            player = this.gameObject.GetComponentInParent<MeleeChar>();
+            player = this.gameObject.GetComponentInParent<BaseChar>();
             RpcInitClient(player.gameObject);
         }
             
@@ -95,14 +95,14 @@ public class MeleeAttack : NetworkBehaviour
         else if (AnimatorIsInState("Ending")) // L'attaque est en train de se terminer
         {
             hitBoxGO.SetActive(false);
-            player.isAttacking = false;
+            ((MeleeChar)player).isAttacking = false;
 
             //spriteRenderer.color = Color.blue;
         }
         else if (AnimatorIsInState("Finished"))
         {
             //spriteRenderer.color = Color.black;
-            player.nextAttackID = 0;
+            ((MeleeChar)player).nextAttackID = 0;
             RpcFinishAttack(player.gameObject);
         }
     }
@@ -141,7 +141,7 @@ public class MeleeAttack : NetworkBehaviour
     [ClientRpc]
     protected void RpcFinishAttack(GameObject entity)
     {
-        entity.GetComponent<MeleeChar>().playerAnimation.DisplayHands(true); //on reaffiche les mains
+        entity.GetComponent<BaseChar>().playerAnimation.DisplayHands(true); //on reaffiche les mains
         entity.GetComponent<PlayerController>().enabled = true;
         Destroy(this.gameObject);
     }
