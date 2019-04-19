@@ -59,9 +59,10 @@ public class PlayerManager : NetworkBehaviour
             Destroy(aMeleeAttack.gameObject);
 
 
-        entity.GetComponent<PlayerAnimation>().DisplayHands(true);
+        //entity.GetComponent<PlayerAnimation>().DisplayHands(true);
         entity.GetComponent<PlayerAnimation>().ShowSpecialSprite(false, false);
-        if(entity.GetComponent<MeleeChar>())
+        entity.GetComponent<PlayerAnimation>().showAsDead(true);
+        if (entity.GetComponent<MeleeChar>())
         {
             entity.GetComponent<MeleeChar>().isAttacking = false;
         }
@@ -71,8 +72,9 @@ public class PlayerManager : NetworkBehaviour
             i.color = Color.gray;
         }
         entity.GetComponent<PlayerController>().enabled = false;
-        entity.GetComponent<PlayerAnimation>().enabled = false;
         entity.GetComponent<BaseEntity>().enabled = false;
+        entity.GetComponent<BoxCollider>().enabled = false;
+
 
        /* GameObject uiInGame = GameObject.Find("UI");
         uiInGame.GetComponent<DeathScreen>().AfficherLabelMort();*/
@@ -124,9 +126,10 @@ public class PlayerManager : NetworkBehaviour
             i.color = Color.white;
         }
         entity.GetComponent<PlayerController>().enabled = true;
-        entity.GetComponent<PlayerAnimation>().enabled = true;
+        entity.GetComponent<PlayerAnimation>().showAsDead(false);
         entity.GetComponent<BaseChar>().enabled = true;
         entity.GetComponent<BaseChar>().Start();
+        entity.GetComponent<BoxCollider>().enabled = true;
 
         GameObject UI = GameObject.Find("UI");
         UI.GetComponent<DeathScreen>().EnleverLabelMort();
