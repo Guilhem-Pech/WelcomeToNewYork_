@@ -33,8 +33,8 @@ public class PlayerManager : NetworkBehaviour
             RpcDeath(entity.gameObject);
         }
         
-        Debug.Log("PLQYErS  ==========     " + players.Count());
-        Debug.Log("MORTS  ==========     " + joueurMort.Count());
+       // Debug.Log("PLQYErS  ==========     " + players.Count());
+       // Debug.Log("MORTS  ==========     " + joueurMort.Count());
 
 
 
@@ -87,7 +87,7 @@ public class PlayerManager : NetworkBehaviour
         }
         joueurMort.Clear();
 
-        Debug.Log("MANGE TES GRANDS MORTS         " + joueurMort.Count());
+       // Debug.Log("MANGE TES GRANDS MORTS         " + joueurMort.Count());
     }
 
     [Server]
@@ -132,7 +132,7 @@ public class PlayerManager : NetworkBehaviour
     public void RpcGameOver(GameObject entity)
     {
         //Affiche un panel avec les stats de la game puis renvoie tout le monde au menu
-        Debug.Log("Vous êtes nuls ptdr");
+       // Debug.Log("Vous êtes nuls ptdr");
         GameObject UI = GameObject.Find("UI");
         UI.GetComponent<EndScreen>().AfficherGO();
     }
