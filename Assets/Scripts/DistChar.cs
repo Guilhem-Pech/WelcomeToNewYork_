@@ -59,11 +59,11 @@ public class DistChar : BaseChar
 
     private IEnumerator ResetSpread()
     {
-        print("COSTARTED");
+        //print("COSTARTED");
         coRoutineCountdownRunning = true;
         while (countdownAttack >= Time.fixedTime)
         {            
-            print(Time.fixedTime - countdownAttack);
+            //print(Time.fixedTime - countdownAttack);
             yield return null;           
         }
             

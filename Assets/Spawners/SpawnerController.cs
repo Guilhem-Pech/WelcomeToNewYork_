@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.AI;
+
 public class SpawnerController : NetworkBehaviour
 {
 
@@ -55,6 +57,12 @@ public class SpawnerController : NetworkBehaviour
                 0,
                 transform.position.z + Random.Range(-spawnRadius, spawnRadius)
             );
+
+            NavMeshHit hit;
+            if ((NavMesh.Raycast(gameObject.transform.position, position, out hit, NavMesh.AllAreas)))
+            { //Si c'est le cas, on ajuste la position de la tp
+                position = hit.position;
+            }
 
             spawnList[i].transform.position = position;
             spawnList[i].SetActive(true);
