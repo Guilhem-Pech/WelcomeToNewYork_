@@ -297,6 +297,15 @@ public class PlayerAnimation : NetworkBehaviour
         return -handGameObject.transform.rotation.eulerAngles.y;
     }
 
+    public void showAsDead(bool isDead)
+    {
+        bodyClothesAnimator.SetBool("isDead", isDead);
+        headClothesSpriteRenderer.enabled = !isDead;
+        headSpriteRenderer.enabled = !isDead;
+        bodySpriteRenderer.enabled = !isDead;
+        DisplayHands(!isDead);
+    }
+
 
 
 }
