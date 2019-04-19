@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16cdd7da6fc3c947bb0ee8ded71533b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadingText: Chargement
+  waitingForPlayersText: En Attente des autres joueurs
 --- !u!1 &6162592338412966097
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +104,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4035339656890937729}
   - component: {fileID: 6309618361696970435}
+  - component: {fileID: 1983071733972186011}
+  - component: {fileID: 3129966588442865759}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -138,6 +142,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6162592338412966097}
   m_CullTransparentMesh: 0
+--- !u!114 &1983071733972186011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162592338412966097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+  m_AssetId: 375167e0e99b50c4db08514727f7c551
+  m_SceneId: 0
+--- !u!114 &3129966588442865759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162592338412966097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38876698d3746f14d8b2f889cb66b204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0.1
 --- !u!1 &7859765764063099412
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,14 +276,13 @@ GameObject:
   - component: {fileID: 8954043349814055922}
   - component: {fileID: 3342727127787437911}
   - component: {fileID: 6720877489295118382}
-  - component: {fileID: 4225093043752293300}
   m_Layer: 5
   m_Name: LoadingScreen
-  m_TagString: Untagged
+  m_TagString: LoadingScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8954043349814055922
 RectTransform:
   m_ObjectHideFlags: 0
@@ -308,16 +340,3 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &4225093043752293300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8936395868362107788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38876698d3746f14d8b2f889cb66b204, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncInterval: 0.1

@@ -14,32 +14,49 @@ public class TextLoad : MonoBehaviour
     void Start()
     {
         doneLoading = false;
-
         it = 3;
-        gameObject.GetComponent<Text>().text = addPoints(loadingText, it);
+
+        TextUpdate();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartPrinting()
     {
-        if (!doneLoading)
-        {
-            if (it == 3)
-                it = 1;
-            else
-                it++;
-
-            gameObject.GetComponent<Text>().text = addPoints(loadingText, it);
-        }
+        StartCoroutine("TextUpdateRoutine");
     }
 
-    private string addPoints(string s,int n)
+    private string AddPoints(string s,int n)
     {
         string sToModify = s + " ";
 
-        for (int i = 0; i > n; i++)
+        for (int i = 0; i < n; i++)
             sToModify += ".";
 
         return sToModify;
+    }
+
+    private void TextUpdate()
+    {
+        string toPrint;
+        if (!doneLoading)
+            toPrint = loadingText;
+        else
+            toPrint = waitingForPlayersText;
+
+        if (it == 3)
+            it = 1;
+        else
+            it++;
+
+        gameObject.GetComponent<Text>().text = AddPoints(toPrint, it);
+    }
+
+    IEnumerator TextUpdateRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.25f);
+
+            TextUpdate();
+        }
     }
 }

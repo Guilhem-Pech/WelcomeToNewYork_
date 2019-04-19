@@ -6181,6 +6181,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2095222863}
     m_Modifications:
+    - target: {fileID: 1983071733972186011, guid: 375167e0e99b50c4db08514727f7c551,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 1287139881
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SceneId
+      value: 2014356804
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ServerOnly
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8936395868362107788, guid: 375167e0e99b50c4db08514727f7c551,
         type: 3}
       propertyPath: m_Name
@@ -6190,6 +6203,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8936395868362107788, guid: 375167e0e99b50c4db08514727f7c551,
+        type: 3}
+      propertyPath: m_TagString
+      value: LoadingScreen
       objectReference: {fileID: 0}
     - target: {fileID: 8954043349814055922, guid: 375167e0e99b50c4db08514727f7c551,
         type: 3}
@@ -6330,6 +6348,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.762
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430639451270207513, guid: 375167e0e99b50c4db08514727f7c551,
+        type: 3}
+      propertyPath: m_Text
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 375167e0e99b50c4db08514727f7c551, type: 3}
