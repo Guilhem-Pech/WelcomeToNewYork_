@@ -82,6 +82,11 @@ PrefabInstance:
       propertyPath: ImpactParticle
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4569592541516280936, guid: 544d949eec6e55e46954d5725087b936,
+        type: 3}
+      propertyPath: damage
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 2044800881555635211, guid: 544d949eec6e55e46954d5725087b936,
         type: 3}
       propertyPath: m_SceneId

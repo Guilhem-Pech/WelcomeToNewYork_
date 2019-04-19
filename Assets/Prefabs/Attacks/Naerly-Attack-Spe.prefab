@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
-  damage: 50
+  damage: 80
   staminaCost: 0
   duration: 0
   knockBackForce: 0

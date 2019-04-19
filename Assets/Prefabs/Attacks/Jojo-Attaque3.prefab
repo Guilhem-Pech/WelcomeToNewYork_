@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
-  damage: 100
+  damage: 125
   staminaCost: 15
   duration: 2.5
   knockBackForce: 16
@@ -56,7 +56,6 @@ MonoBehaviour:
   spread: 1
   range: 3
   hitBoxGO: {fileID: 0}
-  sound: {fileID: 8300000, guid: 567c9d0cea739c441a719f0a4b2b0129, type: 3}
   spriteRenderer: {fileID: 1606354739076463303}
 --- !u!54 &2451242530065665451
 Rigidbody:

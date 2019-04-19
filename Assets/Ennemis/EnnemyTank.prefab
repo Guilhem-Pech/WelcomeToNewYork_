@@ -69,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1347468017, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
       propertyPath: maxHealth
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1347468017, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
       propertyPath: ChaseSpeed
@@ -138,7 +138,7 @@ PrefabInstance:
     - target: {fileID: 9154944287861311086, guid: 407efa53fed63d442ade6e7d1d100ce0,
         type: 3}
       propertyPath: Damage
-      value: 20
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 9154944287861311086, guid: 407efa53fed63d442ade6e7d1d100ce0,
         type: 3}

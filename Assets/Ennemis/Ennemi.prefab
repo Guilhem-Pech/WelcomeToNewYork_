@@ -315,7 +315,7 @@ MonoBehaviour:
   syncInterval: 0.1
   cooldown: 1
   timeSinceLastAttack: 0
-  Damage: 10
+  Damage: 50
 --- !u!1 &2475085703572205648
 GameObject:
   m_ObjectHideFlags: 0

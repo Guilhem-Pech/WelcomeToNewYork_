@@ -4890,7 +4890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
-  damage: 15
+  damage: 20
   knockbackForce: 100
   knockbackDuration: 0.1
   targetTag: ennemy
@@ -4903,7 +4903,6 @@ MonoBehaviour:
   ImpactParticle: {fileID: 5734760720971303963}
   radius: 0.25
   height: 0.25
-  vitesse: 10
   range: 100
   stamCost: 1
 --- !u!54 &5861464888486587980

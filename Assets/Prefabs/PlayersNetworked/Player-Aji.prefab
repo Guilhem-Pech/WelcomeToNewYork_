@@ -26,7 +26,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
-  maxHealth: 100
+  maxHealth: 250
   currentHealth: 0
   healthBar: {fileID: 0}
   isHit: 0
