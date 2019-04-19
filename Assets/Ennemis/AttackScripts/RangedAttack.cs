@@ -26,7 +26,7 @@ public class RangedAttack : AbstractAttack
         NetworkServer.Spawn(theShot);
 
         
-        theShot.GetComponent<Projectile>().initialisation(angle, shooterPos);
+        theShot.GetComponent<Projectile>().Initialisation(angle, shooterPos);
         LaunchCooldown();
     }
 

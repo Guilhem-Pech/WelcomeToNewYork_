@@ -90,7 +90,7 @@ public class HordesManager : NetworkBehaviour
     [Server]
     private void DeleteHorde(Horde toDelete)
     {
-      //  Debug.Log("Deleting Horde n°" + toDelete.getID());
+      // // Debug.Log("Deleting Horde n°" + toDelete.getID());
         toDelete.clearHorde();
         hordes.Remove(toDelete.getID());
     }

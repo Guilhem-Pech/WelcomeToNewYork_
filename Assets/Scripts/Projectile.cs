@@ -29,7 +29,7 @@ public class Projectile : NetworkBehaviour
 
 
 
-    public void initialisation(float angle,Vector3 startPos)
+    public void Initialisation(float angle,Vector3 startPos)
     {
         direction = new Vector2(Mathf.Sin(Mathf.Deg2Rad * (-angle+90)), Mathf.Cos(Mathf.Deg2Rad * (-angle+90)));
         this.gameObject.GetComponent<CapsuleCollider>().radius = radius;
@@ -46,16 +46,20 @@ public class Projectile : NetworkBehaviour
     [ClientRpc]
     public void RpcInitialiseClient(Vector3 Position, Vector3 angle, Vector2 dir)
     {
-        direction = dir;
-        this.gameObject.GetComponent<CapsuleCollider>().radius = radius;
-        this.gameObject.GetComponent<CapsuleCollider>().height = height;
+        if (!isServer)
+        {
+            direction = dir;
+            this.gameObject.GetComponent<CapsuleCollider>().radius = radius;
+            this.gameObject.GetComponent<CapsuleCollider>().height = height;
 
-        this.gameObject.transform.position = Position;
-        this.transform.eulerAngles = angle;
+            this.gameObject.transform.position = Position;
+            this.transform.eulerAngles = angle;
 
-        exisTime = Time.time;
-        this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x, 0f, direction.y) * vitesse);
+            exisTime = Time.time;
 
+            this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x, 0f, direction.y) * vitesse);
+        }
+        
         if (launchingSound.Count != 0)
         {
             int randomSound = Random.Range(0, launchingSound.Count);

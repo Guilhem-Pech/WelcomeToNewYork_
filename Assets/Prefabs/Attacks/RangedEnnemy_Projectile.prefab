@@ -4895,7 +4895,8 @@ MonoBehaviour:
   knockbackDuration: 0.1
   targetTag: Player
   allyTag: ennemy
-  launchingSound: {fileID: 8300000, guid: 55846fd44522f214da3f30ef51bd1176, type: 3}
+  launchingSound:
+  - {fileID: 8300000, guid: 55846fd44522f214da3f30ef51bd1176, type: 3}
   touchSound: {fileID: 8300000, guid: d292138cf20a8e14abe9d55efbb193a9, type: 3}
   ImpactParticle: {fileID: 5734760720971303963}
   radius: 0.25
@@ -4945,10 +4946,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneId: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
   m_AssetId: b1356d1ede25bdf468b02c8536aab85a
+  m_SceneId: 0
 --- !u!114 &8987307706964464419
 MonoBehaviour:
   m_ObjectHideFlags: 0

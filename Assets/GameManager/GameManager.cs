@@ -32,22 +32,36 @@ public class GameManager : NetworkBehaviour
         waveMan = gameObject.GetComponent<WaveManager>();
         Vector3 position =new Vector3(0,1,0);
         playerMan.SpawnAll(position);
-        StartCoroutine("TimerStart", timeWaitFirstWave);
+        StartCoroutine(TimerStart(timeWaitFirstWave));
     }
 
     [Server]
     public void FinVague()
     {
-        playerMan.RespawnAll();
-        playerMan.HealAll();
-        StartCoroutine("TimerStart", timeWaitBetweenWaves);
+        StartCoroutine(TimerStart(timeWaitBetweenWaves));
+
+        try{
+            playerMan.RespawnAll();
+        }
+        catch (System.InvalidOperationException e)
+        {}
+
+        try
+        {
+            playerMan.HealAll();
+        }
+        catch (System.InvalidOperationException e)
+        {}
+        
+
+
     }
 
     IEnumerator TimerStart(float time)
     {
         yield return new WaitForSeconds(time);
-        playerMan.RespawnAll();
-        playerMan.HealAll();
+        //playerMan.RespawnAll();
+        //playerMan.HealAll();
         waveMan.DebutVague();
         yield return null;
     }

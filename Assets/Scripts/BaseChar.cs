@@ -173,7 +173,7 @@ public abstract class BaseChar : BaseEntity
     [TargetRpc]
     public void TargetAffichMort(NetworkConnection nC)
     {
-        Debug.Log("YALAAAAAAAAAAAAAAH");
+       // Debug.Log("YALAAAAAAAAAAAAAAH");
         GameObject UI = GameObject.Find("UI");
         UI.GetComponent<DeathScreen>().AfficherLabelMort();
     }
