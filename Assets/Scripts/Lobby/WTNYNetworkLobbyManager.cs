@@ -11,4 +11,11 @@ public class WTNYNetworkLobbyManager : NetworkLobbyManager
         gamePlayer.GetComponent<GameplayPlayer>().realGameplay = lobbyPlayer.GetComponent<LobbyPlayer>().choosenChar.gameObject; 
         return true;
     }
+
+    public override void OnServerDisconnect(NetworkConnection conn)
+    {
+        PlayerManager.GetPlayerMan().players.Remove(conn.playerController.gameObject.GetComponent<BaseChar>());
+        base.OnServerDisconnect(conn);
+    }
+
 }

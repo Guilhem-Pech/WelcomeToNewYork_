@@ -4,34 +4,10 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.AI;
 
-public class NaerlyAttackSpe : NetworkBehaviour
+public class NaerlyAttackSpe : MeleeAttack
 {
-    public int damage;
-    public int staminaCost;
-    public float duration;
-    public float knockBackForce;
-    public float knockBackDuration;
 
-    public float spread;
-    public float range;
-
-    public GameObject hitBoxGO; // gameobject auquel le box collider est rattaché
-    protected GameObject animationGO; // gameobject auquel l'animation est rattachée
-
-    [SyncVar]
-    protected Vector3 playerPosition;
-    [SyncVar]
-    protected Vector3 vecteurDirection; // vecteur normalisé de la direction dans laquel part l'attaque
-
-    protected Animator animationAnimator;
-
-    private NaerlyChar player;
-
-    public SpriteRenderer spriteRenderer;
-
-    protected float animationSpeed = 1f;
-
-    public void Initialisation(Vector3 playerPosition_, float angle)
+    /*public void Initialisation(Vector3 playerPosition_, float angle)
     {
         player = this.gameObject.GetComponentInParent<NaerlyChar>();
         playerPosition = playerPosition_;
@@ -44,19 +20,18 @@ public class NaerlyAttackSpe : NetworkBehaviour
         this.hitBoxGO.transform.position = new Vector3((vecteurDirection.x * range / 2 + playerPosition.x), 0.5f, (vecteurDirection.z * range / 2 + playerPosition.z));
         hitBoxGO.SetActive(false);
         this.gameObject.SetActive(true);
-
         
-    }
+    }*/
 
-    [ClientRpc]
+    /*[ClientRpc]
     public void RpcInitClient(GameObject p)
     {
         this.transform.SetParent(p.transform);
         player = p.GetComponent<NaerlyChar>();
         this.gameObject.SetActive(true);
-    }
+    }*/
 
-    protected void Start()
+    /*protected void Start()
     {
         if (isServer)
         {
@@ -68,14 +43,21 @@ public class NaerlyAttackSpe : NetworkBehaviour
         animationAnimator.SetFloat("AnimationSpeedMultiplier", animationSpeed);
         player.playerAnimation.DisplayHands(false); //on cache les mains
         
-    }
+    }*/
 
-    protected void Update()
+   /* protected new void Start()
+    {
+        super(Start());
+    }*/
+
+    protected new void Update()
     {
         if (isServer)
             UpdateServer();
+
         if (isClient)
             UpdateClient();
+
     }
 
     private void UpdateServer()
@@ -93,19 +75,18 @@ public class NaerlyAttackSpe : NetworkBehaviour
             NavMeshHit hit;
             if (NavMesh.Raycast(new Vector3(playerPosition.x, 0.5f, playerPosition.z), new Vector3((vecteurDirection.x * range + playerPosition.x), 0.5f, (vecteurDirection.z * range + playerPosition.z)), out hit, NavMesh.AllAreas))
             {
-                print(hit.GetType().Name);
                 player.transform.position = hit.position;
             }
             else
             {
                 player.transform.position = new Vector3((vecteurDirection.x * range + playerPosition.x), 0, (vecteurDirection.z * range + playerPosition.z));
             }
+            RpcSetPlayerPos(player.transform.position);
             hitBoxGO.SetActive(false);
         }
         else if (AnimatorIsInState("Finished"))
         {
-            //reafficher le personnage aussi
-            FinishAttack();
+            RpcFinishAttack(player.gameObject);
         }
     }
 
@@ -122,26 +103,22 @@ public class NaerlyAttackSpe : NetworkBehaviour
         }
         else if (AnimatorIsInState("Ending"))
         {
-            print("wesh le client");
-            NavMeshHit hit;
-            if (NavMesh.Raycast(new Vector3(playerPosition.x, 0.5f, playerPosition.z), new Vector3((vecteurDirection.x * range + playerPosition.x), 0.5f, (vecteurDirection.z * range + playerPosition.z)), out hit, NavMesh.AllAreas))
-            {
-                player.transform.position = hit.position;
-            }
-            else
-            {
-                player.transform.position = new Vector3((vecteurDirection.x * range + playerPosition.x), 0, (vecteurDirection.z * range + playerPosition.z));
-            }
         } 
         else if (AnimatorIsInState("Finished"))
         {
             //reafficher le personnage aussi
-            FinishAttack();
+            //FinishAttack();
         }
     }
 
+    [ClientRpc]
+    public void RpcSetPlayerPos(Vector3 pos)
+    {
+        player.transform.position = pos;
+    }
+
     [ServerCallback]
-    private void OnTriggerEnter(Collider other)
+    private new void OnTriggerEnter(Collider other)
     {
         Vector3 dir;
         if (other.gameObject.tag == "ennemy")
@@ -163,19 +140,6 @@ public class NaerlyAttackSpe : NetworkBehaviour
                 other.gameObject.GetComponent<TestEnnemy>().onHit(new Vector2(dir.x, dir.z) * knockBackForce, 500, knockBackDuration, damage);
             }
         }
-    }
-
-    protected bool AnimatorIsInState(string stateName)
-    {
-        return animationAnimator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
-    }
-
-    protected void FinishAttack()
-    {
-    
-        player.playerAnimation.DisplayHands(true); //on reaffiche les mains
-        player.GetComponent<PlayerController>().enabled = true;
-        Destroy(this.gameObject);
     }
 
     private void OnDestroy()
