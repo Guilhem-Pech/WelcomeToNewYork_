@@ -25,8 +25,8 @@ public class YeuxFLuo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (spriteParent?.sprite?.name == null || thisSprite == null  || sheetSprite == null)
-            return; 
+        if (spriteParent?.sprite?.name == null || thisSprite == null || sheetSprite == null)
+            return;
 
         switch (spriteParent.sprite.name)
         {
@@ -36,7 +36,7 @@ public class YeuxFLuo : MonoBehaviour
             case "SmallEnnemy_Walk4": thisSprite.sprite = sheetSprite[3]; break;
             case "SmallEnnemy_Walk5": thisSprite.sprite = sheetSprite[4]; break;
             case "SmallEnnemy_Walk6": thisSprite.sprite = sheetSprite[5]; break;
-                
+
             case "SmallEnnemy_Chase1": thisSprite.sprite = sheetSprite[6]; break;
             case "SmallEnnemy_Chase2": thisSprite.sprite = sheetSprite[7]; break;
             case "SmallEnnemy_Chase3": thisSprite.sprite = sheetSprite[8]; break;
@@ -67,8 +67,21 @@ public class YeuxFLuo : MonoBehaviour
             case "RangedEnnemy_Attack7": thisSprite.sprite = sheetSprite[12]; break;
             case "RangedEnnemy_Attack8": thisSprite.sprite = sheetSprite[13]; break;
 
-            case "RangedEnnemy_Stun": thisSprite.sprite = sheetSprite[14]; break;
-         
+            case "TankEnnemy_Walking1": thisSprite.sprite = sheetSprite[0]; break;
+            case "TankEnnemy_Walking2": thisSprite.sprite = sheetSprite[1]; break;
+            case "TankEnnemy_Walking3": thisSprite.sprite = sheetSprite[2]; break;
+            case "TankEnnemy_Walking4": thisSprite.sprite = sheetSprite[3]; break;
+            case "TankEnnemy_Walking5": thisSprite.sprite = sheetSprite[4]; break;
+            case "TankEnnemy_Walking6": thisSprite.sprite = sheetSprite[5]; break;
+            case "TankEnnemy_Walking7": thisSprite.sprite = sheetSprite[6]; break;
+            case "TankEnnemy_Walking8": thisSprite.sprite = sheetSprite[7]; break;
+
+            case "TankEnnemy_Attacking1": thisSprite.sprite = sheetSprite[8]; break;
+            case "TankEnnemy_Attacking2": thisSprite.sprite = sheetSprite[9]; break;
+            case "TankEnnemy_Attacking3": thisSprite.sprite = sheetSprite[10]; break;
+            case "TankEnnemy_Attacking4": thisSprite.sprite = sheetSprite[11]; break;
+            case "TankEnnemy_Attacking5": thisSprite.sprite = sheetSprite[12]; break;
+
             default: thisSprite.sprite = null; break;
         }
     }

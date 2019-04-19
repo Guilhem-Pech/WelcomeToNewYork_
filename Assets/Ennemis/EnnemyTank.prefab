@@ -155,5 +155,16 @@ PrefabInstance:
       propertyPath: m_AssetId
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7627426960142205970, guid: 407efa53fed63d442ade6e7d1d100ce0,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300010, guid: a002b261512fd814e9fb41d7e9d4ef0d,
+        type: 3}
+    - target: {fileID: 4813859173184208039, guid: 407efa53fed63d442ade6e7d1d100ce0,
+        type: 3}
+      propertyPath: sheetName
+      value: Monstre-Sheet-Fluo
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
