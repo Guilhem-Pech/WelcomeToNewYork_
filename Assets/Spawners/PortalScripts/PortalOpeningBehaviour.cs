@@ -9,6 +9,7 @@ public class PortalOpeningBehaviour : StateMachineBehaviour
     {
         animator.SetBool("IsSpawning", false);
         animator.SetBool("IsClosing", false);
+        SoundManager.GetSoundManager().PlaySound(animator.gameObject.GetComponentInParent<Portal>().openingSound, animator.gameObject,0.2f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

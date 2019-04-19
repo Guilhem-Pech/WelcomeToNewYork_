@@ -11,6 +11,11 @@ public class SoundManager : MonoBehaviour
     public float highPitchRange = 1.05f;            
     public AudioSource ambiantSource;
 
+    public static SoundManager GetSoundManager()
+    {
+        return FindObjectOfType<SoundManager>();
+    }
+
     void Awake()
     {
         //Check if there is already an instance of SoundManager
@@ -39,11 +44,11 @@ public class SoundManager : MonoBehaviour
     {
         ambiantSource.Play();
     }
-    public void PlaySound(AudioClip clip, GameObject go)
+    public void PlaySound(AudioClip clip, GameObject go, float volume = 1)
     {
         AudioSource audioSource = go.AddComponent<AudioSource>();
         audioSource.spatialize = true ;
-
+        audioSource.volume = volume;
         // si spatialize marche, pas ce qui est fort probable supprimer la ligne au dessus et décommenter en dessous
 
         /*audioSource.spatialBlend = 1;

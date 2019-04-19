@@ -50,13 +50,7 @@ public abstract class BaseChar : BaseEntity
 
     public void OnChangeStamina(int cur)
     {
-        if (GetStaminaLevelUI() == null)
-            return;
-
-        if(isLocalPlayer)
-            GetStaminaLevelUI().SetLevel(cur,maxStamina);
-
-        currentStamina = cur;
+      currentStamina = cur;
     }
 
     public void OnAttSpeReady(bool isIt)
