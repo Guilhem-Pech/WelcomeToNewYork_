@@ -46,7 +46,7 @@ public class PauseMenu : NetworkBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("QUIT!");
+       //// Debug.Log("QUIT!");
         Application.Quit();
     }
 

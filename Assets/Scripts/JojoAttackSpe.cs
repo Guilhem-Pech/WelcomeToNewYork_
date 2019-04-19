@@ -71,11 +71,11 @@ public class JojoAttackSpe : MeleeAttack
     private new void OnTriggerEnter(Collider other)
     {
 
-        print(vecteurDirection);
+        // print(vecteurDirection);
         Vector3 dir;
         if (other.gameObject.tag == "ennemy")
         {
-           // print(this.transform.position);
+           // // print(this.transform.position);
 
             Transform test = this.transform;
             Vector3 PosRelative = test.InverseTransformPoint(other.transform.position);

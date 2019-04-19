@@ -126,8 +126,8 @@ public class SpawnManager : NetworkBehaviour
     public void SpawnEnnemiRandom(List<GameObject> prefabsList, int nbSpawners)
     {
         List<GameObject> spawners = GetTopSpawners(nbSpawners);
-        if (spawners.Count <= 0)
-            Debug.LogWarning(prefabsList + "spawner is EMPTY");
+        //if (spawners.Count <= 0) 
+           // Debug.LogWarning(prefabsList + "spawner is EMPTY");
 
         int it = 0;
 
