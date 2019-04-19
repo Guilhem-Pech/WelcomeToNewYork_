@@ -61,18 +61,18 @@ public class SpawnTargetController : NetworkBehaviour
     {
         float result = 0;
         CheckManager();
-        Debug.Log("     Spawner <" + Spawner.name + "> :");
+        //Debug.Log("     Spawner <" + Spawner.name + "> :");
         
         float distToSpawner = (Spawner.transform.position - gameObject.transform.position).magnitude;
-        Debug.Log("         distToSpawner : " + distToSpawner);
+        //Debug.Log("         distToSpawner : " + distToSpawner);
         result = (distToSpawner - minSpawnDist);
-        Debug.Log("         Calcul du result : " + result);
+        //Debug.Log("         Calcul du result : " + result);
 
         NavMeshHit hitResult;
         if ((NavMesh.Raycast(gameObject.transform.position, Spawner.transform.position, out hitResult, NavMesh.AllAreas)))
         {
             result = 0 -(Mathf.Abs(result)) - (minSpawnDist);
-            Debug.Log("         Collision -> correction du result : " + result);
+            //Debug.Log("         Collision -> correction du result : " + result);
         }
 
         return result;
