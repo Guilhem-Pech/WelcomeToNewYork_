@@ -21,7 +21,7 @@ public class IdleBehaviour : StateMachineBehaviour
         steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
         agent = animator.gameObject.GetComponent<NavMeshAgent>();
 
-        agent.speed = EnnemiParams.Instance.SeekSpeed;
+        agent.speed = animator.gameObject.GetComponent<TestEnnemy>().SeekSpeed;
 
         animBridge.playAnimation("Idle");
         timeSinceStateEnter = 0f;

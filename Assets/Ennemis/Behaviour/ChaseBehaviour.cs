@@ -22,7 +22,7 @@ public class ChaseBehaviour : StateMachineBehaviour {
         steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
         attackSys = animator.gameObject.GetComponentInChildren<AttackSystem>();
 
-        agent.speed = EnnemiParams.Instance.ChaseSpeed;
+        agent.speed = animator.gameObject.GetComponent<TestEnnemy>().ChaseSpeed;
 
         steerSys.AllOff();
 

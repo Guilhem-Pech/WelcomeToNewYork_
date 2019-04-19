@@ -6,6 +6,9 @@ using UnityEngine.AI;
 
 public class TestEnnemy : BaseEntity
 {
+    public float ChaseSpeed = 4f;
+    public float SeekSpeed = 2.5f;
+    public float WalkingSpeed = 1.5f;
 
     [ReadOnly] public Vector3 m_knockBackNormalDir;
     [ReadOnly] public float m_knockBackStrength;

@@ -18,7 +18,7 @@ public class WanderBehaviour : StateMachineBehaviour
         targetSys = animator.gameObject.GetComponentInChildren<TargetingSystem>();
         steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
 
-        agent.speed = EnnemiParams.Instance.WalkingSpeed;
+        agent.speed = animator.gameObject.GetComponent<TestEnnemy>().WalkingSpeed;
 
         animBridge.playAnimation("Walking");
         steerSys.AllOff();

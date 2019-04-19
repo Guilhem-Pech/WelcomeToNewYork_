@@ -67,6 +67,8 @@ MonoBehaviour:
   syncInterval: 0.1
   waveMan: {fileID: 0}
   playerMan: {fileID: 0}
+  timeWaitFirstWave: 10
+  timeWaitBetweenWaves: 10
 --- !u!114 &6588552505725600414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,19 +111,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
-  prefabCaC: {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0,
+  prefabCaC: {fileID: 7405900760318703354, guid: 0b83cf0b2be5e7044b0cc1d3e70de470,
     type: 3}
   prefabDistance: {fileID: 5592136169436092911, guid: 8819b8f6a91c04340a88e33aaae33a23,
     type: 3}
+  timeWaitFirstSpawnWave: 2
+  timeWaitBetweenSpawnWaves: 10
+  isInWave: 0
   multEnnemiesPerWave: 3
   maxAliveEnnemies: 50
   numVague: 0
   numEnnemisVague: 0
   ennemiVivant: []
+  nbEnnemisVivant: 0
   ennemiRestant: 0
   spawnMan: {fileID: 0}
-  isInWave: 0
-  underWaveDelay: 10
+  waveText: {fileID: 0}
+  monstersRemaining: {fileID: 0}
 --- !u!114 &1058786166153506065
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -493,6 +493,9 @@ MonoBehaviour:
   currentHealth: 0
   healthBar: {fileID: 0}
   isHit: 0
+  ChaseSpeed: 5
+  SeekSpeed: 3
+  WalkingSpeed: 1.5
   m_knockBackNormalDir: {x: 0, y: 0, z: 0}
   m_knockBackStrength: 0
   m_knockBackDuration: 0

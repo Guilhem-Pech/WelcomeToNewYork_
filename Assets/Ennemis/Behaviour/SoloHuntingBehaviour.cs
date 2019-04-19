@@ -20,7 +20,7 @@ public class SoloHuntingBehaviour : StateMachineBehaviour
         targetSys = animator.gameObject.GetComponentInChildren<TargetingSystem>();
         steerSys = animator.gameObject.GetComponentInChildren<SteeringSystem>();
 
-        agent.speed = EnnemiParams.Instance.ChaseSpeed;
+        agent.speed = animator.gameObject.GetComponent<TestEnnemy>().ChaseSpeed;
 
         steerSys.AllOff();
         GameObject nearestPlayer = getNearestPlayer(animator);
