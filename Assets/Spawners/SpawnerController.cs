@@ -35,7 +35,7 @@ public class SpawnerController : NetworkBehaviour
                 if (spawnList.Count == 0)
                     DeactivateSpawn();
 
-                //Debug.Log("Spawn d'un ennemi !");
+                //// Debug.Log("Spawn d'un ennemi !");
                 Spawn();
                 lastSpawnTime = 0f;
             }
@@ -69,7 +69,7 @@ public class SpawnerController : NetworkBehaviour
 
     public void AddToSpawnList(List<GameObject> ennemyTypesList)
     {
-        //Debug.Log("     Spawner <" + name + "> : Ajout de " + ennemyTypesList.Count + " ennemis à spawn");
+        //// Debug.Log("     Spawner <" + name + "> : Ajout de " + ennemyTypesList.Count + " ennemis à spawn");
         spawnList.AddRange(ennemyTypesList);
         ActivateSpawn();
     }
@@ -79,7 +79,7 @@ public class SpawnerController : NetworkBehaviour
         if (isSpawning)
             return;
 
-        //Debug.Log("     Spawner <" + name + "> : Activation du spawn");
+        //// Debug.Log("     Spawner <" + name + "> : Activation du spawn");
         isSpawning = true;
         lastSpawnTime = 0;
         gameObject.GetComponent<AnimationsReplicationBridge>().playAnimation("Opening");
@@ -90,7 +90,7 @@ public class SpawnerController : NetworkBehaviour
         if (!isSpawning)
             return;
 
-        //Debug.Log("     Spawner <" + name + "> : Désactivation du spawn");
+        //// Debug.Log("     Spawner <" + name + "> : Désactivation du spawn");
         isSpawning = false;
         gameObject.GetComponent<AnimationsReplicationBridge>().SetBoolParam("IsClosing", true);
     }

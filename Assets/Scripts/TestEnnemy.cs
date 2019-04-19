@@ -82,7 +82,7 @@ public class TestEnnemy : BaseEntity
         if(gm != null)
          gm.GetComponent<GameManager>().waveMan.ennemiVivant.Remove(this.gameObject);
         else
-            Debug.LogWarning("There is no GameManager !", this);
+            // Debug.LogWarning("There is no GameManager !", this);
 
         Destroy(this.gameObject);
     }
