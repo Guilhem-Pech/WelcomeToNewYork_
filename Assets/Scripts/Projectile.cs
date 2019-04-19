@@ -38,7 +38,7 @@ public class Projectile : NetworkBehaviour
         this.gameObject.transform.position= new Vector3 (startPos.x + (direction.x/1.1f),0.6f,startPos.z + (direction.y/1.1f));
         this.transform.Rotate(new Vector3(0, 0, angle), Space.Self);
         exisTime = Time.time;
-        //this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x,0f,direction.y) * vitesse);
+        this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x,0f,direction.y) * vitesse);
 
         RpcInitialiseClient(this.gameObject.transform.position, this.transform.eulerAngles,direction);
     }
@@ -46,16 +46,20 @@ public class Projectile : NetworkBehaviour
     [ClientRpc]
     public void RpcInitialiseClient(Vector3 Position, Vector3 angle, Vector2 dir)
     {
-        direction = dir;
-        this.gameObject.GetComponent<CapsuleCollider>().radius = radius;
-        this.gameObject.GetComponent<CapsuleCollider>().height = height;
+        if (!isServer)
+        {
+            direction = dir;
+            this.gameObject.GetComponent<CapsuleCollider>().radius = radius;
+            this.gameObject.GetComponent<CapsuleCollider>().height = height;
 
-        this.gameObject.transform.position = Position;
-        this.transform.eulerAngles = angle;
+            this.gameObject.transform.position = Position;
+            this.transform.eulerAngles = angle;
 
-        exisTime = Time.time;
-        this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x, 0f, direction.y) * vitesse);
+            exisTime = Time.time;
 
+            this.gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x, 0f, direction.y) * vitesse);
+        }
+        
         if (launchingSound.Count != 0)
         {
             int randomSound = Random.Range(0, launchingSound.Count);
