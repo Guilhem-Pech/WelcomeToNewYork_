@@ -81,6 +81,11 @@ PrefabInstance:
         type: 3}
       propertyPath: ImpactParticle
       value: 
+      objectReference: {fileID: 4804702461196686031}
+    - target: {fileID: 4569592541516280936, guid: 544d949eec6e55e46954d5725087b936,
+        type: 3}
+      propertyPath: damage
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 2044800881555635211, guid: 544d949eec6e55e46954d5725087b936,
         type: 3}
@@ -98,6 +103,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 3cb044eb7c04e9e43a9a08e75520897f,
         type: 3}
+    - target: {fileID: 8625587327721679864, guid: 544d949eec6e55e46954d5725087b936,
+        type: 3}
+      propertyPath: m_Name
+      value: Aji_shootSpe
+      objectReference: {fileID: 0}
     - target: {fileID: 8625587327721679869, guid: 544d949eec6e55e46954d5725087b936,
         type: 3}
       propertyPath: m_Name
@@ -119,11 +129,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 3cb044eb7c04e9e43a9a08e75520897f,
         type: 3}
-    - target: {fileID: 8625587327721679864, guid: 544d949eec6e55e46954d5725087b936,
-        type: 3}
-      propertyPath: m_Name
-      value: Aji_shootSpe
-      objectReference: {fileID: 0}
     - target: {fileID: 8625587327721679228, guid: 544d949eec6e55e46954d5725087b936,
         type: 3}
       propertyPath: m_SceneId
@@ -136,3 +141,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 544d949eec6e55e46954d5725087b936, type: 3}
+--- !u!198 &4804702461196686031 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4044737711283480158, guid: 544d949eec6e55e46954d5725087b936,
+    type: 3}
+  m_PrefabInstance: {fileID: 8830557120257553553}
+  m_PrefabAsset: {fileID: 0}

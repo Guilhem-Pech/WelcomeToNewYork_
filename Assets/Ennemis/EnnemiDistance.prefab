@@ -6,7 +6,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8053007204615956702}
+  m_GameObject: {fileID: 6929164673057894180}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1aff4abe1bb69684984c1c04d2651598, type: 3}
@@ -87,11 +87,11 @@ PrefabInstance:
     - target: {fileID: 1347468017, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
       propertyPath: ServerScripts.Array.data[0]
       value: 
-      objectReference: {fileID: 8053007204615957170}
+      objectReference: {fileID: 5870051309266155738}
     - target: {fileID: 1347468017, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
       propertyPath: ServerScripts.Array.data[1]
       value: 
-      objectReference: {fileID: 8053007204615957173}
+      objectReference: {fileID: 5937861823881130757}
     - target: {fileID: 1347468017, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
       propertyPath: ChaseSpeed
       value: 1.8
@@ -99,6 +99,10 @@ PrefabInstance:
     - target: {fileID: 1347468017, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
       propertyPath: SeekSpeed
       value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347468017, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
+      propertyPath: maxHealth
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8561457495242134123, guid: 407efa53fed63d442ade6e7d1d100ce0,
         type: 3}
@@ -256,6 +260,11 @@ PrefabInstance:
       propertyPath: m_AssetId
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 9154944287861311086, guid: 407efa53fed63d442ade6e7d1d100ce0,
+        type: 3}
+      propertyPath: Damage
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 7299487364226825687, guid: 407efa53fed63d442ade6e7d1d100ce0,
         type: 3}
       propertyPath: m_SceneId
@@ -278,7 +287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 407efa53fed63d442ade6e7d1d100ce0, type: 3}
---- !u!114 &8053007204615957170 stripped
+--- !u!114 &5870051309266155738 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4518407791235010917, guid: 407efa53fed63d442ade6e7d1d100ce0,
     type: 3}
@@ -290,7 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f20300ad76ff194aa51edc651c6f3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8053007204615957173 stripped
+--- !u!114 &5937861823881130757 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4442100354338921146, guid: 407efa53fed63d442ade6e7d1d100ce0,
     type: 3}
@@ -302,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ae938bf4823494bbf081c633a699c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8053007204615956702 stripped
+--- !u!1 &6929164673057894180 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1147100604200814235, guid: 407efa53fed63d442ade6e7d1d100ce0,
     type: 3}

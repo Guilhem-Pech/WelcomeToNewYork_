@@ -26,7 +26,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
-  maxHealth: 100
+  maxHealth: 250
   currentHealth: 0
   healthBar: {fileID: 0}
   isHit: 0
@@ -36,7 +36,7 @@ MonoBehaviour:
   playerAnimation: {fileID: 6091739891390892533}
   staminaLevel: {fileID: 0}
   specialLevel: {fileID: 0}
-  tpsRecharge: 5
+  tpsRecharge: 12
   cooldown: 0
   attSpeReady: 1
   rechargeSpe: 0
@@ -60,57 +60,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9186962740140420297, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 69ec9e6d225b2044d987bc64facea86c, type: 2}
-    - target: {fileID: 9186962740140420297, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 69ec9e6d225b2044d987bc64facea86c, type: 2}
-    - target: {fileID: 9186962740140420297, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 69ec9e6d225b2044d987bc64facea86c, type: 2}
-    - target: {fileID: 9186962740140420296, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300002, guid: f4972fde69cfa7b48ac310a27e4e6571,
-        type: 3}
-    - target: {fileID: 9186962740140420296, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300002, guid: f4972fde69cfa7b48ac310a27e4e6571,
-        type: 3}
-    - target: {fileID: 9186962740140420296, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300002, guid: f4972fde69cfa7b48ac310a27e4e6571,
-        type: 3}
-    - target: {fileID: 9186962740861974752, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300006, guid: f4972fde69cfa7b48ac310a27e4e6571,
-        type: 3}
-    - target: {fileID: 9186962740861974752, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300006, guid: f4972fde69cfa7b48ac310a27e4e6571,
-        type: 3}
-    - target: {fileID: 9186962740861974752, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300006, guid: f4972fde69cfa7b48ac310a27e4e6571,
-        type: 3}
     - target: {fileID: 9186962741301816459, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_Name
@@ -121,6 +70,57 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player-Aji
       objectReference: {fileID: 0}
+    - target: {fileID: 9186962740140420297, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 69ec9e6d225b2044d987bc64facea86c, type: 2}
+    - target: {fileID: 9186962740140420297, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 69ec9e6d225b2044d987bc64facea86c, type: 2}
+    - target: {fileID: 9186962740140420297, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 69ec9e6d225b2044d987bc64facea86c, type: 2}
+    - target: {fileID: 9186962740140420296, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300002, guid: f4972fde69cfa7b48ac310a27e4e6571,
+        type: 3}
+    - target: {fileID: 9186962740140420296, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300002, guid: f4972fde69cfa7b48ac310a27e4e6571,
+        type: 3}
+    - target: {fileID: 9186962740140420296, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300002, guid: f4972fde69cfa7b48ac310a27e4e6571,
+        type: 3}
+    - target: {fileID: 9186962740861974752, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300006, guid: f4972fde69cfa7b48ac310a27e4e6571,
+        type: 3}
+    - target: {fileID: 9186962740861974752, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300006, guid: f4972fde69cfa7b48ac310a27e4e6571,
+        type: 3}
+    - target: {fileID: 9186962740861974752, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300006, guid: f4972fde69cfa7b48ac310a27e4e6571,
+        type: 3}
     - target: {fileID: 9186962742028429047, guid: 60ae6c17b1bcb734581d343ef4b03cf9,
         type: 3}
       propertyPath: m_Controller

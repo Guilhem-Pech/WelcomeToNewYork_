@@ -53,7 +53,7 @@ public class NaerlyChar : DistChar
             {
                 rechargeSpe = false;
                 attSpeReady = true;
-                cooldown = 1f;
+                cooldown = 10f;
             }
         }
 
