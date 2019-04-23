@@ -1,17 +1,12 @@
-Plugin Version: 3.15
+Plugin Version: 3.20
 Unity Version: 5.3.* - 2019 1.*
-
-# Smooth Sync
-Performs interpolation and extrapolation in order to make your objects smooth and more accurate over the network.
-Highly configurable, only send what you need. Optionally compress floats to further reduce bandwidth. 
-Customizable interpolation and extrapolation settings depending on your game's needs.
-Comes with a fully functional example scene.
-The full source code is provided so you can see everything with detailed comments!
 
 Supports Windows, OSX, Linux, iOS, Android, Windows Phone, Xbox, PlayStation, Nintendo. If Unity runs it, it'll run!
 
+## Step 1 - Unpackage the Smooth Sync package for the networking system you use.
+
 ## UNet / Mirror
-## Step 1 - Drag and Drop
+## Step 2 - Drag and Drop
 
 1. Put the SmoothSync script onto any parent networked object that you want to be smoother. 
 2. It will automatically sync the object it is on. 
@@ -21,13 +16,13 @@ Supports Windows, OSX, Linux, iOS, Android, Windows Phone, Xbox, PlayStation, Ni
 3. It is now smoothy synced across the network. 
 
 ## PUN and PUN2
-## Step 1 - Drag and Drop
+## Step 2 - Drag and Drop
 
 1. Put the SmoothSync script onto any networked object that you want to be smoother. 
 2. Drag the object's Smooth Sync component to the Photon View's Observed Components. 
 3. It is now smoothy synced across the network. 
 
-## Step 2 - Tweak to Your Needs
+## Step 3 - Tweak to Your Needs
 
 Now that it is on your networked object:
 

@@ -24,7 +24,8 @@ public class LobbyJoin : MonoBehaviour
         }
 
         manager.networkAddress = ipTextBox.text;
-        connection = manager.StartClient();
+        manager.StartClient();
+            
                
     }
 
@@ -43,8 +44,8 @@ public class LobbyJoin : MonoBehaviour
         }
            
 
-        bool noConnection = (manager.client == null || manager.client.connection == null ||
-                                 manager.client.connection.connectionId == -1);
+        bool noConnection = (manager.client == null || NetworkClient.connection == null ||
+                                 NetworkClient.connection.connectionId == -1);
 
         if (!manager.IsClientConnected() && !NetworkServer.active)
         {
