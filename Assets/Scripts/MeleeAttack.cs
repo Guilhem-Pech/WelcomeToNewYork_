@@ -58,6 +58,7 @@ public class MeleeAttack : NetworkBehaviour
     public void RpcInitClient(GameObject p)
     {
         this.transform.SetParent(p.transform);
+        this.transform.localPosition = Vector3.zero;
         player = p.GetComponent<BaseChar>();
         this.gameObject.SetActive(true);
     }

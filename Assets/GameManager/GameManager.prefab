@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  serverOnly: 0
+  localPlayerAuthority: 0
   m_AssetId: 49f12cdb09e7275438716bda1366733c
   m_SceneId: 0
 --- !u!114 &5721538680903392093
@@ -115,7 +115,7 @@ MonoBehaviour:
     type: 3}
   prefabDistance: {fileID: 5592136169436092911, guid: 8819b8f6a91c04340a88e33aaae33a23,
     type: 3}
-  timeWaitFirstSpawnWave: 2
+  timeWaitFirstSpawnWave: 6000
   timeWaitBetweenSpawnWaves: 10
   isInWave: 0
   multEnnemiesPerWave: 3
