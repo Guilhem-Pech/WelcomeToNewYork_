@@ -6,18 +6,14 @@ using Mirror;
 [RequireComponent(typeof(HordesManager))]
 public class WaveManager : NetworkBehaviour
 {
-    public GameObject prefabCaC;
-    public GameObject prefabDistance;
+    private DifficultyManager diffMan;
 
     public float timeWaitFirstSpawnWave = 2f;
     public float timeWaitBetweenSpawnWaves = 10f;
 
     public bool isInWave;
+    private int maxAliveEnnemies;
     private float lastWaveTime;
-
-    public int multEnnemiesPerWave = 3;
-
-    public int maxAliveEnnemies = 20;
     [SyncVar (hook = nameof(OnChangeNumWave))] public int numVague = 0;
     [SyncVar] public int numEnnemisVague;
     public List<GameObject> ennemiVivant;
@@ -52,6 +48,7 @@ public class WaveManager : NetworkBehaviour
     [ServerCallback]
     void Awake()
     {
+        diffMan = gameObject.GetComponent<DifficultyManager>() as DifficultyManager;
         spawnMan = gameObject.GetComponent<SpawnManager>() as SpawnManager;
         HordeMan = gameObject.GetComponent<HordesManager>() as HordesManager;
         ennemiVivant = new List<GameObject>();
@@ -100,7 +97,8 @@ public class WaveManager : NetworkBehaviour
         // print("Numéro de la vague : " + numVague);
         //Debug.Log("Début de Vague!");
         isInWave = true;
-        numEnnemisVague = (numVague + this.GetComponentInParent<PlayerManager>().players.Count) * multEnnemiesPerWave;
+        maxAliveEnnemies = diffMan.getMaxEnnemyAliveForWave(numVague);
+        numEnnemisVague = diffMan.getNumberOfEnnemiesForWave(numVague);
         ennemiRestant = numEnnemisVague;
         spawnMan.OnCurrentSpawnersChange();
         // print("Nombre ennemis dans la vague : " + numEnnemisVague);
@@ -127,9 +125,11 @@ public class WaveManager : NetworkBehaviour
 
         GameObject entity;
         Vector3 bufferSpawnPos = new Vector3(-1000, -1000, -1000);
+       
         while(ennemiVivant.Count < maxAliveEnnemies && ennemiRestant > 0)
         {
-            entity = Instantiate(((Random.Range(0, 2)) == 0 ? prefabCaC : prefabDistance)
+            GameObject ennemyPrefab = diffMan.getRandomEnnemyPrefab();
+            entity = Instantiate(ennemyPrefab
                 , transform.position
                 , transform.rotation
             ) as GameObject;

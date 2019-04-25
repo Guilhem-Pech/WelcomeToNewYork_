@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6899036821107951734}
   - component: {fileID: 5196784590858483712}
   - component: {fileID: 1058786166153506065}
+  - component: {fileID: 5450797073525201229}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -67,7 +68,7 @@ MonoBehaviour:
   syncInterval: 0.1
   waveMan: {fileID: 0}
   playerMan: {fileID: 0}
-  timeWaitFirstWave: 10
+  timeWaitFirstWave: 5
   timeWaitBetweenWaves: 10
 --- !u!114 &6588552505725600414
 MonoBehaviour:
@@ -111,15 +112,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
-  prefabCaC: {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0,
-    type: 3}
-  prefabDistance: {fileID: 5592136169436092911, guid: 8819b8f6a91c04340a88e33aaae33a23,
-    type: 3}
-  timeWaitFirstSpawnWave: 6000
+  timeWaitFirstSpawnWave: 2
   timeWaitBetweenSpawnWaves: 10
   isInWave: 0
-  multEnnemiesPerWave: 3
-  maxAliveEnnemies: 50
   numVague: 0
   numEnnemisVague: 0
   ennemiVivant: []
@@ -141,3 +136,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
+--- !u!114 &5450797073525201229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818380923990052448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c226415b387d247acdfed0ba9f971f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseNumberOfEnnemiesPerWave: 25
+  growthNumberOfEnnemiesPerWave: 0.25
+  baseMaxEnnemiesAlive: 10
+  growthMaxEnnemiesAlive: 0.1
+  waveLengthModifiers:
+  - 1
+  - 2
+  - 2.75
+  - 3.5
+  - 4
+  - 4.5
+  - 5
+  - 5.5
+  tankEnnemyProbThreshhold: 0.15
+  rangedEnnemyProbThreshhold: 0.4
+  normalEnnemyProbThreshhold: 1
+  prefabCaC: {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0,
+    type: 3}
+  prefabDistance: {fileID: 8053007204615956538, guid: 8819b8f6a91c04340a88e33aaae33a23,
+    type: 3}
+  prefabTank: {fileID: 4944476120495343407, guid: 0b83cf0b2be5e7044b0cc1d3e70de470,
+    type: 3}
