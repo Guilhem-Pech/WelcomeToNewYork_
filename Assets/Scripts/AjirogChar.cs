@@ -13,7 +13,6 @@ public class AjirogChar : DistChar
     public override void Awake()
     {
         period = 0.001f;
-        maxHealth = 100;
         maxStamina = 75;
     }
 

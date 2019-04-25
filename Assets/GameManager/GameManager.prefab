@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c226415b387d247acdfed0ba9f971f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseNumberOfEnnemiesPerWave: 1
+  baseNumberOfEnnemiesPerWave: 25
   growthNumberOfEnnemiesPerWave: 0.25
   baseMaxEnnemiesAlive: 10
   growthMaxEnnemiesAlive: 0.1
@@ -162,9 +162,9 @@ MonoBehaviour:
   - 4.5
   - 5
   - 5.5
-  tankEnnemyProbThreshhold: 0
-  rangedEnnemyProbThreshhold: 1
-  normalEnnemyProbThreshhold: 0
+  tankEnnemyProbThreshhold: 0.15
+  rangedEnnemyProbThreshhold: 0.4
+  normalEnnemyProbThreshhold: 1
   prefabCaC: {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0,
     type: 3}
   prefabDistance: {fileID: 5592136169436092911, guid: 8819b8f6a91c04340a88e33aaae33a23,

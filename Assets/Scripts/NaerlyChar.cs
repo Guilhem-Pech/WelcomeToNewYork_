@@ -11,7 +11,6 @@ public class NaerlyChar : DistChar
     {
         cooldown = 0.001f;
         period = 0.001f;
-        maxHealth = 100;
         maxStamina = 75;
     }
 

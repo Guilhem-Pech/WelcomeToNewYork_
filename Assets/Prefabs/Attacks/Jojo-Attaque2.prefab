@@ -81,7 +81,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spriteRenderer
       value: 
-      objectReference: {fileID: 1107275526274097293}
+      objectReference: {fileID: 1107275526274097347}
     - target: {fileID: 8176317944374019099, guid: 80b7074aa3895ff4da4ecd44b8bde54d,
         type: 3}
       propertyPath: knockBackForce
@@ -119,7 +119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80b7074aa3895ff4da4ecd44b8bde54d, type: 3}
---- !u!212 &1107275526274097293 stripped
+--- !u!212 &1107275526274097347 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1606354739076463303, guid: 80b7074aa3895ff4da4ecd44b8bde54d,
     type: 3}

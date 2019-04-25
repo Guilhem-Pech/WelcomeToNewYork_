@@ -37,7 +37,7 @@ MonoBehaviour:
   special: {fileID: 8300000, guid: b7295d42184583048970580d7a94a13c, type: 3}
   Attacks:
   - {fileID: 1619184190625883108, guid: 80b7074aa3895ff4da4ecd44b8bde54d, type: 3}
-  - {fileID: 1812041652108394998, guid: 7469ac5d23dc1764dad3bc1de3d11f25, type: 3}
+  - {fileID: 1107275526274098049, guid: 7469ac5d23dc1764dad3bc1de3d11f25, type: 3}
   - {fileID: 1619184190625883108, guid: e2bea726819ae9348b8c529a2def9016, type: 3}
   nextAttackID: 0
 --- !u!1001 &4213174489617404336

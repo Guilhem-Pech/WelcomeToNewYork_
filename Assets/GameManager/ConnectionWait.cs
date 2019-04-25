@@ -29,6 +29,7 @@ public class ConnectionWait : NetworkBehaviour
     private void RpcTimeStartOnAllCLients()
     {
         Time.timeScale = 1f;
+        SoundManager.instance.PlayAmbiant();
         Destroy(GameObject.Find("CanvasLS").gameObject);
     }
 }

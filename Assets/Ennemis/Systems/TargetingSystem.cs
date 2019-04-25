@@ -28,6 +28,9 @@ public class TargetingSystem : NetworkBehaviour
         float biggestThreat = -1;
 
         foreach (KeyValuePair<int, GameObject> it in currentPotentialTargets) {
+            if (it.Value == null)
+                continue;
+
             float playerThreat = getAvgThreat(it.Value);
             if (it.Value.GetComponent<BaseChar>().enabled && biggestThreat < playerThreat)
             {
