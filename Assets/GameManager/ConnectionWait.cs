@@ -5,8 +5,10 @@ using Mirror;
 
 public class ConnectionWait : NetworkBehaviour
 {
+    private bool loadDone;
     private void Awake()
     {
+        loadDone = false;
         Time.timeScale = 0f;
     }
 
@@ -15,8 +17,9 @@ public class ConnectionWait : NetworkBehaviour
     {
         if (isServer)
         {
-            if (NetworkServer.connections.Count == GameObject.FindGameObjectsWithTag("Player").Length)
+            if (NetworkServer.connections.Count == GameObject.FindGameObjectsWithTag("Player").Length && !loadDone)
             {
+                loadDone = true;
                 RpcTimeStartOnAllCLients();
             }
         }
@@ -26,5 +29,6 @@ public class ConnectionWait : NetworkBehaviour
     private void RpcTimeStartOnAllCLients()
     {
         Time.timeScale = 1f;
+        Destroy(GameObject.Find("CanvasLS").gameObject);
     }
 }

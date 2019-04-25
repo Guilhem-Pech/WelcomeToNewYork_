@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class WTNYNetworkLobbyManager : NetworkLobbyManager
 {
-    private static int count = 0;
     public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer)
     {
         gamePlayer.GetComponent<GameplayPlayer>().realGameplay = lobbyPlayer.GetComponent<LobbyPlayer>().choosenChar.gameObject; 
@@ -17,5 +16,12 @@ public class WTNYNetworkLobbyManager : NetworkLobbyManager
     {
         PlayerManager.GetPlayerMan().players.Remove(conn.playerController.gameObject.GetComponent<BaseChar>());
         base.OnServerDisconnect(conn);
+    }
+
+    public override void OnLobbyServerPlayersReady()
+    {
+        Debug.Log(GameObject.Find("CanvasLS").transform.Find("LoadingScreen"));
+        GameObject.Find("CanvasLS").transform.Find("LoadingScreen").GetComponentInChildren<LoadSceneManager>().LauchLoadingScreen();
+        base.OnLobbyServerPlayersReady();
     }
 }

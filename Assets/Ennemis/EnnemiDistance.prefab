@@ -310,6 +310,11 @@ PrefabInstance:
       propertyPath: escapeRange
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7783930044497886743, guid: 407efa53fed63d442ade6e7d1d100ce0,
+        type: 3}
+      propertyPath: m_Radius
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1134382753822794941, guid: 407efa53fed63d442ade6e7d1d100ce0,
         type: 3}
       propertyPath: m_Enabled
