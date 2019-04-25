@@ -14,6 +14,8 @@ TagManager:
   - EnnemyAttackTrigger
   - EnnemyTargetsTrigger
   - Hand
+  - HealthBarre
+  - Canvas
   layers:
   - Default
   - TransparentFX
@@ -29,8 +31,8 @@ TagManager:
   - EnnemyAttackTrigger
   - EnnemyTargetsTrigger
   - Spawners
-  - 
-  - 
+  - Players
+  - EnnemyAttack
   - 
   - 
   - 

@@ -85,8 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  serverOnly: 1
+  localPlayerAuthority: 0
   m_AssetId: 407efa53fed63d442ade6e7d1d100ce0
   m_SceneId: 0
 --- !u!1 &642236204842028049
@@ -204,8 +204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  serverOnly: 0
+  localPlayerAuthority: 0
   m_AssetId: 407efa53fed63d442ade6e7d1d100ce0
   m_SceneId: 0
 --- !u!114 &6752702742007888835
@@ -296,8 +296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ServerOnly: 1
-  m_LocalPlayerAuthority: 0
+  serverOnly: 1
+  localPlayerAuthority: 0
   m_AssetId: 407efa53fed63d442ade6e7d1d100ce0
   m_SceneId: 0
 --- !u!114 &9154944287861311086
@@ -402,13 +402,13 @@ MonoBehaviour:
   syncVelocity: 0
   syncAngularVelocity: 0
   isPositionCompressed: 0
-  isRotationCompressed: 0
-  isScaleCompressed: 0
-  isVelocityCompressed: 0
-  isAngularVelocityCompressed: 0
+  isRotationCompressed: 1
+  isScaleCompressed: 1
+  isVelocityCompressed: 1
+  isAngularVelocityCompressed: 1
   isSmoothingAuthorityChanges: 0
-  whenToUpdateTransform: 0
-  sendRate: 30
+  whenToUpdateTransform: 1
+  sendRate: 55
   childObjectToSync: {fileID: 0}
   setVelocityInsteadOfPositionOnNonOwners: 0
   maxPositionDifferenceForVelocitySyncing: 10
@@ -563,8 +563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  serverOnly: 0
+  localPlayerAuthority: 0
   m_AssetId: 407efa53fed63d442ade6e7d1d100ce0
   m_SceneId: 0
 --- !u!114 &5446486060397287282
@@ -853,8 +853,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  serverOnly: 1
+  localPlayerAuthority: 0
   m_AssetId: 407efa53fed63d442ade6e7d1d100ce0
   m_SceneId: 0
 --- !u!114 &6331885979435389719

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5196784590858483712}
   - component: {fileID: 1058786166153506065}
   - component: {fileID: 5450797073525201229}
+  - component: {fileID: 7542588517170429756}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -166,7 +167,19 @@ MonoBehaviour:
   normalEnnemyProbThreshhold: 1
   prefabCaC: {fileID: 2475085703572205648, guid: 407efa53fed63d442ade6e7d1d100ce0,
     type: 3}
-  prefabDistance: {fileID: 8053007204615956538, guid: 8819b8f6a91c04340a88e33aaae33a23,
+  prefabDistance: {fileID: 5592136169436092911, guid: 8819b8f6a91c04340a88e33aaae33a23,
     type: 3}
-  prefabTank: {fileID: 4944476120495343407, guid: 0b83cf0b2be5e7044b0cc1d3e70de470,
+  prefabTank: {fileID: 7405900760318703354, guid: 0b83cf0b2be5e7044b0cc1d3e70de470,
     type: 3}
+--- !u!114 &7542588517170429756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818380923990052448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba84442f59b0dff48abc9a1f6bc2f093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

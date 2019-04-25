@@ -34,7 +34,7 @@ public class LobbyPlayer : NetworkBehaviour
     {
         field = this.transform.Find("InputField").gameObject.GetComponent<InputField>();
         textPseudo = this.transform.Find("Pseudo").gameObject.GetComponent<Text>();
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
         parent = canvas.transform.Find("LobbyMenuJoin");
         ReadyButton = this.transform.Find("ButtonReady").gameObject.GetComponent<Button>();
         ReadyText = ReadyButton.GetComponentInChildren<Text>();

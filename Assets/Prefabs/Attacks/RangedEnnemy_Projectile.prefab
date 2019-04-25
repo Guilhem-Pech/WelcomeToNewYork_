@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5652371614330685455}
   - component: {fileID: 5734760720971303963}
   - component: {fileID: 1873212342092095859}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Impact Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4771,7 +4771,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5151556580199591073}
   - component: {fileID: 3273092604898574500}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4854,7 +4854,7 @@ GameObject:
   - component: {fileID: 324719910071810083}
   - component: {fileID: 7770022620815251022}
   - component: {fileID: 8987307706964464419}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: RangedEnnemy_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4901,7 +4901,6 @@ MonoBehaviour:
   ImpactParticle: {fileID: 5734760720971303963}
   radius: 0.25
   height: 0.25
-  vitesse: 3
   range: 1000
   stamCost: 0
 --- !u!54 &5861464888486587980
@@ -4946,8 +4945,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  serverOnly: 0
+  localPlayerAuthority: 0
   m_AssetId: b1356d1ede25bdf468b02c8536aab85a
   m_SceneId: 0
 --- !u!114 &8987307706964464419

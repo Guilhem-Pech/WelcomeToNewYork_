@@ -65,6 +65,9 @@ public class TargetingSystem : NetworkBehaviour
 
     private float evalDistanceFactor(GameObject potentialTarget)
     {
+        if (potentialTarget == null)
+            return 1;
+
         float distanceToPotentialTarget = (potentialTarget.transform.position - m_parentEntity.transform.position).magnitude;
         return 1-(targetsCollider.radius / distanceToPotentialTarget);
     }

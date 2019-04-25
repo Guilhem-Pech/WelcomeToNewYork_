@@ -12,7 +12,7 @@ public class SpecialFilledBar : MonoBehaviour
     private void Start()
     {
         colorAdd = this.GetComponent<Coffee.UIExtensions.UIEffect>();
-        level = this.GetComponent<Image>();
+        level = gameObject.GetComponent<Image>();
     }
 
 
